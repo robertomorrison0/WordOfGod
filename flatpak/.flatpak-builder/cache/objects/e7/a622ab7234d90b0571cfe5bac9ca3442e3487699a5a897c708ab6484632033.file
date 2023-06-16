@@ -1,0 +1,18 @@
+[Application]
+name=org.robertomorrison.biblebolls
+runtime=org.gnome.Platform/x86_64/43
+sdk=org.gnome.Sdk/x86_64/43
+command=org.robertomorrison.biblebolls
+
+[Context]
+shared=ipc;
+sockets=x11;wayland;fallback-x11;
+devices=dri;
+
+[Extension org.robertomorrison.biblebolls.Debug]
+directory=lib/debug
+autodelete=true
+no-autodownload=true
+
+[Build]
+built-extensions=org.robertomorrison.biblebolls.Debug;

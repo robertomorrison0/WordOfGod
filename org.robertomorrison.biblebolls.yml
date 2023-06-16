@@ -1,0 +1,45 @@
+app-id: org.robertomorrison.biblebolls
+command: org.robertomorrison.biblebolls
+
+finish-args:
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --share=ipc
+  - --device=dri
+  - --share=network
+
+
+modules:
+  # - name: org.robertomorrison.biblebolls
+  #   buildsystem: simple
+  #   build-commands:
+  #     - install -D org.robertomorrison.biblebolls /app/bin/org.robertomorrison.biblebolls
+  #   sources:
+  #     - type: file
+  #       path: ../build/org.robertomorrison.biblebolls
+  - name: libjsoncpp
+    buildsystem: meson
+    # only_arches: 
+    #   - x86_64
+    config-opts: 
+      - --buildtype=release
+      - --default-library=shared
+    sources: 
+      - type: archive
+        url: https://github.com/open-source-parsers/jsoncpp/archive/refs/tags/1.9.5.tar.gz
+        sha256: f409856e5920c18d0c2fb85276e24ee607d2a09b5e7d5f0a371368903c275da2
+        
+  - name: org.robertomorrison.biblebolls
+    buildsystem: meson
+    # build-commands:
+    #   - install -D org.robertomorrison.biblebolls /app/bin/org.robertomorrison.biblebolls
+    sources:
+      - type: file
+        path: meson.build
+
+
+
+
+runtime: org.gnome.Platform
+runtime-version: '43'
+sdk: org.gnome.Sdk

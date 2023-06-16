@@ -1,0 +1,46 @@
+{
+  "id" : "org.robertomorrison.biblebolls",
+  "runtime" : "org.gnome.Platform",
+  "runtime-version" : "43",
+  "runtime-commit" : "a7c48ccf54c858454c1ce2bc3186e14c2ac5fa2ee6419e2c65e222fa54ab39c3",
+  "sdk" : "org.gnome.Sdk",
+  "sdk-commit" : "81ea7bdeadcb667b4fd27f0a4cbb7667fa4ce22637de47ad5574750ab006a94b",
+  "command" : "org.robertomorrison.biblebolls",
+  "modules" : [
+    {
+      "name" : "org.robertomorrison.biblebolls",
+      "buildsystem" : "simple",
+      "sources" : [
+        {
+          "path" : "../build/org.robertomorrison.biblebolls",
+          "type" : "file"
+        }
+      ],
+      "build-commands" : [
+        "install -D org.robertomorrison.biblebolls /app/bin/org.robertomorrison.biblebolls"
+      ]
+    },
+    {
+      "name" : "libjsoncpp",
+      "buildsystem" : "meson",
+      "config-opts" : [
+        "--buildtype=release",
+        "--default-library=shared"
+      ],
+      "sources" : [
+        {
+          "url" : "https://github.com/open-source-parsers/jsoncpp/archive/refs/tags/1.9.5.tar.gz",
+          "sha256" : "f409856e5920c18d0c2fb85276e24ee607d2a09b5e7d5f0a371368903c275da2",
+          "type" : "archive"
+        }
+      ]
+    }
+  ],
+  "finish-args" : [
+    "--socket=wayland",
+    "--socket=fallback-x11",
+    "--share=ipc",
+    "--device=dri",
+    "--share=network"
+  ]
+}

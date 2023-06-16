@@ -1,0 +1,73 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build & run",
+            "dependsOn": [
+                "build resources",
+                "build debug",
+                "launch"
+            ],
+            "dependsOrder": "sequence",
+            "group": "build",
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "launch",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            },
+            "command": "./org.robertomorrison.biblebolls",
+            "group": "build",
+            "args": [
+                "",
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build all",
+            "dependsOn": [
+                "build resources",
+                "build debug"
+            ],
+            "dependsOrder": "sequence",
+            "group": "build",
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build debug",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            },
+            "command": "cmake",
+            "group": "build",
+            "args": [
+                "..",
+                "-B",
+                ".",
+                "-G",
+                "Ninja",
+                "&&",
+                "cmake",
+                "--build",
+                ".",
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build resources",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/resources"
+            },
+            "command": "glib-compile-resources",
+            "group": "build",
+            "args": [
+                "style.xml",
+            ],
+            "problemMatcher": "$msCompile"
+        }
+   ]
+}
