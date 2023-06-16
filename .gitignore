@@ -1,0 +1,6 @@
+.flatpak-builder
+.vscode
+build
+build-dir
+flatpak
+CMakeLists.txt
