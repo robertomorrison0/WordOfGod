@@ -1,5 +1,0 @@
-[Runtime]
-name=org.robertomorrison.biblebolls.Debug
-
-[ExtensionOf]
-ref=app/org.robertomorrison.biblebolls/x86_64/master
