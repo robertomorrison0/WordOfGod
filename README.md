@@ -4,8 +4,18 @@
 - Wtitten in C with GTK and Libadwaita.
 
 ## How to compile
-````
+
+Depending on your package manager you may need *-dev packages or similar to obtain the nessecary (header) files
+
+### Dependencies
+- json-c
+- libcurl
+- gtk
+- libadwaita
+
+
+```
 meson setup build
 cd build
 meson compile
-````
+```
