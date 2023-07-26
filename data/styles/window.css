@@ -1,0 +1,33 @@
+
+
+.navbox.visible{
+    opacity: 1.0; 
+}
+
+
+.navbox{
+    opacity: 0.0;
+    transition: opacity 500ms;
+}
+
+.navbox button
+{
+    border-radius: 9999px;
+}
+
+  
+/* .passage_button label {
+    transform: translateX(100px);
+    animation:  15s linear infinite slide-animation;
+}
+
+  
+@keyframes slide-animation {
+    from {
+        transform: translateX(100px);
+    }
+    to {
+        transform: translateX(-100px);
+    }
+} */
+

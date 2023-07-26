@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+    <object id="window" class="AdwWindow">
+
+        <child>
+            <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
+                <!-- ... -->
+                <child>
+                    <object class="AdwHeaderBar">
+                        <property name="centering-policy">strict</property>
+                        <style>
+                            <class name="flat"/>
+                        </style>
+                        <property name="title-widget">
+                            <object class="AdwWindowTitle" id="title">
+                                <property name="title">GtkBible</property>
+                            </object>
+
+                        </property>
+                        <child>
+                            <object class="GtkBox">
+                                <property name="orientation">horizontal</property>
+                                <child>
+                                    <object class="GtkButton" id="style_preferences_button">
+                                        <property name="icon-name">preferences-color-symbolic</property>
+                                    </object>
+                                </child>
+                                <child>
+                                    <object class="GtkButton" id="back_button">
+                                        <property name="icon-name">go-previous-symbolic</property>
+                                    </object>
+                                </child>
+                            </object>
+                        </child>
+                        <property name="show-end-title-buttons">True</property>
+                        <property name="show-start-title-buttons">False</property>
+                    </object>
+                </child>
+
+                <child>
+                    <object class="GtkBox" id="content_box">
+                        <property name="orientation">vertical</property>
+                        <property name="vexpand">True</property>
+                       
+                    </object>
+                </child>
+            </object>
+        </child>
+    </object>
+</interface>

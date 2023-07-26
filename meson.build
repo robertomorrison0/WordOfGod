@@ -1,15 +1,24 @@
-project('biblebolls', 'c', 'cpp',
+project('gtk_app', 'c', 
   version : '0.1',
   default_options : ['warning_level=3', 'cpp_std=c++17'])
 
+glib = dependency('glib-2.0', required: true)
 gtk = dependency('gtk4', required: true)
-jsoncpp = dependency('jsoncpp', required: true)
 adwaita = dependency('libadwaita-1', required: true)
-libcurl = dependency('libcurl', required: true)
+json = dependency('json-c', required: true)
+curl = dependency('libcurl', required: true)
+
+sources = ['main.c']
+subdir('src')
+gnome=import('gnome')
 
 
-executable('biblebolls', 
+subdir('data')
+
+
+executable('app', resources, schemas,
            include_directories : ['include'],
-           sources : ['main.cpp','resources/resources.c'],
-           dependencies : [gtk,jsoncpp,adwaita,libcurl],
-           install : true)
+           sources : sources,
+           dependencies : [gtk,adwaita,json,curl],
+           )
+

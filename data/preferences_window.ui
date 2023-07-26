@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+    <template class="BiblePreferencesWindow" parent="AdwBin">
+        <!-- <property name="modal">True</property> -->
+        <!-- <property name="search-enabled">False</property> -->
+
+        <style>
+            <class name="flat"/>
+        </style>
+
+        <child>
+            <object class="AdwLeaflet" id="leaflet">
+                <property name="margin-top">12</property>
+                <property name="margin-bottom">12</property>
+                <property name="margin-start">12</property>
+                <property name="margin-end">12</property>
+                <property name="can-navigate-back">True</property>
+                <property name="can-unfold">False</property>
+                <child>
+                    <object class="AdwClamp" id="overview_page">
+                        <child>
+                            <object class="AdwPreferencesGroup">
+                                <property name="margin-top">12</property>
+                                <property name="margin-bottom">12</property>
+                                <property name="margin-start">12</property>
+                                <property name="margin-end">12</property>
+                                <property name="title">Settings</property>
+                                <!-- <property name="description">Choose a Book</property> -->
+                                <property name="hexpand">True</property>
+                                <property name="vexpand">True</property>
+                                <style>
+                                    <class name="boxed-list"/>
+                                </style>
+                        
+
+                                <child>
+                                    <object class="AdwActionRow">
+                                        <property name="title">Style</property>
+                                        <property name="action-name">settings-open</property>
+                                        <property name="action-target">'style'</property>
+                                        <property name="activatable">True</property>
+                                    </object>
+                                </child>
+                                <child>
+                                    <object class="AdwActionRow">
+                                        <property name="title">Passage</property>
+                                        <property name="action-name">settings-open</property>
+                                        <property name="action-target">'passage'</property>
+                                        <property name="activatable">True</property>
+                                    </object>
+                                </child>
+                                <child>
+                                    <object class="AdwActionRow">
+                                        <property name="title">Data</property>
+                                        <property name="action-name">settings-open</property>
+                                        <property name="action-target">'data'</property>
+                                        <property name="activatable">True</property>
+                                    </object>
+                                </child>
+                            </object>
+                        </child>
+
+                    </object>
+                </child>
+
+
+
+                <child>
+                    <object class="AdwLeafletPage">
+                        <property name="navigatable">False</property>
+                        <property name="child">
+                            <object class="GtkSeparator"/>
+                        </property>
+                    </object>
+                </child>
+
+                <child>
+                    <object class="GtkBox" id="style_page">
+                        <property name="margin-top">12</property>
+                        <property name="margin-bottom">12</property>
+                        <property name="margin-start">12</property>
+                        <property name="margin-end">12</property>
+                        <property name="name">style</property>
+                        <property name="hexpand">True</property>
+                        <property name="vexpand">True</property>
+                        <property name="orientation">vertical</property>
+                        <child>
+                            <object class="AdwPreferencesGroup">
+                                <property name="title">Theme</property>
+                                <child>
+                                    <object class="ThemeSelector" id="theme_selector">
+                                    </object>
+                                </child>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="AdwPreferencesGroup">
+                                <!-- <property name="description">Font Preview</property> -->
+                                <child>
+                                    <object class="GtkBox">
+                                        <property name="orientation">vertical</property>
+                                        <property name="hexpand">True</property>
+                                        <child>
+                                            <object class="GtkSeparator"/>
+                                        </child>
+
+                                        <child>
+                                            <object class="GtkScrolledWindow">
+                                                <property name="vexpand">True</property>
+                                                <property name="min-content-height">100</property>
+                                                <child>
+                                                    <object class="GtkTextView" id="example_text_view">
+                                                        <style>
+                                                            <class name="flat"/>
+                                                            <class name="chapter-content"/>
+                                                        </style>
+                                                        <!-- <property name="justification">fill</property> -->
+                                                        <property name="margin-top">20</property>
+                                                        <property name="margin-bottom">20</property>
+                                                        <property name="margin-start">20</property>
+                                                        <property name="margin-end">20</property>
+                                                        <property name="editable">False</property>
+                                                        <property name="cursor-visible">False</property>
+                                                        <property name="hexpand">True</property>
+                                                        <!-- <property name="halign">center</property> -->
+                                                        <property name="wrap-mode">GTK_WRAP_WORD</property>
+                                                        <property name="margin-top">12</property>
+                                                        <property name="margin-bottom">12</property>
+                                                        <property name="margin-start">12</property>
+                                                        <property name="margin-end">12</property>
+                                                        <property name="buffer">
+                                                            <object class="GtkTextBuffer" />
+                                                        </property>
+
+                                                    </object>
+                                                </child>
+
+                                            </object>
+                                        </child>
+
+                                        <child>
+                                            <object class="GtkSeparator"/>
+                                        </child>
+                                    </object>
+                                </child>
+
+
+                            </object>
+                        </child>
+                        <child>
+                            <object class="AdwPreferencesGroup">
+                                <property name="title">Font Settings</property>
+
+                                <child>
+                                    <object class="GtkBox">
+                                        <property name="orientation">horizontal</property>
+                                        <property name="hexpand">True</property>
+                                        <property name="halign">center</property>
+                                        <child>
+                                            <object class="GtkBox">
+                                                <property name="orientation">horizontal</property>
+                                                <property name="hexpand">True</property>
+                                                <property name="halign">start</property>
+                                                <property name="valign">center</property>
+                                                <style>
+                                                    <class name="linked"/>
+                                                </style>
+
+                                                <child>
+                                                    <object class="GtkButton" id="font_smaller_button">
+                                                        <style>
+                                                            <class name="pill"/>
+                                                        </style>
+                                                        <property name="icon-name">text-size-smaller-symbolic</property>
+                                                        <property name="focus-on-click">False</property>
+                                                    </object>
+                                                </child>
+                                                <child>
+                                                    <object class="GtkButton" id="font_bigger_button">
+                                                        <style>
+                                                            <class name="pill"/>
+                                                        </style>
+                                                        <property name="icon-name">text-size-bigger-symbolic</property>
+                                                        <property name="focus-on-click">False</property>
+                                                    </object>
+                                                </child>
+
+                                            </object>
+                                        </child>
+
+                                        <child>
+                                            <object class="LineDistanceSelector" id="line_distance_selector">
+                                                <property name="halign">end</property>
+
+                                            </object>
+                                        </child>
+                                    </object>
+                                </child>
+
+                            </object>
+                        </child>
+
+
+                        <child>
+                            <object class="AdwPreferencesGroup">
+                                <property name="title">Font</property>
+                                <property name="description">Choose a Font</property>
+                                <property name="hexpand">True</property>
+                                <property name="vexpand">True</property>
+                                <child>
+                                    <object class="GtkScrolledWindow">
+
+                                        <property name="min-content-height">150</property>
+                                        <property name="margin-top">12</property>
+                                        <property name="margin-bottom">12</property>
+                                        <property name="margin-start">12</property>
+                                        <property name="margin-end">12</property>
+                                        <property name="vexpand">True</property>
+                                        <property name="hexpand">True</property>
+                                        <style>
+                                            <class name="boxed-list"/>
+                                        </style>
+
+                                        <!-- <property name="has-frame">True</property> -->
+                                        <child>
+                                            <object class="GtkListBox" id="font_selection">
+                                                <property name="vexpand">True</property>
+                                                <property name="hexpand">True</property>
+                                                <property name="selection-mode">single</property>
+                                                <style>
+                                                    <!-- <class name="boxed-list"/> -->
+                                                    <class name="card"/>
+                                                    <!-- <child>
+                                                        <object class="AdwActionRow">
+                                                            <property name="title">Mose 2</property>
+                                                        </object>
+                                                    </child> -->
+                                                </style>
+                                            </object>
+                                        </child>
+                                    </object>
+                                </child>
+                            </object>
+                        </child>
+
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkBox" id="passage_page">
+                        <property name="margin-top">12</property>
+                        <property name="margin-bottom">12</property>
+                        <property name="margin-start">12</property>
+                        <property name="margin-end">12</property>
+                        <property name="name">data</property>
+                        <property name="hexpand">True</property>
+                        <property name="vexpand">True</property>
+                        <property name="orientation">vertical</property>
+
+                        <child>
+                            <object class="GtkScrolledWindow" id="passage_scroll">
+                                <property name="margin-top">12</property>
+                                <property name="margin-bottom">12</property>
+                                <property name="margin-start">12</property>
+                                <property name="margin-end">12</property>
+                                <property name="vexpand">True</property>
+                                <property name="hexpand">True</property>
+                                <!-- <property name="visible">False</property> -->
+                                <child>
+                                    <object class="AdwCarousel" id="passage_carousel">
+                                        <property name="margin-top">12</property>
+                                        <property name="margin-bottom">12</property>
+                                        <property name="margin-start">12</property>
+                                        <property name="margin-end">12</property>
+                                        <property name="vexpand">True</property>
+                                        <property name="allow-scroll-wheel">False</property>
+                                        <property name="spacing">200</property>
+                                        <!-- <property name="visible">False</property> -->
+                                        <child>
+                                            <object class="AdwClamp" id="language_choose_container">
+                                                <child>
+                                                    <object class="AdwPreferencesGroup" id="language_choose">
+                                                        <property name="title">Language</property>
+                                                        <property name="description">Choose a Language</property>
+                                                        <property name="hexpand">True</property>
+                                                        <!-- <property name="vexpand">True</property> -->
+                                                        <child>
+                                                            <object class="GtkListBox" id="language_selection">
+                                                                <!-- <property name="vexpand">True</property> -->
+                                                                <property name="hexpand">True</property>
+                                                                <property name="selection-mode">single</property>
+                                                                <style>
+                                                                    <class name="boxed-list"/>
+                                                                    <!-- <class name="card"/> -->
+                                                                    <!-- <child>
+                                                                        <object class="AdwActionRow">
+                                                                            <property name="title">Mose 2</property>
+                                                                        </object>
+                                                                    </child> -->
+                                                                </style>
+                                                            </object>
+                                                        </child>
+                                                    </object>
+                                                </child>
+
+
+                                            </object>
+                                        </child>
+
+                                        <child>
+                                            <object class="AdwClamp" id="translation_choose_container">
+                                                <child>
+                                                    <object class="AdwPreferencesGroup" id="translation_choose">
+                                                        <property name="title">Translation</property>
+                                                        <property name="description">Choose a Translation</property>
+                                                        <property name="hexpand">True</property>
+                                                        <!-- <property name="vexpand">True</property> -->
+                                                        <child>
+                                                            <object class="GtkListBox" id="translation_selection">
+                                                                <!-- <property name="vexpand">True</property> -->
+                                                                <property name="hexpand">True</property>
+                                                                <property name="selection-mode">single</property>
+                                                                <style>
+                                                                    <class name="boxed-list"/>
+                                                                    <!-- <class name="card"/> -->
+                                                                    <!-- <child>
+                                                                        <object class="AdwActionRow">
+                                                                            <property name="title">Mose 2</property>
+                                                                        </object>
+                                                                    </child> -->
+                                                                </style>
+                                                            </object>
+                                                        </child>
+                                                    </object>
+                                                </child>
+
+
+                                            </object>
+                                        </child>
+
+
+                                        <child>
+                                            <object class="AdwClamp" id="book_choose_container">
+
+                                                <child>
+                                                    <object class="AdwPreferencesGroup" id="book_choose">
+                                                        <property name="title">Book</property>
+                                                        <property name="description">Choose a Book</property>
+                                                        <property name="hexpand">True</property>
+                                                        <!-- <property name="vexpand">True</property> -->
+                                                        <child>
+                                                            <object class="GtkListBox" id="book_selection">
+                                                                <!-- <property name="vexpand">True</property> -->
+                                                                <property name="hexpand">True</property>
+                                                                <property name="selection-mode">single</property>
+                                                                <style>
+                                                                    <class name="boxed-list"/>
+                                                                </style>
+                                                            </object>
+                                                        </child>
+                                                    </object>
+                                                </child>
+                                            </object>
+                                        </child>
+
+
+                                        <!-- <child>
+                                            <object class="AdwClamp" id="chapter_choose_container">
+                                                <child>
+                                                    <object class="AdwPreferencesGroup" id="chapter_choose">
+                                                        <property name="title">Chapter</property>
+                                                        <property name="description">Choose a Chapter</property>
+                                                        <property name="hexpand">True</property>
+                                                        <child>
+                                                            <object class="GtkListView" id="chapter_selection">
+                                                                <property name="hexpand">True</property>
+                                                                <property name="single-click-activate">true</property>
+                                                                <style>
+                                                                    <class name="card"/>
+                                                                    <class name="boxed-list"/>
+                                                                </style>
+                                                            </object>
+                                                        </child>
+                                                    </object>
+                                                </child>
+
+                                            </object>
+                                        </child> -->
+
+
+                                        <child>
+                                            <object class="AdwClamp" id="chapter_choose_container">
+                                                <child>
+                                                    <object class="AdwPreferencesGroup" id="chapter_choose">
+                                                        <property name="title">Chapter</property>
+                                                        <property name="description">Choose a Chapter</property>
+                                                        <property name="hexpand">True</property>
+                                                        <property name="vexpand">True</property>
+                                                        <child>
+                                                            <object class="GtkFlowBox" id="chapter_selection">
+                                                                <style>
+                                                                    <class name="boxed-list"/>
+                                                                    <class name="card"/>
+                                                                </style>
+                                                            </object>
+                                                        </child>
+                                                    </object>
+                                                </child>
+
+                                            </object>
+                                        </child>
+
+
+                                    </object>
+                                </child>
+                            </object>
+                        </child>
+
+
+                    </object>
+                </child>
+
+                <child>
+                    <object class="AdwClamp" id="data_page">
+                        <child>
+                            <object class="GtkBox">
+                                <property name="margin-top">12</property>
+                                <property name="margin-bottom">12</property>
+                                <property name="margin-start">12</property>
+                                <property name="margin-end">12</property>
+                                <property name="name">data</property>
+                                <property name="hexpand">True</property>
+                                <property name="vexpand">True</property>
+                                <property name="orientation">vertical</property>
+                                <child>
+                                    <object class="AdwPreferencesGroup">
+                                        <property name="title">Custom Translation</property>
+                                        <property name="description">Custom Translation</property>
+                                        <property name="hexpand">True</property>
+                                        <property name="vexpand">True</property>
+                                        <property name="header-suffix">
+                                            <object class="GtkButton" id="add_translation_button">
+                                                <property name="icon-name">list-add-symbolic</property>
+                                                <property name="has-frame">False</property>
+                                                <!-- <signal name="clicked" handler="_on_font_button_clicked" object="FooWidget" swapped="yes"/> -->
+                                            </object>
+                                        </property>
+
+                                        <child>
+                                            <object class="AdwActionRow">
+                                                <property name="title">HFA</property>
+                                                <child>
+                                                    <object class="GtkButton">
+                                                        <property name="icon-name">list-remove-symbolic</property>
+                                                        <property name="has-frame">False</property>
+                                                        <property name="sensitive">False</property>
+                                                        <!-- <signal name="clicked" handler="_on_font_button_clicked" object="FooWidget" swapped="yes"/> -->
+                                                    </object>
+                                                </child>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="AdwActionRow">
+                                                <property name="title">NGUE</property>
+                                                <child>
+                                                    <object class="GtkButton">
+                                                        <property name="icon-name">list-remove-symbolic</property>
+                                                        <property name="has-frame">False</property>
+                                                        <property name="sensitive">False</property>
+                                                        <!-- <signal name="clicked" handler="_on_font_button_clicked" object="FooWidget" swapped="yes"/> -->
+                                                    </object>
+                                                </child>
+                                            </object>
+                                        </child>
+                                    </object>
+                                </child>
+
+
+                            </object>
+                        </child>
+
+                    </object>
+                </child>
+
+
+            </object>
+        </child>
+
+
+    </template>
+</interface>

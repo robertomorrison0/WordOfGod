@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="org/robertomorrison/gtkbible/">
+    <file alias="builder.ui" preprocess="xml-stripblanks" compressed="true">builder.ui</file>
+    <file alias="window.ui" preprocess="xml-stripblanks" compressed="true">window.ui</file>
+    <file alias="preferences_window.ui" preprocess="xml-stripblanks" compressed="true">preferences_window.ui</file>
+    <file alias="text_page.ui" preprocess="xml-stripblanks" compressed="true">text_page.ui</file>
+    <file alias="theme_selector.ui" preprocess="xml-stripblanks" compressed="true">theme_selector.ui</file>
+    <file alias="color_selector.ui" preprocess="xml-stripblanks" compressed="true">color_selector.ui</file>
+    <file alias="line_distance_selector.ui" preprocess="xml-stripblanks" compressed="true">line_distance_selector.ui</file>
+    <file alias="scroll_button.ui" preprocess="xml-stripblanks" compressed="true">scroll_button.ui</file>
+    <file alias="black.css">../data/styles/black.css</file>
+    <file alias="yellow.css">../data/styles/yellow.css</file>
+    <file alias="theme_selector.css">../data/styles/theme_selector.css</file>
+    <file alias="color_selector.css">../data/styles/color_selector.css</file>
+    <file alias="line_distance_selector.css">../data/styles/line_distance_selector.css</file>
+    <file alias="style.css">../data/styles/style.css</file>
+    <file alias="style-dark.css">../data/styles/style-dark.css</file>
+    <file alias="window.css">../data/styles/window.css</file>
+    <file alias="scroll_button.css">../data/styles/scroll_button.css</file>
+    
+  </gresource>
+
+<gresource prefix="/org/robertomorrison/gtkbible/icons/scalable/actions">
+    <file preprocess="xml-stripblanks" alias="text-distance-normal-symbolic.svg">../data/icons/scalable/actions/text-distance-normal-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="text-distance-close-symbolic.svg">../data/icons/scalable/actions/text-distance-close-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="text-distance-far-symbolic.svg">../data/icons/scalable/actions/text-distance-far-symbolic.svg</file>
+
+    <file preprocess="xml-stripblanks" alias="text-size-bigger-symbolic.svg">../data/icons/scalable/actions/text-size-bigger-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="text-size-smaller-symbolic.svg">../data/icons/scalable/actions/text-size-smaller-symbolic.svg</file>
+    
+    <file preprocess="xml-stripblanks" alias="text-styles-symbolic.svg">../data/icons/scalable/actions/text-styles-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="reading-overview-symbolic.svg">../data/icons/scalable/actions/reading-overview-symbolic.svg</file>
+  </gresource>
+  <!-- <gresource prefix="/org/robertomorrison/gtkbible//icons/16x16/actions">
+    <file>icon1.png</file>
+    <file>icon2.png</file>
+    ...
+  </gresource> -->
+</gresources>

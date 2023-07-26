@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="ScrollButton" parent="GtkWidget">
+
+        <child>
+          <object class="GtkButton" id="button">
+            <property name="hexpand">true</property>
+            <property name="vexpand">true</property>
+            <!-- <property name="has-frame">false</property> -->
+            <style>
+              <class name="scroll" />
+            </style>
+
+      </object>
+    </child>
+  </template>
+</interface>

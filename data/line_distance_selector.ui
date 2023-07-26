@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="LineDistanceSelector" parent="GtkWidget">
+    <!-- <property name="hexpand">True</property> -->
+    <child>
+      <object class="GtkBox" id="box">
+        <!-- <property name="hexpand">True</property> -->
+        <property name="orientation">horizontal</property>
+        <property name="spacing">12</property>
+        <child>
+          <object class="GtkButton" id="line_distance_button">
+            <style>
+              <class name="line_distance_selector"/>
+              <class name="icon-dropshadow"/>
+            </style>
+            <property name="focus-on-click">False</property>
+            <property name="action-name">line-distance</property>
+            <property name="tooltip-text" translatable="yes">Follow System Style</property>
+            <accessibility>
+              <property name="label" translatable="yes">Follow system style</property>
+            </accessibility>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

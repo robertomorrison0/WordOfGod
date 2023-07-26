@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+    <template class="ThemeSelector" parent="GtkWidget">
+        <property name="hexpand">True</property>
+        <!-- <child> -->
+        <object class="GtkBox">
+            <property name="hexpand">True</property>
+            <property name="orientation">horizontal</property>
+            <property name="spacing">12</property>
+            <child>
+                <object class="GtkCheckButton" id="follow">
+                    <!-- <style>
+                        <class name="theme-selector"/>
+                        <class name="follow"/>
+                    </style> -->
+                    <!-- <property name="hexpand">True</property>
+                    <property name="halign">center</property>
+                    <property name="focus-on-click">False</property>
+                    <property name="action-name:">app.color-scheme</property>
+                    <property name="action-target">0</property>
+                    <property name="tooltip-text">Follow system style</property> -->
+                    <!-- <property name="margin-start">20</property>
+                    <property name="margin-end">20</property> -->
+
+                    <property name="child">
+                        <object class="GtkImage">
+                            <property name="icon-name">theme_dark</property>
+                            <property name="icon-size">GTK_ICON_SIZE_LARGE</property>
+                        </object>
+                    </property>
+                </object>
+            </child>
+        </object>
+        <!-- </child> -->
+    </template>
+</interface>

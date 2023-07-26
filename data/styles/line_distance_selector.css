@@ -1,0 +1,16 @@
+line_distance_selector {
+  margin: 9px;
+}
+
+
+line_distance_selector .image-button {
+  /* -gtk-icon-source: -gtk-icontheme("text_distance_normal"); */
+  -gtk-icon-size: 32px ;
+  /* -gtk-icon-palette: ("text_distance_normal" white); */
+  /* background-color: white; */
+
+}
+
+/* line_distance_selector button. {
+  -gtk-icon-size: 32px ;
+} */
