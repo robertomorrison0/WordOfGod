@@ -66,7 +66,6 @@ scroll_button_measure(GtkWidget *widget,
                 {
                         if (child_min > g_value_get_int(&value))
                         {
-                                // gtk_widget_add_css_class(GTK_WIDGET(((ScrollButton *)widget)->button), "scroll");
                                 scroll_button_set_css_provider((ScrollButton *)widget, MAX(*minimum, child_min));
                                 *minimum = g_value_get_int(&value); // MAX(*minimum, child_min);
                                 *natural = g_value_get_int(&value); // MAX(*natural, child_nat);
@@ -76,7 +75,6 @@ scroll_button_measure(GtkWidget *widget,
                                 scroll_button_set_css_provider((ScrollButton *)widget, 0);
                                 *minimum = MAX(*minimum, child_min);
                                 *natural = MAX(*natural, child_nat);
-                                // gtk_widget_remove_css_class(GTK_WIDGET(((ScrollButton *)widget)->button), "scroll");
                         }
                 }
                 else
@@ -84,10 +82,6 @@ scroll_button_measure(GtkWidget *widget,
                         *minimum = MAX(*minimum, child_min);
                         *natural = MAX(*natural, child_nat);
                 }
-                // if (minimum != NULL)
-                //         *minimum = child_min;
-                // if (natural != NULL)
-                //         *natural = child_nat;
 
                 if (child_min_baseline > -1)
                         *minimum_baseline = MAX(*minimum_baseline, child_min_baseline);
@@ -124,21 +118,12 @@ void scroll_button_set_css_provider(ScrollButton *self, int width)
 {
         if (GTK_IS_CSS_PROVIDER(self->provider) && width > 0)
         {
-
-                // const gchar *css = g_strdup_printf(".scroll label {\ncolor: green;\ntransform: translateX(100px);\nanimation:  slide-animation 8s infinite linear;\n}\n@keyframes slide-animation {\nfrom {\ntransform: translateX(50px);\n}\nto {\ntransform: translateX(-50px);\n}\n}");
-
                 gtk_css_provider_load_from_data(self->provider,
                                                 g_strdup_printf(".scroll label {\nanimation:  slide-animation 8s infinite linear alternate;\n}\n@keyframes slide-animation {\nfrom {\ntransform: translateX(%ipx);\n}\nto {\ntransform: translateX(-%ipx);\n}\n}", width - (self->max_width * 2) + 25, width - (self->max_width * 2) + 25),
                                                 -1);
-                // gtk_css_provider_load_from_resource(self->provider, "/org/robertomorrison/gtkbible/scroll_button.css");
                 gtk_style_context_add_provider_for_display(gdk_display_get_default(),
                                                            GTK_STYLE_PROVIDER(self->provider),
                                                            GTK_STYLE_PROVIDER_PRIORITY_USER);
-                // gtk_widget_add_css_class(GTK_WIDGET(self->button), "scroll");
-
-                g_print("translate: %i \n", width - (self->max_width * 2));
-                g_print("width: %i \n", width);
-                // g_print("css: %s\n", css);
         }
         else
         {
@@ -152,19 +137,6 @@ scroll_button_init(ScrollButton *self)
         self->provider = gtk_css_provider_new();
 
         gtk_widget_init_template(GTK_WIDGET(self));
-
-        // if (!self->provider)
-        // {
-        // self->provider = gtk_css_provider_new();
-        // gtk_css_provider_load_from_resource(self->provider, "/org/robertomorrison/gtkbible/scroll_button.css");
-        // gtk_style_context_add_provider_for_display(
-        //     gdk_display_get_default(),
-        //     GTK_STYLE_PROVIDER(self->provider),
-        //     GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-        // }
-
-        // scroll_button_add_default_provider(self, strlen(self->label));
-
         g_signal_connect(self->button, "clicked", G_CALLBACK(_on_button_clicked), self);
 }
 
@@ -175,8 +147,6 @@ scroll_button_dispose(GObject *object)
 
         g_clear_pointer(&selector->provider, g_free);
         g_clear_pointer(&selector->button, g_free);
-        // g_clear_pointer(&selector->color, g_free);
-        // g_clear_object(G_OBJECT(selector->provider));
         G_OBJECT_CLASS(scroll_button_parent_class)->dispose(object);
 }
 
@@ -260,7 +230,6 @@ scroll_button_class_init(ScrollButtonClass *klass)
         widget_class->measure = scroll_button_measure;
 
         gtk_widget_class_set_template_from_resource(widget_class, "/org/robertomorrison/gtkbible/scroll_button.ui");
-        // gtk_widget_class_set_layout_manager_type(widget_class, GTK_TYPE_BIN_LAYOUT);
         gtk_widget_class_set_css_name(widget_class, "scroll_button");
 
         gtk_widget_class_bind_template_child(widget_class, ScrollButton, button);

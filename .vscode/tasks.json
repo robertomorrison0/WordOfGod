@@ -2,10 +2,19 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "build & run (valgrind)",
+            "dependsOn": [
+                "build",
+                "launch (valgrind)"
+            ],
+            "dependsOrder": "sequence",
+            "group": "build",
+            "problemMatcher": "$msCompile"
+        },
+        {
             "label": "build & run",
             "dependsOn": [
-                "build resources",
-                "build debug",
+                "build",
                 "launch"
             ],
             "dependsOrder": "sequence",
@@ -13,12 +22,32 @@
             "problemMatcher": "$msCompile"
         },
         {
+            "label": "launch (valgrind)",
+            // "dependsOrder": "sequence",
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            },
+            "command": "valgrind",
+            "group": "build",
+            "args": [
+                "--leak-check=full",
+                "--num-callers=20",
+                "--log-file=vgdump.txt",
+                "--show-leak-kinds=definite",
+                "--suppressions=/usr/share/glib-2.0/valgrind/glib.supp",
+                "--suppressions=/usr/share/gtk-4.0/valgrind/gtk.supp",
+                "./app",
+            ],
+            "problemMatcher": "$msCompile"
+
+        },
+        {
             "label": "launch",
             "type": "shell",
             "options": {
                 "cwd": "${workspaceFolder}/build"
             },
-            "command": "./org.robertomorrison.biblebolls",
+            "command": "./app",
             "group": "build",
             "args": [
                 "",
@@ -26,48 +55,22 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "build all",
-            "dependsOn": [
-                "build resources",
-                "build debug"
-            ],
-            "dependsOrder": "sequence",
-            "group": "build",
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "build debug",
+            "label": "build",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceFolder}/build"
+                "cwd": "${workspaceFolder}"
             },
-            "command": "cmake",
+            "command": "rm",
             "group": "build",
             "args": [
-                "..",
-                "-B",
-                ".",
-                "-G",
-                "Ninja",
-                "&&",
-                "cmake",
-                "--build",
-                ".",
+                 "-rf", "build/", "&&",
+                "meson", "setup", "build", "&&",
+                "cd", "build/", "&&",
+                "meson","compile"
             ],
             "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "build resources",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceFolder}/resources"
-            },
-            "command": "glib-compile-resources",
-            "group": "build",
-            "args": [
-                "style.xml",
-            ],
-            "problemMatcher": "$msCompile"
+
+            //  &&  && cd build/ && meson compile
         }
    ]
 }

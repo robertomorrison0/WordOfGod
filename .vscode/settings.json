@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "*.c": "cpp",
         "array": "cpp",
         "atomic": "cpp",
         "hash_map": "cpp",
@@ -89,7 +90,8 @@
         "format": "cpp",
         "span": "cpp",
         "valarray": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "__memory": "cpp"
     },
     "[cpp]" : 
     {
@@ -100,4 +102,5 @@
         "editor.formatOnSave": true
     },
     "C_Cpp.clang_format_style": "file",
+    
 }
