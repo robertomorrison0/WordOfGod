@@ -20,9 +20,7 @@ typedef struct HighlightData
 struct _BibleTextPage
 {
         GtkBox parent;
-        // GtkOverlay *overlay;
-        // GtkWidget *content;
-        // GtkWidget *modal;
+
         GtkLabel *title;
         GtkTextView *text_view;
         gchar *line_distance;
@@ -30,7 +28,6 @@ struct _BibleTextPage
         gchar *font;
         gchar *highlights_string;
         GtkCssProvider *provider;
-        // GtkWidget *popover;
         ColorSelector *color_selector;
 
         GtkScrolledWindow *scrolled;
@@ -48,7 +45,7 @@ struct _BibleTextPage
         GtkEventController *event_controller;
 
         ScrollButton *book_button;
-        GtkButton *translation_button;
+        ScrollButton *translation_button;
 
         GtkLabel *book_label;
         GtkLabel *translation_label;
@@ -86,7 +83,8 @@ void bible_text_page_set_title(BibleTextPage *self, const gchar *title)
 
 void bible_text_page_set_translation(BibleTextPage *self, const gchar *translation)
 {
-        gtk_button_set_label(self->translation_button, translation);
+        if (SCROLL_IS_BUTTON(self->translation_button))
+                scroll_button_set_label(self->translation_button, g_strdup(translation));
         gtk_label_set_label(self->translation_label, translation);
 }
 
@@ -149,7 +147,6 @@ highlight_in_page(BibleTextPage *self)
                         continue;
 
                 json_object_object_get_ex(highlight_object, color_key, &color_object);
-                // json_object_object_get_ex(highlight_object, verse_key, &verse_object);
                 json_object_object_get_ex(highlight_object, start_key, &start_object);
                 json_object_object_get_ex(highlight_object, end_key, &end_object);
 
@@ -158,14 +155,6 @@ highlight_in_page(BibleTextPage *self)
                 g_assert(chapter_object != NULL);
                 g_assert(start_object != NULL);
                 g_assert(end_object != NULL);
-
-                // g_print("color: %s\tbook: %i\tchapter: %i\tstart: %i\tend: %i\n",
-                //         json_object_get_string(color_object),
-                //         json_object_get_int(book_object),
-                //         json_object_get_int(chapter_object),
-                //         // json_object_get_int(verse_object),
-                //         json_object_get_int(start_object),
-                //         json_object_get_int(end_object));
 
                 start_offset = json_object_get_int(start_object);
                 end_offset = json_object_get_int(end_object);
@@ -185,87 +174,49 @@ void bible_text_page_set_text(BibleTextPage *self, GtkTextBuffer *buffer)
 
         // gtk_text_view_set_buffer(self->text_view, NULL);
 
-        GtkTextTagTable *table = gtk_text_buffer_get_tag_table(buffer);
-        if (!GTK_IS_TEXT_TAG(gtk_text_tag_table_lookup(table, "highlighted")))
-                gtk_text_buffer_create_tag(
-                    buffer, "highlighted",
-                    "underline", PANGO_UNDERLINE_ERROR_LINE
-                    //     ,
-                    //     "background", "#05F230"
-                    //     ,
-                    //     "underline-rgba-set", TRUE,
-                    //     "underline-rgba", color
-                );
+        // GtkTextTagTable *table = gtk_text_buffer_get_tag_table(buffer);
+        // if (!GTK_IS_TEXT_TAG(gtk_text_tag_table_lookup(table, "highlighted")))
+        gtk_text_buffer_create_tag(
+            buffer, "highlighted",
+            "underline", PANGO_UNDERLINE_ERROR_LINE
+            //     ,
+            //     "background", "#05F230"
+            //     ,
+            //     "underline-rgba-set", TRUE,
+            //     "underline-rgba", color
+        );
 
-        if (!GTK_IS_TEXT_TAG(gtk_text_tag_table_lookup(table, "green")))
-                gtk_text_buffer_create_tag(
-                    buffer, "green",
-                    //     "underline", PANGO_UNDERLINE_SINGLE_LINE
-                    //     ,
-                    "background", "#31793e"
-                    //     ,
-                    //     "underline-rgba-set", TRUE,
-                    //     "underline-rgba", color
-                );
+        // if (!GTK_IS_TEXT_TAG(gtk_text_tag_table_lookup(table, "green")))
+        gtk_text_buffer_create_tag(
+            buffer, "green",
+            "background", "#31793e");
 
-        if (!GTK_IS_TEXT_TAG(gtk_text_tag_table_lookup(table, "red")))
-                gtk_text_buffer_create_tag(
-                    buffer, "red",
-                    //     "underline", PANGO_UNDERLINE_SINGLE_LINE
-                    //     ,
-                    "background", "#FF4608"
-                    //     ,
-                    //     "underline-rgba-set", TRUE,
-                    //     "underline-rgba", color
-                );
+        // if (!GTK_IS_TEXT_TAG(gtk_text_tag_table_lookup(table, "red")))
+        gtk_text_buffer_create_tag(
+            buffer, "red",
+            "background", "#FF4608");
 
-        if (!GTK_IS_TEXT_TAG(gtk_text_tag_table_lookup(table, "blue")))
-                gtk_text_buffer_create_tag(
-                    buffer, "blue",
-                    //     "underline", PANGO_UNDERLINE_SINGLE_LINE
-                    //     ,
-                    "background", "#0767DB"
-                    //     ,
-                    //     "underline-rgba-set", TRUE,
-                    //     "underline-rgba", color
-                );
+        // if (!GTK_IS_TEXT_TAG(gtk_text_tag_table_lookup(table, "blue")))
+        gtk_text_buffer_create_tag(
+            buffer, "blue",
+            "background", "#0767DB");
 
-        if (!GTK_IS_TEXT_TAG(gtk_text_tag_table_lookup(table, "yellow")))
-                gtk_text_buffer_create_tag(
-                    buffer, "yellow",
-                    //     "underline", PANGO_UNDERLINE_SINGLE_LINE
-                    //     ,
-                    "background", "#DBBC07"
-                    //     ,
-                    //     "underline-rgba-set", TRUE,
-                    //     "underline-rgba", color
-                );
+        // if (!GTK_IS_TEXT_TAG(gtk_text_tag_table_lookup(table, "yellow")))
+        gtk_text_buffer_create_tag(
+            buffer, "yellow",
+            "background", "#DBBC07");
 
-        if (!GTK_IS_TEXT_TAG(gtk_text_tag_table_lookup(table, "pink")))
-                gtk_text_buffer_create_tag(
-                    buffer, "pink",
-                    //     "underline", PANGO_UNDERLINE_SINGLE_LINE
-                    //     ,
-                    "background", "#DB00FA"
-                    //     ,
-                    //     "underline-rgba-set", TRUE,
-                    //     "underline-rgba", color
-                );
+        // if (!GTK_IS_TEXT_TAG(gtk_text_tag_table_lookup(table, "pink")))
+        gtk_text_buffer_create_tag(
+            buffer, "pink",
+            "background", "#DB00FA");
         gtk_text_view_set_buffer(self->text_view, buffer);
-        // GtkTextMark *mark = gtk_text_buffer_get_mark(buffer, "Verse0");
         GtkAdjustment *vadjustment = gtk_scrolled_window_get_vadjustment(self->scrolled);
 
         gtk_adjustment_set_value(vadjustment, 0.0);
 
         gtk_scrolled_window_set_vadjustment(self->scrolled, vadjustment);
         highlight_in_page(self);
-        //     gtk_text_view_scroll_to_mark(
-        //         self->text_view,
-        //         mark,
-        //         0.45,
-        //         false,
-        //         0.0,
-        //         0.0);
 }
 
 void bible_text_page_scroll_up(BibleTextPage *self)
@@ -337,14 +288,13 @@ bible_text_page_get_font_size(BibleTextPage *self)
 static void
 bible_text_page_activate_font(BibleTextPage *self, const gchar *font_name, guint font_size)
 {
-        // g_print("font size: %i", font_size);
         if (!self->provider)
         {
                 self->provider = gtk_css_provider_new();
         }
         gchar font[200];
         g_snprintf(font, sizeof(font), "textview.chapter-content{\nfont:\t%ipx \"%s\";}\n label.chapter-title{\nfont:\t%ipx \"%s\";\n}", font_size, font_name, font_size + 3, font_name);
-        // g_print("\n%s", font);
+
         gtk_css_provider_load_from_data(self->provider, font, -1);
         gtk_style_context_add_provider_for_display(
             gdk_display_get_default(),
@@ -400,7 +350,6 @@ bible_text_page_set_highlights(BibleTextPage *self, const gchar *highlights)
         g_return_if_fail(BIBLE_IS_TEXT_PAGE(self));
         g_free(self->highlights_string);
         self->highlights_string = g_strdup(highlights);
-        // g_print("%s\n", self->highlights_string);
 
         g_object_notify_by_pspec(G_OBJECT(self), properties[PROP_HIGHLIGHTS]);
 }
@@ -429,8 +378,8 @@ void bible_text_page_get_property(GObject *object,
         case PROP_HIGHLIGHTS:
                 g_value_set_string(value, bible_text_page_get_highlights(self));
                 break;
-                // default:
-                //         G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+        default:
+                G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
         }
 }
 
@@ -456,8 +405,9 @@ void bible_text_page_set_property(GObject *object,
 
         case PROP_HIGHLIGHTS:
                 bible_text_page_set_highlights(self, g_value_get_string(value));
-                // default:
-                //         G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+        default:
+                G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+                g_print("\n::%s\n\n", g_value_get_string(value));
         }
 }
 
@@ -468,8 +418,8 @@ _on_text_long_pressed(GtkGestureLongPress *self,
         GtkTextBuffer *buffer = gtk_text_view_get_buffer(page->text_view);
         GtkTextIter position;
         gint pos;
-        char index_str[16];
-        int index = 0;
+        gchar index_str[16];
+        gint index = 0;
 
         // g_signal_emit_by_name(buffer, "move-cursor");
         g_object_get(buffer, "cursor-position", &pos, NULL);
@@ -481,33 +431,28 @@ _on_text_long_pressed(GtkGestureLongPress *self,
 
         // gtk_text_tag_table_lookup()
 
-        gtk_text_buffer_remove_tag_by_name(buffer,
-                                           "highlighted",
-                                           &page->hightlight_start_iter,
-                                           &page->hightlight_end_iter);
+        // gtk_text_buffer_remove_tag_by_name(buffer,
+        //                                    "highlighted",
+        //                                    &page->hightlight_start_iter,
+        //                                    &page->hightlight_end_iter);
         while (true)
         {
                 sprintf(index_str, "Verse%i", index);
-                // g_print("get Mark: '%s'\n", index_str);
                 GtkTextMark *mark = gtk_text_buffer_get_mark(buffer, index_str);
 
                 if (!GTK_IS_TEXT_MARK(mark))
                 {
-                        // g_print("Marks: %i\n", index);
                         break;
                 }
                 GtkTextIter iter;
                 gtk_text_buffer_get_iter_at_mark(buffer, &iter, mark);
-                int result = gtk_text_iter_compare(&position, &iter);
-                // g_print("IterComp: (%i/%i - '%s') res=%i\n", pos, gtk_text_iter_get_offset(&iter), index_str, result);
+                gint result = gtk_text_iter_compare(&position, &iter);
 
                 if (result < 0)
                 {
                         // lhs is less than rhs
                         gtk_text_iter_assign(&page->hightlight_end_iter, &iter);
-                        // g_print("index: %i, mark: %s\n", index, index_str);
                         page->hightlight_data.hightlight_verse = index;
-                        // g_print("index: %i, mark: %s\n", index, index_str);
                         break;
                 }
                 else if (result > 0)
@@ -527,34 +472,24 @@ _on_text_long_pressed(GtkGestureLongPress *self,
                 memset(index_str, 0, strlen(index_str));
                 index++;
         }
-        // if (&start_verse_iter == NULL || &end_verse_iter == NULL)
-        //         return;
+
         gtk_text_buffer_apply_tag_by_name(buffer,
                                           "highlighted",
                                           &page->hightlight_start_iter,
                                           &page->hightlight_end_iter);
 
-        // GtkTextChildAnchor *anchor = gtk_text_buffer_create_child_anchor(buffer, &start_verse_iter);
-
-        // gtk_text_view_add_child_at_anchor(page->text_view, GTK_WIDGET(gtk_label_new("test")), anchor);
         GdkRectangle loc;
         gtk_text_view_get_iter_location(page->text_view, &position, &loc);
-        // g_print("location: x:%i y:%i", loc.x, loc.y);
-        int x, y;
+
+        gint x, y;
         gtk_text_view_buffer_to_window_coords(page->text_view, GTK_TEXT_WINDOW_TEXT, loc.x, loc.y, &x, &y);
-        // g_print("window loc: x:%i y:%i", x, y);
 
         gtk_widget_set_visible(GTK_WIDGET(page->color_selector), true);
         gtk_text_view_move_overlay(page->text_view, GTK_WIDGET(page->color_selector), 0, y);
-        // gtk_popover_set_position(GTK_POPOVER(page->popover), GTK_POS_BOTTOM);
-        // gtk_popover_popup(GTK_POPOVER(page->popover));
-
-        // gtk_text_buffer_remove_tag_by_name(buffer, "highlighted", &start_verse_iter, &end_verse_iter);
 }
 
 static void save_highlight(BibleTextPage *self)
 {
-        // bible_text_page_set_highlights(self, "[]");
         json_object *export_json = json_tokener_parse(self->highlights_string);
 
         json_object *highlight_object = json_object_new_object();
@@ -614,13 +549,10 @@ static void save_highlight(BibleTextPage *self)
         json_object_object_add(highlight_object, end_key, end_object);
 
         json_object_array_add(export_json, highlight_object);
-
-        // printf("%s\n", json_object_get_string(highlight_object));
         bible_text_page_set_highlights(self, json_object_get_string(export_json));
 
         g_free(array_key);
-        // g_print("%s\n", self->highlights_string);
-        // json_object *highlights_array = json_object_new_array();
+        ;
 }
 
 static void
@@ -647,7 +579,6 @@ color_selected(ColorSelector *self,
         page->hightlight_data.start = gtk_text_iter_get_offset(&page->hightlight_start_iter);
         page->hightlight_data.end = gtk_text_iter_get_offset(&page->hightlight_end_iter);
         save_highlight(page);
-        // g_print("Color: %s\n", color);
         gtk_widget_set_visible(GTK_WIDGET(self), false);
 }
 
@@ -797,12 +728,9 @@ bible_text_page_init(BibleTextPage *self)
         self->event_controller = gtk_event_controller_key_new();
         self->hightlight_data = (HighlightData){.hightlight_verse = 1};
 
-        // GtkWidget *button = gtk_check_button_new_with_label("color");
-        // gtk_button_set_icon_name(GTK_BUTTON(button), "");
         gtk_text_view_add_overlay(self->text_view, GTK_WIDGET(self->color_selector), 0, 0);
         gtk_widget_set_visible(GTK_WIDGET(self->color_selector), false);
 
-        // gtk_box_append(GTK_BOX(page->popover), button);
         GtkGesture *gesture = gtk_gesture_long_press_new();
         g_signal_connect(gesture, "pressed", G_CALLBACK(_on_text_long_pressed), self);
         g_signal_connect(self->color_selector, "color-selected", G_CALLBACK(color_selected), self);
@@ -876,7 +804,7 @@ bible_text_page_dispose(GObject *object)
 }
 
 void action_choose_chapter(GtkWidget *widget,
-                           const char *action_name,
+                           const gchar *action_name,
                            GVariant *parameter)
 {
         BibleTextPage *self = BIBLE_TEXT_PAGE(widget);
@@ -938,7 +866,7 @@ bible_text_page_class_init(BibleTextPageClass *klass)
             "highlights",
             "Highlights",
             "The highlighted verses in json string format",
-            NULL,
+            "",
             (GParamFlags)(G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_STATIC_STRINGS));
 
         g_object_class_install_properties(object_class, LAST_PROP, properties);

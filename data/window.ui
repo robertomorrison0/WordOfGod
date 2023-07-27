@@ -57,19 +57,19 @@
       <object class="ScrollButton" id="book_button">
 
       <property name="max-width">100</property>
-      <property name="label"></property>
+      <!-- <property name="label"></property> -->
       </object>
     </child>
 
 
-    <!-- <child>
+    <child>
       <object class="ScrollButton" id="translation_button">
 
-      <property name="max-width">100</property>
-      <property name="label"></property>
+      <property name="max-width">60</property>
+      <!-- <property name="label"></property> -->
       </object>
-    </child> -->
-                <child>
+    </child>
+                <!-- <child>
                   <object class="GtkButton" id="translation_button">
                     <style>
                       <class name="passage_button"/>
@@ -77,7 +77,7 @@
                     <property name="overflow">hidden</property>
                     <property name="label"></property>
                   </object>
-                </child>
+                </child> -->
                 
     
     

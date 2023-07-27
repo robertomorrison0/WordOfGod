@@ -1,6 +1,5 @@
 #include <bible_content.h>
 #include <json-c/json.h>
-// #include <gtype.h>
 
 #define BASE_URL ""
 
@@ -24,7 +23,6 @@ struct _BibleContent
         gchar *current_title;
 
         BibleTextPage *page;
-        // GtkProgressBar *progressbar;
         GtkStringList *language_list;
         GtkStringList *translation_list;
         GtkStringList *books_list;
@@ -54,7 +52,6 @@ typedef struct
 {
         gchar *memory;
         size_t size;
-        // GtkProgressBar *progressbar;
 } Memory;
 
 typedef struct
@@ -69,7 +66,6 @@ void bible_content_set_current_chapter_next(BibleContent *self)
         if (self->current_chapter < self->current_book_chapters)
         {
                 self->current_chapter++;
-                // g_print("current chapter = %i", self->current_chapter);
                 g_object_notify_by_pspec(G_OBJECT(self), properties[PROP_CURRENT_CHAPTER]);
         }
         else if (self->current_book < self->current_translation_books)
@@ -100,7 +96,7 @@ static void
 bible_content_set_current_chapter(BibleContent *self, guint chapter)
 {
         g_return_if_fail(BIBLE_IS_CONTENT(self));
-        if (chapter != self->current_chapter) // && self->current_chapter < self->current_book_chapters && self->current_chapter > 1)
+        if (chapter != self->current_chapter)
         {
                 self->current_chapter = chapter;
                 g_object_notify_by_pspec(G_OBJECT(self), properties[PROP_CURRENT_CHAPTER]);
@@ -140,7 +136,6 @@ bible_content_set_current_translation(BibleContent *self, const gchar *translati
         {
                 g_free(self->current_translation);
                 self->current_translation = g_strdup(translation);
-                g_print("translation: %s\n", translation);
                 if (self->page)
                         bible_text_page_set_translation(self->page, self->current_translation);
                 g_object_notify_by_pspec(G_OBJECT(self), properties[PROP_CURRENT_TRANSLATION]);
@@ -194,8 +189,8 @@ void bible_content_get_property(GObject *object,
         case PROP_CURRENT_LANGUAGE:
                 g_value_set_string(value, bible_content_get_current_translation(self));
                 break;
-                // default:
-                //         G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+        default:
+                G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
         }
 }
 
@@ -220,8 +215,8 @@ void bible_content_set_property(GObject *object,
         case PROP_CURRENT_LANGUAGE:
                 bible_content_set_current_language(self, g_value_get_string(value));
                 break;
-                // default:
-                //         G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+        default:
+                G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
         }
 }
 
@@ -542,7 +537,6 @@ void bible_content_get_current_text(BibleContent *self)
                         gtk_text_buffer_delete_mark(self->buffer, m);
 
                 gtk_text_buffer_add_mark(self->buffer, gtk_text_mark_new(index_str, false), &iter);
-                // g_print("added Mark: '%s' at %i\n", index_str, gtk_text_iter_get_offset(&iter));
         }
 }
 
@@ -554,7 +548,6 @@ curl_get_async_thread_cb(GTask *task,
 {
 
         AsyncData *data = (AsyncData *)task_data;
-        // g_print("%s", data->url);
         curl_get_(data->url, &data->memory);
 
         g_task_return_pointer(task, task_data, NULL);
@@ -568,7 +561,6 @@ parse_translation_thread_cb(GTask *task,
 {
 
         AsyncData *data = (AsyncData *)task_data;
-        // g_print("%s", data->url);
         curl_get_(data->url, &data->memory);
 
         g_task_return_pointer(task, task_data, NULL);
@@ -664,7 +656,7 @@ void free_data(gpointer _data)
 void curl_get_async(BibleContent *self,
                     //     GCancellable *cancellable,
                     GAsyncReadyCallback callback,
-                    gpointer user_data, const gchar *url)
+                    gpointer user_data, const gchar url[])
 {
         GTask *task = NULL; /* owned */
         AsyncData *data = NULL;
@@ -750,8 +742,6 @@ void bible_content_get_translations(BibleContent *self, const gchar *language)
                 translation_object = json_object_array_get_idx(translations_language_array, i);
                 json_object_object_get_ex(translation_object, "short_name", &short_name_object);
                 gtk_string_list_append(self->translation_list, json_object_get_string(short_name_object));
-                // g_print("a: %s\nb: %s\n\n", json_object_get_string(short_name_object), gtk_string_list_get_string(self->translation_list, i));
-                // gtk_string_list_splice
         }
 
         bible_preferences_window_add_translations(self->preferences_window, self->translation_list);
@@ -786,8 +776,6 @@ void parse_languages(BibleContent *self)
                 language_object = json_object_array_get_idx(translations_json, i);
                 json_object_object_get_ex(language_object, "language", &translation_language_object);
                 gtk_string_list_append(self->language_list, json_object_get_string(translation_language_object));
-                // g_print("translation(): %s\n", gtk_string_list_get_string(self->language_list, i));
-                // gtk_string_list_splice
         }
         bible_preferences_window_add_languages(self->preferences_window, self->language_list);
         if (self->translation_list)
@@ -820,8 +808,6 @@ void parse_books(BibleContent *self)
                 book_object = json_object_array_get_idx(books_json, i);
                 json_object_object_get_ex(book_object, "name", &book_name_object);
                 gtk_string_list_append(self->books_list, json_object_get_string(book_name_object));
-                // g_print("translation(): %s\n", gtk_string_list_get_string(self->language_list, i));
-                // gtk_string_list_splice
         }
         bible_preferences_window_add_books(self->preferences_window, self->books_list, n_books);
         if (self->books_list)
@@ -860,17 +846,6 @@ void bible_content_get_chapters(BibleContent *self, BiblePreferencesWindow *pref
         if (!self->chapters_list)
                 self->chapters_list = gtk_string_list_new(NULL);
 
-        // for (size_t i = 0; i < n_books; i++)
-        // {
-        //         book_object = json_object_array_get_idx(books_json, i);
-        //         json_object_object_get_ex(book_object, "name", &book_name_object);
-        //         if (g_strcmp0(json_object_get_string(book_name_object), book) != 0)
-        //                 continue;
-
-        //         break;
-        //         // g_print("translation(): %s\n", gtk_string_list_get_string(self->language_list, i));
-        //         // gtk_string_list_splice
-        // }
         book_object = json_object_array_get_idx(books_json, book - 1);
         json_object_object_get_ex(book_object, "chapters", &book_chapters_object);
         guint n_chapters_p = json_object_get_int(book_chapters_object) + 1;
@@ -928,11 +903,11 @@ void curl_get_books_finished_cb(GObject *source_object,
 
 void bible_content_get_translation(BibleContent *self, BibleTextPage *page)
 {
+        if (page == NULL)
+                return;
+
         if (self->page == NULL)
                 self->page = page;
-        // if (self->progressbar == NULL)
-        //         self->progressbar = progressbar;
-        // gtk_widget_set_visible(GTK_WIDGET(self->progressbar), true);
 
         gchar url[80];
         sprintf(url,
@@ -940,28 +915,25 @@ void bible_content_get_translation(BibleContent *self, BibleTextPage *page)
                 self->current_translation);
 
         curl_get_async(self, curl_get_translation_info_finished_cb, NULL, url);
-        // g_free(url);
 }
 
 void bible_content_get_languages(BibleContent *self, BiblePreferencesWindow *preferences_window)
 {
         if (self->preferences_window == NULL)
                 self->preferences_window = preferences_window;
-        // gtk_widget_set_visible(GTK_WIDGET(self->progressbar), true);
 
         gchar url[] = "https://bolls.life/static/bolls/app/views/languages.json";
 
         curl_get_async(self, curl_get_languages_finished_cb, NULL, url);
-        // g_free(url);
 }
 
 void bible_content_get_text(BibleContent *self, BibleTextPage *page)
 {
+        if (page == NULL)
+                return;
+
         if (self->page == NULL)
                 self->page = page;
-        // if (self->progressbar == NULL)
-        //         self->progressbar = progressbar;
-        // gtk_widget_set_visible(GTK_WIDGET(self->progressbar), true);
 
         gchar url[80];
         sprintf(url,
@@ -969,42 +941,33 @@ void bible_content_get_text(BibleContent *self, BibleTextPage *page)
                 self->current_translation,
                 self->current_book,
                 self->current_chapter);
-        // g_print("Get Text URL: %s\n", url);
         curl_get_async(self, curl_get_text_finished_cb, NULL, url);
-        // g_free(url);
-        // bible_content_get_translation(self, window, progressbar);
 }
 
-void bible_content_get_books(BibleContent *self, BiblePreferencesWindow *preferences_window, const gchar *translation) //, GtkProgressBar *progressbar)
+void bible_content_get_books(BibleContent *self, BiblePreferencesWindow *preferences_window, const gchar *translation)
 {
         if (self->preferences_window == NULL)
                 self->preferences_window = preferences_window;
-        // if (self->progressbar == NULL)
-        //         self->progressbar = progressbar;
-        // gtk_widget_set_visible(GTK_WIDGET(self->progressbar), true);
 
         gchar url[80];
         sprintf(url,
                 "https://bolls.life/get-books/%s/",
                 translation);
-        // g_print("Get Title URL: %s ; book(%i)\n", url, self->current_book);
         curl_get_async(self, curl_get_books_finished_cb, NULL, url);
-        // g_free(url);
 }
 
-void bible_content_get_title(BibleContent *self, BibleTextPage *page) //, GtkProgressBar *progressbar)
+void bible_content_get_title(BibleContent *self, BibleTextPage *page)
 {
+        if (page == NULL)
+                return;
+
         if (self->page == NULL)
                 self->page = page;
-        // if (self->progressbar == NULL)
-        //         self->progressbar = progressbar;
-        // gtk_widget_set_visible(GTK_WIDGET(self->progressbar), true);
 
         gchar url[80];
         sprintf(url,
                 "https://bolls.life/get-books/%s/",
                 self->current_translation);
-        // g_print("Get Title URL: %s ; book(%i)\n", url, self->current_book);
         curl_get_async(self, curl_get_title_finished_cb, NULL, url);
         // g_free(url);
 }
@@ -1012,12 +975,28 @@ void bible_content_get_title(BibleContent *self, BibleTextPage *page) //, GtkPro
 static void
 bible_content_init(BibleContent *self)
 {
-        // const gchar *content = bible_content_get_current_text();
-        // g_print("%s", content);
-        // bible_content_get_text(self);
+}
 
-        // g_free(&content);
-        // bible_content_get_translations(self);
+static void
+bible_content_dispose(GObject *object)
+{
+        BibleContent *self = (BibleContent *)object;
+
+        g_strfreev(&self->current_translation);
+        g_strfreev(&self->current_language);
+        g_strfreev(&self->translations_json);
+        g_strfreev(&self->books_json);
+        g_strfreev(&self->translation_books);
+        g_strfreev(&self->translation_verses);
+        g_strfreev(&self->curl_json_result);
+        g_strfreev(&self->current_title);
+
+        g_clear_object(&self->language_list);
+        g_clear_object(&self->translation_list);
+        g_clear_object(&self->books_list);
+        g_clear_object(&self->chapters_list);
+
+        G_OBJECT_CLASS(bible_content_parent_class)->dispose(object);
 }
 
 static void
@@ -1027,6 +1006,7 @@ bible_content_class_init(BibleContentClass *klass)
 
         object_class->get_property = bible_content_get_property;
         object_class->set_property = bible_content_set_property;
+        object_class->dispose = bible_content_dispose;
 
         properties[PROP_CURRENT_CHAPTER] = g_param_spec_uint(
             "chapter", // Name

@@ -79,15 +79,14 @@ void line_distance_selector_set_property(GObject *object,
         case PROP_LINE_DISTANCE:
                 line_distance_selector_set_line_distance(self, g_value_get_string(value));
                 break;
-                // default:
-                //         G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+        default:
+                G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
         }
 }
 
 static void
 line_distance_selector_init(LineDistanceSelector *selector)
 {
-        // AdwStyleManager *style_manager = adw_style_manager_get_default();
         gtk_widget_init_template(GTK_WIDGET(selector));
 
         if (!selector->provider)
@@ -104,12 +103,13 @@ line_distance_selector_init(LineDistanceSelector *selector)
 static void
 line_distance_selector_dispose(GObject *object)
 {
-        LineDistanceSelector *selector;
+        LineDistanceSelector *self = (LineDistanceSelector *)object;
 
-        selector = (LineDistanceSelector *)object;
+        g_object_unref(self->box);
+        g_object_unref(self->line_distance_button);
+        g_strfreev(&self->line_distance);
+        g_clear_object(&self->provider);
 
-        // g_clear_pointer(&selector->line_distance, g_free);
-        g_clear_pointer(&selector->box, g_free);
         G_OBJECT_CLASS(line_distance_selector_parent_class)->dispose(object);
 }
 

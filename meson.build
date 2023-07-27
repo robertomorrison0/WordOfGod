@@ -1,4 +1,4 @@
-project('gtk_app', 'c', 
+project('gtk_bible', 'c', 
   version : '0.1',
   default_options : ['warning_level=3', 'cpp_std=c++17'])
 
@@ -10,7 +10,11 @@ curl = dependency('libcurl', required: true)
 
 sources = ['main.c']
 subdir('src')
+i18n = import('i18n')
+subdir('po')
+
 gnome=import('gnome')
+
 
 
 subdir('data')

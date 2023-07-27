@@ -8,12 +8,6 @@ struct _ColorSelector
         GtkWidget parent;
         GtkCssProvider *provider;
         GtkWidget *box;
-        // GtkToggleButton *none;
-        // GtkToggleButton *green;
-        // GtkToggleButton *red;
-        // GtkToggleButton *blue;
-        // GtkToggleButton *yellow;
-        // GtkToggleButton *pink;
         gchar *color;
 };
 
@@ -39,15 +33,6 @@ static void
 color_selector_color_selected(ColorSelector *color_selector,
                               GParamSpec *param)
 {
-        // gtk_widget_set_visible(GTK_WIDGET(self), false);
-        // GString *color = g_string_new(selector->color);
-        // param->name;
-        // gtk_toggle_button_set_active(color_selector->none, false);
-        // gtk_toggle_button_set_active(color_selector->green, false);
-        // gtk_toggle_button_set_active(color_selector->red, false);
-        // gtk_toggle_button_set_active(color_selector->blue, false);
-        // gtk_toggle_button_set_active(color_selector->yellow, false);
-        // gtk_toggle_button_set_active(color_selector->pink, false);
         g_signal_emit(color_selector, signals[COLOR_SELECTED], 0, color_selector->color);
 }
 
@@ -101,8 +86,8 @@ void color_selector_set_property(GObject *object,
         case PROP_COLOR:
                 color_selector_set_color(self, g_value_get_string(value));
                 break;
-                // default:
-                //         G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+        default:
+                G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
         }
 }
 
@@ -114,27 +99,22 @@ color_selector_init(ColorSelector *self)
         // g_signal_connect(self->green, "toggled", G_CALLBACK(color_selector_color_selected), "green");
         g_signal_connect(self, "notify::color", G_CALLBACK(color_selector_color_selected), NULL);
 
-        if (!self->provider)
-        {
-                self->provider = gtk_css_provider_new();
-                gtk_css_provider_load_from_resource(self->provider, "/org/robertomorrison/gtkbible/color_selector.css");
-                gtk_style_context_add_provider_for_display(
-                    gdk_display_get_default(),
-                    GTK_STYLE_PROVIDER(self->provider),
-                    GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-        }
+        self->provider = gtk_css_provider_new();
+        gtk_css_provider_load_from_resource(self->provider, "/org/robertomorrison/gtkbible/color_selector.css");
+        gtk_style_context_add_provider_for_display(
+            gdk_display_get_default(),
+            GTK_STYLE_PROVIDER(self->provider),
+            GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 }
 
 static void
 color_selector_dispose(GObject *object)
 {
-        ColorSelector *selector;
+        ColorSelector *self = (ColorSelector *)object;
 
-        selector = (ColorSelector *)object;
-
-        g_clear_pointer(&selector->box, gtk_widget_unparent);
-        g_clear_pointer(&selector->color, g_free);
-        // g_clear_object(G_OBJECT(selector->style_manager));
+        g_clear_pointer(&self->box, g_free);
+        g_strfreev(&self->color);
+        g_clear_object(&self->provider);
         G_OBJECT_CLASS(color_selector_parent_class)->dispose(object);
 }
 
@@ -167,15 +147,8 @@ color_selector_class_init(ColorSelectorClass *klass)
         gtk_widget_class_install_property_action(widget_class, "color-variant", "color");
         gtk_widget_class_set_template_from_resource(widget_class, "/org/robertomorrison/gtkbible/color_selector.ui");
         gtk_widget_class_bind_template_child(widget_class, ColorSelector, box);
-        // gtk_widget_class_bind_template_child(widget_class, ColorSelector, none);
-        // gtk_widget_class_bind_template_child(widget_class, ColorSelector, green);
-        // gtk_widget_class_bind_template_child(widget_class, ColorSelector, red);
-        // gtk_widget_class_bind_template_child(widget_class, ColorSelector, blue);
-        // gtk_widget_class_bind_template_child(widget_class, ColorSelector, yellow);
-        // gtk_widget_class_bind_template_child(widget_class, ColorSelector, pink);
 
         gtk_widget_class_set_layout_manager_type(widget_class, GTK_TYPE_BIN_LAYOUT);
-        // gtk_widget_class_bind_template_callback(widget_class, _on_button_clicked);
 }
 
 ColorSelector *

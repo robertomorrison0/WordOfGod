@@ -76,8 +76,8 @@ void theme_selector_set_property(GObject *object,
         case PROP_THEME:
                 theme_selector_set_theme(self, g_value_get_string(value));
                 break;
-                // default:
-                //         G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+        default:
+                G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
         }
 }
 

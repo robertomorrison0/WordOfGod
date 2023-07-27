@@ -32,7 +32,7 @@ struct _BibleAppWindow
         GtkButton *back_button;
         GtkBox *passage_box;
         ScrollButton *book_button;
-        GtkButton *translation_button;
+        ScrollButton *translation_button;
 
         AdwViewStack *stack;
 };

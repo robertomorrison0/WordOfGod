@@ -19,6 +19,7 @@ bible_app_window_init(BibleAppWindow *self)
         g_type_ensure(SCROLL_TYPE_BUTTON);
         g_type_ensure(BIBLE_TEXT_PAGE_TYPE);
         g_type_ensure(BIBLE_PREFERENCES_WINDOW_TYPE);
+
         gtk_widget_init_template(GTK_WIDGET(self));
 
         // self->settings = g_settings_new("org.robertomorrison.gtkbible");
@@ -53,9 +54,9 @@ void bible_app_window_set_title(BibleAppWindow *self, const gchar *title)
 static void
 bible_app_window_dispose(GObject *object)
 {
-        // BibleAppWindow *win;
+        BibleAppWindow *self = BIBLE_APP_WINDOW(object);
 
-        // win = BIBLE_APP_WINDOW(object);
+        g_clear_object(&self->provider);
 
         G_OBJECT_CLASS(bible_app_window_parent_class)->dispose(object);
 }
@@ -80,16 +81,10 @@ bible_app_window_class_init(BibleAppWindowClass *klass)
 
         GtkIconTheme *theme = gtk_icon_theme_get_for_display(gdk_display_get_default());
         gtk_icon_theme_add_resource_path(theme, "/org/robertomorrison/gtkbible/icons");
-
-        // gtk_icon_theme_add_resource_path(theme, "/org/robertomorrison/gtkbible/data/icons/32x32/actions");
-        // gtk_widget_class_bind_template_callback(GTK_WIDGET_CLASS(klass), _on_font_button_clicked);
-        // gtk_widget_class_bind_template_callback(GTK_WIDGET_CLASS(klass), _on_style_preferences_button_clicked);
 }
 
 BibleAppWindow *
 bible_app_window_new(BibleApp *app)
 {
-        // gtk_application_set_accels_for_action(GTK_APPLICATION(app), "choose-chapter",
-        //                                       (const char *[]){"<&lt;Ctrl&gt;>Q", "next"});
         return (BibleAppWindow *)g_object_new(BIBLE_APP_WINDOW_TYPE, "application", app, NULL);
 }

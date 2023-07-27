@@ -74,7 +74,6 @@ void bible_preferences_window_update_font(BiblePreferencesWindow *self)
         }
         gchar font[200];
         g_snprintf(font, sizeof(font), "textview.chapter-content{\nfont:\t%ipx \"%s\";}\n label.chapter-title{\nfont:\t%ipx \"%s\";\n}", self->font_size, self->font, self->font_size + 3, self->font);
-        // g_print("\n%s", font);
 
         if (!self->text_css_provider)
         {
@@ -117,8 +116,6 @@ static void file_open_finished(GtkFileDialog *self,
 
         g_print("File Content: %s\n", contents);
         // g_print("user-specific application configuration information: %s\n", g_get_user_config_dir());
-        // if (error)
-        // fprintf(stderr, "Err(%i):  %s", (*error)->code, (*error)->message);
 }
 
 static void _on_add_translation_button_clicked(GtkButton *button,
@@ -254,7 +251,6 @@ static void _on_notify_theme_changed(ThemeSelector *theme_selector,
                 gtk_style_context_add_provider_for_display(self->display, GTK_STYLE_PROVIDER(self->provider), GTK_STYLE_PROVIDER_PRIORITY_USER);
         }
         g_value_unset(&value);
-        // gtk_widget_set_visible(GTK_WIDGET(self->style_popover), false);
 }
 
 static void _on_notify_line_distance_changed(LineDistanceSelector *line_distance_selector,
@@ -296,8 +292,7 @@ _on_notify_translation_changed(BibleContent *content,
         g_value_unset(&value);
         bible_content_get_text(self->content, self->text_page);
         bible_content_get_title(self->content, self->text_page);
-        // gtk_button_set_label(self->window->translation_button, translation);
-        g_print("translation: %s (pref)\n", translation);
+        // scroll_button_set_label(self->window->translation_button, translation);
 }
 
 static void
@@ -310,11 +305,8 @@ _on_notify_book_changed(BibleContent *content,
         guint book = g_value_get_uint(&value);
         g_settings_set_uint(self->settings, "current-book", book);
         g_value_unset(&value);
-        // bible_content_get_title(self->content, self, self->progressbar);
-        // bible_content_get_text(self->content, self, self->progressbar);
         bible_content_get_text(self->content, self->text_page);
         bible_content_get_title(self->content, self->text_page);
-        g_print("current-book: %i\n", book);
 }
 
 static void
@@ -327,9 +319,6 @@ _on_notify_chapter_changed(BibleContent *content,
         guint chapter = g_value_get_uint(&value);
         g_settings_set_uint(self->settings, "current-chapter", chapter);
         g_value_unset(&value);
-        // gchar *title = g_strdup_printf("%s %i", "Chapter", chapter);
-        // g_print("Title: %s", title);
-        // gtk_button_set_label(self->book, title);
         bible_content_get_text(self->content, self->text_page);
         bible_content_get_title(self->content, self->text_page);
 }
@@ -374,14 +363,12 @@ GtkWidget *setup_selection_item(GtkStringObject *item,
                                 const gchar **action_name)
 {
         GtkWidget *row = adw_action_row_new();
-        // g_print("%s\n", item->str);
         const gchar *value = gtk_string_object_get_string(item);
         GVariant *var = g_variant_new_string(value);
         gtk_actionable_set_action_name(GTK_ACTIONABLE(row), *action_name);
         gtk_actionable_set_action_target_value(GTK_ACTIONABLE(row), var);
         gtk_list_box_row_set_activatable(GTK_LIST_BOX_ROW(row), true);
         adw_preferences_row_set_title(ADW_PREFERENCES_ROW(row), value);
-        // g_variant_unref(var);
 
         return row;
 }
@@ -389,28 +376,18 @@ GtkWidget *setup_selection_item(GtkStringObject *item,
 GtkWidget *setup_chapter_selection_item(GtkStringObject *item,
                                         const gchar **action_name)
 {
-        // g_print("%s\n", item->str);
         const gchar *value = gtk_string_object_get_string(item);
         GtkWidget *button = gtk_button_new_with_label(value);
         GVariant *var = g_variant_new_string(value);
         gtk_actionable_set_action_name(GTK_ACTIONABLE(button), *action_name);
         gtk_actionable_set_action_target_value(GTK_ACTIONABLE(button), var);
         gtk_button_set_has_frame(GTK_BUTTON(button), false);
-        // g_variant_unref(var);
-        // gtk_list_box_row_set_activatable(GTK_LIST_BOX_ROW(row), true);
-        // gtk_flow_box_item_set_activatable(GTK_LIST_BOX_ROW(row), true);
-        // gtk_list_item_set_activatable(GTK_LIST_ITEM(row), true);
-        // gtk_flow_box
-        // GtkFlowBoxChild
-        // adw_preferences_row_set_title(ADW_PREFERENCES_ROW(row), value);
 
         return button;
 }
 
 void bible_preferences_window_add_languages(BiblePreferencesWindow *self, GtkStringList *list)
 {
-        // GtkSingleSelection *languages_selection = gtk_single_selection_new(G_LIST_MODEL(list));
-
         gchar *action_name = "language-set";
 
         gtk_list_box_bind_model(self->book_selection, NULL, NULL, NULL, NULL);
@@ -421,14 +398,10 @@ void bible_preferences_window_add_languages(BiblePreferencesWindow *self, GtkStr
                                 G_LIST_MODEL(list),
                                 (GtkListBoxCreateWidgetFunc)setup_selection_item,
                                 &action_name, NULL);
-
-        // g_strfreev(&action_name);
 }
 
 void bible_preferences_window_add_translations(BiblePreferencesWindow *self, GtkStringList *list)
 {
-        // GtkSingleSelection *translation_model = gtk_single_selection_new(G_LIST_MODEL(list));
-
         gchar *action_name = "translation-set";
 
         gtk_list_box_bind_model(self->book_selection, NULL, NULL, NULL, NULL);
@@ -438,14 +411,10 @@ void bible_preferences_window_add_translations(BiblePreferencesWindow *self, Gtk
                                 G_LIST_MODEL(list),
                                 (GtkListBoxCreateWidgetFunc)setup_selection_item,
                                 &action_name, NULL);
-
-        // g_strfreev(&action_name);
 }
 
 void bible_preferences_window_add_books(BiblePreferencesWindow *self, GtkStringList *list, guint size)
 {
-        // GtkSingleSelection *book_selection = gtk_single_selection_new(G_LIST_MODEL(list));
-
         gchar *action_name = "book-set";
 
         gtk_list_box_bind_model(self->book_selection, NULL, NULL, NULL, NULL);
@@ -480,38 +449,28 @@ static void
 add_font_rows(BiblePreferencesWindow *self)
 {
 
-        self->pango_context = gtk_text_view_get_rtl_context(self->example_text_view); // gtk_text_view_get_rtl_context(self->text_page->text_view);
+        self->pango_context = gtk_text_view_get_rtl_context(self->example_text_view);
         PangoFontMap *font_map = pango_context_get_font_map(self->pango_context);
         PangoFontFamily **fonts;
         gint font_amount;
-        // font_map;
-        // g_list_foreach(, (GFunc)iterate_over_list, NULL);
+
         pango_font_map_list_families(font_map, &fonts, &font_amount);
-        // PangoFontFamily *font_family = (PangoFontFamily *)g_list_model_get_item(G_LIST_MODEL(font_map), 0);
-        // g_print("font-name: %s", pango_font_family_get_name((PangoFontFamily *)*fonts));
 
         for (int i = 0; i < font_amount; i++)
         {
                 PangoFontFamily *font_family = (PangoFontFamily *)g_list_model_get_item(G_LIST_MODEL(font_map), i);
-                // g_print("font: %s\n", );
-                // for (const GList *iter = (GList *)(font_family); iter; iter = iter->next)
-                // {
-                //         PangoFontFamily *window = (PangoFontFamily *)iter->data;
-                // }
+
                 const gchar *name = pango_font_family_get_name(font_family);
                 GVariant *var = g_variant_new_string(name);
                 GtkWidget *row = adw_action_row_new();
-                // adw_action_row_set_subtitle(ADW_ACTION_ROW(row), name);
+
                 adw_preferences_row_set_title(ADW_PREFERENCES_ROW(row), name);
                 gtk_actionable_set_action_name(GTK_ACTIONABLE(row), "font-set");
                 gtk_actionable_set_action_target_value(GTK_ACTIONABLE(row), var);
 
                 gtk_list_box_row_set_activatable(GTK_LIST_BOX_ROW(row), true);
 
-                // adw_preferences_group_add(self->font_selection, GTK_WIDGET(row));
-
                 gtk_list_box_append(self->font_selection, row);
-                // g_variant_unref(var);
         }
         g_free(fonts);
 }
@@ -531,8 +490,6 @@ void action_set_language(GtkWidget *widget,
         g_value_set_string(&value, language);
         g_object_set_property(G_OBJECT(self->content), "language", &value);
         g_value_unset(&value);
-
-        // g_free(&language);
 }
 
 void action_set_translation(GtkWidget *widget,
@@ -551,8 +508,6 @@ void action_set_translation(GtkWidget *widget,
         g_value_set_string(&value, translation);
         g_object_set_property(G_OBJECT(self->content), "translation", &value);
         g_value_unset(&value);
-
-        // g_free(&translation);
 }
 
 void action_set_book(GtkWidget *widget,
@@ -841,6 +796,12 @@ bible_preferences_window_init(BiblePreferencesWindow *self)
 static void
 bible_preferences_window_dispose(GObject *object)
 {
+        BiblePreferencesWindow *self = (BiblePreferencesWindow *)object;
+
+        g_clear_object(&self->settings);
+        g_clear_object(&self->provider);
+        g_clear_object(&self->text_css_provider);
+
         G_OBJECT_CLASS(bible_preferences_window_parent_class)->dispose(object);
 }
 
