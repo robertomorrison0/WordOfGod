@@ -13,6 +13,8 @@ struct _ScrollButton
         gint max_width;
         gchar *label;
         gdouble default_label_width;
+
+        gboolean should_play_animation;
 };
 
 G_DEFINE_TYPE(ScrollButton, scroll_button, GTK_TYPE_WIDGET)
@@ -70,15 +72,15 @@ scroll_button_measure(GtkWidget *widget,
                         if (child_min > g_value_get_int(&value))
                         {
                                 self->default_label_width = (gdouble)MAX(*minimum, child_min);
-                                g_print("width: %2.f\n", self->default_label_width);
                                 adw_timed_animation_set_value_from(ADW_TIMED_ANIMATION(self->scroll_animation), -(self->default_label_width - g_value_get_int(&value)) / 2);
                                 adw_timed_animation_set_value_to(ADW_TIMED_ANIMATION(self->scroll_animation), (self->default_label_width - g_value_get_int(&value)) / 2);
-                                adw_animation_play(self->scroll_animation);
+                                self->should_play_animation = TRUE;
                                 *minimum = g_value_get_int(&value); // MAX(*minimum, child_min);
                                 *natural = g_value_get_int(&value); // MAX(*natural, child_nat);
                         }
                         else
                         {
+                                self->should_play_animation = FALSE;
                                 *minimum = MAX(*minimum, child_min);
                                 *natural = MAX(*natural, child_nat);
                         }
@@ -110,6 +112,7 @@ scroll_button_allocate(GtkWidget *widget,
 
         if (child && gtk_widget_get_visible(child))
         {
+
                 if (adw_animation_get_state(self->scroll_animation) == ADW_ANIMATION_PLAYING)
                 {
                         gtk_widget_allocate(child,
@@ -121,6 +124,8 @@ scroll_button_allocate(GtkWidget *widget,
                                                                               0)));
                         return;
                 }
+                else if (self->should_play_animation)
+                        adw_animation_play(self->scroll_animation);
 
                 gtk_widget_allocate(child, width, height, baseline, NULL);
         }
@@ -161,6 +166,8 @@ static void
 scroll_button_init(ScrollButton *self)
 {
         self->gesture = gtk_gesture_click_new();
+
+        self->should_play_animation = FALSE;
 
         AdwAnimationTarget *target = adw_callback_animation_target_new((AdwAnimationTargetFunc)_on_timed_animation,
                                                                        self,
