@@ -20,12 +20,13 @@
               <class name="flat"/>
             </style>
 
-            <!-- <property name="centering-policy">strict</property> -->
-            <property name="title-widget">
-              <object class="AdwWindowTitle" id="title">
-                <!-- <property name="title">stack</property> -->
-              </object>
-            </property>
+            
+      <property name="centering-policy">strict</property>
+      <property name="title-widget">
+        <object class="AdwViewSwitcherTitle" id="title">
+          <property name="stack">stack</property>
+        </object>
+      </property>
 
             <child>
               <object class="GtkBox">
@@ -141,10 +142,9 @@
         <child>
           <object class="AdwViewSwitcherBar">
             <property name="stack">stack</property>
-            <property name="reveal">true</property>
-            <!-- <binding name="reveal">
+            <binding name="reveal">
               <lookup name="title-visible">title</lookup>
-            </binding> -->
+            </binding>
           </object>
         </child>
 
