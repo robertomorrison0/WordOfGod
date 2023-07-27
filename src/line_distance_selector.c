@@ -39,7 +39,7 @@ static void line_distance_selector_set_line_distance(LineDistanceSelector *self,
                 g_free(self->line_distance);
                 self->line_distance = g_strdup(line_distance);
 
-                char icon_name[strlen(self->line_distance) + strlen("text-distance-") + 2];
+                gchar icon_name[strlen(self->line_distance) + strlen("text-distance-") + 2];
                 snprintf(icon_name, sizeof(icon_name), "%s%s", "text-distance-", self->line_distance);
                 gtk_button_set_icon_name(self->line_distance_button, icon_name);
                 g_object_notify_by_pspec(G_OBJECT(self), properties[PROP_LINE_DISTANCE]);
@@ -114,7 +114,7 @@ line_distance_selector_dispose(GObject *object)
 }
 
 void line_distance_action(GtkWidget *widget,
-                          const char *action_name,
+                          const gchar *action_name,
                           GVariant *parameter)
 {
         g_assert(LINE_DISTANCE_IS_SELECTOR(widget));
@@ -127,7 +127,7 @@ void line_distance_action(GtkWidget *widget,
         g_value_init(&get_value, G_TYPE_STRING);
 
         g_object_get_property(object, "line-distance", &get_value);
-        const char *line_distance = g_value_get_string(&get_value);
+        const gchar *line_distance = g_value_get_string(&get_value);
 
         if (g_strcmp0(line_distance, "normal") == 0)
         {

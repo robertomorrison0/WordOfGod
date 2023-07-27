@@ -21,7 +21,7 @@ void scroll_button_set_label(ScrollButton *self,
                              const gchar *label);
 
 void scroll_button_set_max_width(ScrollButton *self,
-                                 int max_width);
+                                 gint max_width);
 
 ScrollButton *scroll_button_new();
 

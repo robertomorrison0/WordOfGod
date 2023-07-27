@@ -227,7 +227,7 @@ static void _on_notify_theme_changed(ThemeSelector *theme_selector,
 {
         GValue value = G_VALUE_INIT;
         g_object_get_property(G_OBJECT(theme_selector), param->name, &value);
-        const char *theme = g_value_get_string(&value);
+        const gchar *theme = g_value_get_string(&value);
         if (g_strcmp0(theme, "follow") == 0)
         {
                 adw_style_manager_set_color_scheme(self->style_manager, ADW_COLOR_SCHEME_DEFAULT);
@@ -278,7 +278,7 @@ _on_notify_language_changed(BibleContent *content,
 {
         GValue value = G_VALUE_INIT;
         g_object_get_property(G_OBJECT(content), param->name, &value);
-        const char *language = g_value_get_string(&value);
+        const gchar *language = g_value_get_string(&value);
         g_settings_set_string(self->settings, "current-language", language);
 
         g_value_unset(&value);
@@ -291,10 +291,13 @@ _on_notify_translation_changed(BibleContent *content,
 {
         GValue value = G_VALUE_INIT;
         g_object_get_property(G_OBJECT(content), param->name, &value);
-        const char *translation = g_value_get_string(&value);
-        g_settings_set_string(self->settings, "current-translation", translation);
-        // gtk_button_set_label(self->translation, translation);
+        const gchar *translation = g_value_get_string(&value);
+        g_settings_set_string(self->settings, "current-translation", "ELB");
         g_value_unset(&value);
+        bible_content_get_text(self->content, self->text_page);
+        bible_content_get_title(self->content, self->text_page);
+        // gtk_button_set_label(self->window->translation_button, translation);
+        g_print("translation: %s (pref)\n", translation);
 }
 
 static void
@@ -311,6 +314,7 @@ _on_notify_book_changed(BibleContent *content,
         // bible_content_get_text(self->content, self, self->progressbar);
         bible_content_get_text(self->content, self->text_page);
         bible_content_get_title(self->content, self->text_page);
+        g_print("current-book: %i\n", book);
 }
 
 static void
@@ -479,7 +483,7 @@ add_font_rows(BiblePreferencesWindow *self)
         self->pango_context = gtk_text_view_get_rtl_context(self->example_text_view); // gtk_text_view_get_rtl_context(self->text_page->text_view);
         PangoFontMap *font_map = pango_context_get_font_map(self->pango_context);
         PangoFontFamily **fonts;
-        int font_amount;
+        gint font_amount;
         // font_map;
         // g_list_foreach(, (GFunc)iterate_over_list, NULL);
         pango_font_map_list_families(font_map, &fonts, &font_amount);
@@ -513,7 +517,7 @@ add_font_rows(BiblePreferencesWindow *self)
 }
 
 void action_set_language(GtkWidget *widget,
-                         const char *action_name,
+                         const gchar *action_name,
                          GVariant *parameter)
 {
         BiblePreferencesWindow *self = BIBLE_PREFERENCES_WINDOW(widget);
@@ -532,7 +536,7 @@ void action_set_language(GtkWidget *widget,
 }
 
 void action_set_translation(GtkWidget *widget,
-                            const char *action_name,
+                            const gchar *action_name,
                             GVariant *parameter)
 {
         BiblePreferencesWindow *self = BIBLE_PREFERENCES_WINDOW(widget);
@@ -552,7 +556,7 @@ void action_set_translation(GtkWidget *widget,
 }
 
 void action_set_book(GtkWidget *widget,
-                     const char *action_name,
+                     const gchar *action_name,
                      GVariant *parameter)
 {
         BiblePreferencesWindow *self = BIBLE_PREFERENCES_WINDOW(widget);
@@ -570,12 +574,12 @@ void action_set_book(GtkWidget *widget,
 }
 
 void action_set_chapter(GtkWidget *widget,
-                        const char *action_name,
+                        const gchar *action_name,
                         GVariant *parameter)
 {
         BiblePreferencesWindow *self = BIBLE_PREFERENCES_WINDOW(widget);
         g_assert(BIBLE_IS_CONTENT(self->content));
-        const char *chapter = g_variant_get_string(parameter, NULL);
+        const gchar *chapter = g_variant_get_string(parameter, NULL);
 
         GValue value = G_VALUE_INIT;
         g_value_init(&value, G_TYPE_UINT);
@@ -586,7 +590,7 @@ void action_set_chapter(GtkWidget *widget,
 }
 
 void action_set_font(GtkWidget *widget,
-                     const char *action_name,
+                     const gchar *action_name,
                      GVariant *parameter)
 {
         BiblePreferencesWindow *self = BIBLE_PREFERENCES_WINDOW(widget);
@@ -603,7 +607,7 @@ void action_set_font(GtkWidget *widget,
 }
 
 void action_open_settings(GtkWidget *widget,
-                          const char *action_name,
+                          const gchar *action_name,
                           GVariant *parameter)
 {
         BiblePreferencesWindow *self = BIBLE_PREFERENCES_WINDOW(widget);
@@ -737,7 +741,7 @@ void bible_preferences_window_set_window(BiblePreferencesWindow *self, gpointer 
 
         g_settings_bind(self->settings, "current-translation",
                         self->content, "translation",
-                        G_SETTINGS_BIND_DEFAULT);
+                        G_SETTINGS_BIND_GET);
 
         g_settings_bind(self->settings, "current-book",
                         self->content, "book",
@@ -826,7 +830,7 @@ bible_preferences_window_init(BiblePreferencesWindow *self)
 
         GtkTextBuffer *example_text_buffer = gtk_text_view_get_buffer(self->example_text_view);
         GtkTextIter start;
-        const char example_text[] = "So He humbled you, allowed you to hunger, and fed you with manna which you did not know nor did your fathers know, that He might make you know that man shall not live by bread alone; but man lives by every <i>word</i> that proceeds from the mouth of the LORD.";
+        const gchar example_text[] = "So He humbled you, allowed you to hunger, and fed you with manna which you did not know nor did your fathers know, that He might make you know that man shall not live by bread alone; but man lives by every <i>word</i> that proceeds from the mouth of the LORD.";
         gtk_text_buffer_get_start_iter(example_text_buffer, &start);
         gtk_text_buffer_insert_markup(example_text_buffer, &start, example_text, -1);
 

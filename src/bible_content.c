@@ -140,9 +140,10 @@ bible_content_set_current_translation(BibleContent *self, const gchar *translati
         {
                 g_free(self->current_translation);
                 self->current_translation = g_strdup(translation);
+                g_print("translation: %s\n", translation);
                 if (self->page)
                         bible_text_page_set_translation(self->page, self->current_translation);
-                g_object_notify_by_pspec(G_OBJECT(self), properties[PROP_CURRENT_BOOK]);
+                g_object_notify_by_pspec(G_OBJECT(self), properties[PROP_CURRENT_TRANSLATION]);
         }
 }
 static const gchar *
@@ -334,7 +335,7 @@ void bible_content_get_current_title(BibleContent *self)
         self->current_book_chapters = json_object_get_uint64(book_chapters);
 }
 
-void bible_content_get_translation_info(BibleContent *self, const char *translation)
+void bible_content_get_translation_info(BibleContent *self, const gchar *translation)
 {
 
         struct json_object *parsed_json;
@@ -411,11 +412,11 @@ void bible_content_parse_translation(BibleContent *self)
                         fprintf(stderr, "FAILED to add object (%s)\n", key);
                         abort();
                 }
-                int n_chapters = json_object_get_int(book_chapters);
+                gint n_chapters = json_object_get_int(book_chapters);
 
                 for (size_t k = 0; k < n_chapters; k++)
                 {
-                        char chapter_string[4];
+                        gchar chapter_string[4];
                         sprintf(chapter_string, "%lu", k + 1);
                         json_object *chapter_array = json_object_new_array();
 
@@ -509,8 +510,8 @@ void bible_content_get_current_text(BibleContent *self)
         gtk_text_buffer_get_end_iter(self->buffer, &end);
         gchar chapter[1000];
 
-        char index_str[16];
-        int mark_offsets[n_verses + 1];
+        gchar index_str[16];
+        gint mark_offsets[n_verses + 1];
 
         mark_offsets[0] = 0;
         for (size_t i = 0; i < n_verses; i++)
@@ -610,7 +611,7 @@ void curl_get_title_finished_cb(GObject *source_object,
 void translation_parse_async(BibleContent *self,
                              //     GCancellable *cancellable,
                              GAsyncReadyCallback callback,
-                             gpointer user_data, const char *url)
+                             gpointer user_data, const gchar *url)
 {
         GTask *task = NULL; /* owned */
         AsyncData *data = NULL;
@@ -663,7 +664,7 @@ void free_data(gpointer _data)
 void curl_get_async(BibleContent *self,
                     //     GCancellable *cancellable,
                     GAsyncReadyCallback callback,
-                    gpointer user_data, const char *url)
+                    gpointer user_data, const gchar *url)
 {
         GTask *task = NULL; /* owned */
         AsyncData *data = NULL;
