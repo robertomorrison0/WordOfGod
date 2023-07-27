@@ -8,7 +8,6 @@
     <file alias="theme_selector.ui" preprocess="xml-stripblanks" compressed="true">theme_selector.ui</file>
     <file alias="color_selector.ui" preprocess="xml-stripblanks" compressed="true">color_selector.ui</file>
     <file alias="line_distance_selector.ui" preprocess="xml-stripblanks" compressed="true">line_distance_selector.ui</file>
-    <file alias="scroll_button.ui" preprocess="xml-stripblanks" compressed="true">scroll_button.ui</file>
     <file alias="black.css">../data/styles/black.css</file>
     <file alias="yellow.css">../data/styles/yellow.css</file>
     <file alias="theme_selector.css">../data/styles/theme_selector.css</file>
