@@ -2,10 +2,9 @@
 <interface>
   <requires lib="gtk" version="4.0"/>
   <template class="ScrollButton" parent="GtkWidget">
-        <property name="overflow">hidden</property>
-
-        <child>
-          <object class="GtkLabel" id="child"/>
+    <property name="overflow">hidden</property>
+    <child>
+      <object class="GtkLabel" id="child"/>
     </child>
   </template>
 </interface>

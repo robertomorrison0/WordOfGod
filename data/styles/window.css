@@ -15,19 +15,13 @@
     border-radius: 9999px;
 }
 
-  
-/* .passage_button label {
-    transform: translateX(100px);
-    animation:  15s linear infinite slide-animation;
+scrolledwindow viewport
+{
+    border-radius: 12px;
 }
 
-  
-@keyframes slide-animation {
-    from {
-        transform: translateX(100px);
-    }
-    to {
-        transform: translateX(-100px);
-    }
-} */
+button.chapter-selection
+{
+    padding: 12px;
+}
 

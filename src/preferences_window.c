@@ -382,6 +382,11 @@ GtkWidget *setup_chapter_selection_item(GtkStringObject *item,
         gtk_actionable_set_action_name(GTK_ACTIONABLE(button), *action_name);
         gtk_actionable_set_action_target_value(GTK_ACTIONABLE(button), var);
         gtk_button_set_has_frame(GTK_BUTTON(button), false);
+        gtk_widget_set_margin_top(button, 5);
+        gtk_widget_set_margin_bottom(button, 5);
+        gtk_widget_set_margin_start(button, 5);
+        gtk_widget_set_margin_end(button, 5);
+        gtk_widget_add_css_class(button, "chapter-selection");
 
         return button;
 }
