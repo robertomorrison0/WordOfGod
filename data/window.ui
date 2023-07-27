@@ -13,25 +13,21 @@
         <property name="orientation">vertical</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
-        <!-- ... -->
+        
         <child>
           <object class="AdwHeaderBar">
             <style>
               <class name="flat"/>
             </style>
-
-            
-      <property name="centering-policy">strict</property>
-      <property name="title-widget">
-        <object class="AdwViewSwitcherTitle" id="title">
-          <property name="stack">stack</property>
-        </object>
-      </property>
-
+            <property name="centering-policy">strict</property>
+            <property name="title-widget">
+              <object class="AdwViewSwitcherTitle" id="title">
+                <property name="stack">stack</property>
+              </object>
+            </property>
             <child>
               <object class="GtkBox">
                 <property name="orientation">horizontal</property>
-
                 <child>
                   <object class="GtkButton" id="back_button">
                     <style>
@@ -39,7 +35,6 @@
                     </style>
                     <property name="icon-name">go-previous-symbolic</property>
                     <property name="visible">false</property>
-
                   </object>
                 </child>
               </object>
@@ -47,45 +42,22 @@
             <child>
               <object class="GtkBox" id="passage_box">
                 <property name="orientation">horizontal</property>
-                <!-- <property name="hexpand">True</property> -->
                 <property name="halign">start</property>
                 <style>
                   <class name="linked"/>
                 </style>
-
-
-    <child>
-      <object class="ScrollButton" id="book_button">
-
-      <property name="max-width">100</property>
-      <!-- <property name="label"></property> -->
-      </object>
-    </child>
-
-
-    <child>
-      <object class="ScrollButton" id="translation_button">
-
-      <property name="max-width">60</property>
-      <!-- <property name="label"></property> -->
-      </object>
-    </child>
-                <!-- <child>
-                  <object class="GtkButton" id="translation_button">
-                    <style>
-                      <class name="passage_button"/>
-                    </style>
-                    <property name="overflow">hidden</property>
-                    <property name="label"></property>
+                <child>
+                  <object class="ScrollButton" id="book_button">
+                    <property name="max-width">100</property>
                   </object>
-                </child> -->
-                
-    
-    
+                </child>
+                <child>
+                  <object class="ScrollButton" id="translation_button">
+                    <property name="max-width">60</property>
+                  </object>
+                </child>
               </object>
             </child>
-            <!-- <property name="icon-name">org.gnome.Settings-symbolic</property> -->
-            <!-- <signal name="clicked" handler="_on_style_preferences_button_clicked"/> -->
             <property name="show-end-title-buttons">True</property>
             <property name="show-start-title-buttons">False</property>
           </object>
@@ -99,7 +71,6 @@
           </object>
         </child>
 
-
         <!-- PAGE -->
 
         <child>
@@ -110,19 +81,7 @@
                 <property name="title">Read</property>
                 <property name="icon-name">reading-overview-symbolic</property>
                 <property name="child">
-                  <!-- <object class="GtkScrolledWindow" id="scrolled_window">
-                    
-                    <property name="hexpand">True</property>
-                    <property name="vexpand">True</property>
-                    <property name="margin-top">12</property>
-                    <property name="margin-bottom">12</property>
-                    <property name="margin-start">12</property>
-                    <property name="margin-end">12</property>
-
-                    <child> -->
-                      <object class="BibleTextPage" id="text_page"/>
-                    <!-- </child>
-                  </object> -->
+                  <object class="BibleTextPage" id="text_page"/>
                 </property>
               </object>
             </child>
@@ -133,7 +92,6 @@
                 <property name="icon-name">org.gnome.Settings-symbolic</property>
                 <property name="child">
                   <object class="BiblePreferencesWindow" id="preferences_window" />
-
                 </property>
               </object>
             </child>
@@ -147,8 +105,6 @@
             </binding>
           </object>
         </child>
-
-
       </object>
     </property>
   </template>
