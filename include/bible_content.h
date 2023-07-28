@@ -18,7 +18,7 @@ BibleContent *bible_content_new(void);
 // GtkTextBuffer *
 // bible_content_get_current_text(BibleContent *self);
 
-void bible_content_get_text(BibleContent *self, BibleTextPage *page);
+void bible_content_set_current_chapter_text(BibleContent *self, GtkTextBuffer *buffer);
 
 void bible_content_get_title(BibleContent *self, BibleTextPage *page);
 

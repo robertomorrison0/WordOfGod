@@ -6,6 +6,7 @@
 #include <theme_selector.h>
 #include <line_distance_selector.h>
 #include <text_page.h>
+#include <json-c/json.h>
 
 #define BIBLE_PREFERENCES_WINDOW_TYPE (bible_preferences_window_get_type())
 G_DECLARE_FINAL_TYPE(BiblePreferencesWindow, bible_preferences_window, BIBLE, PREFERENCES_WINDOW, AdwBin)

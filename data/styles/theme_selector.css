@@ -20,7 +20,7 @@ themeselector {
 
 themeselector checkbutton.follow {
   /* background-image: url("text.svg"); */
-  background-image: linear-gradient(to bottom right, #fff 49.99%, #202020 50.01%);
+  background-image: linear-gradient(to bottom right, #fff 49%, #202020 51%);
   box-shadow: inset 0 0 0 2px @window_fg_color;
 }
  themeselector checkbutton.light {

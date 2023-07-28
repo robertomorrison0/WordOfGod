@@ -28,8 +28,6 @@ bible_app_activate(GApplication *app)
         win = bible_app_window_new(BIBLE_APP(app));
         gtk_window_present(GTK_WINDOW(win));
 
-        // const gchar *name = g_strdup_printf("%s/gtkbible", g_get_user_config_dir());
-        // g_mkdir(name, 7);
 
         // g_print("file name: %s\n", name);
 

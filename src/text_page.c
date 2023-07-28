@@ -405,6 +405,7 @@ void bible_text_page_set_property(GObject *object,
 
         case PROP_HIGHLIGHTS:
                 bible_text_page_set_highlights(self, g_value_get_string(value));
+                break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
                 g_print("\n::%s\n\n", g_value_get_string(value));
@@ -552,7 +553,6 @@ static void save_highlight(BibleTextPage *self)
         bible_text_page_set_highlights(self, json_object_get_string(export_json));
 
         g_free(array_key);
-        ;
 }
 
 static void

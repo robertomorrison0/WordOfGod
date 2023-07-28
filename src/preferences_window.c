@@ -26,6 +26,9 @@ struct _BiblePreferencesWindow
         GtkListBox *translation_selection;
         GtkListBox *book_selection;
         GtkFlowBox *chapter_selection;
+        GtkListBox *highlights_selection;
+
+        GtkStringList *highlights_list;
 
         GSettings *settings;
 
@@ -39,6 +42,7 @@ struct _BiblePreferencesWindow
         GtkBox *style_page;
         GtkBox *passage_page;
         AdwClamp *data_page;
+        AdwClamp *highlights_page;
 
         gchar *line_distance;
         guint font_size;
@@ -290,7 +294,7 @@ _on_notify_translation_changed(BibleContent *content,
         const gchar *translation = g_value_get_string(&value);
         g_settings_set_string(self->settings, "current-translation", "ELB");
         g_value_unset(&value);
-        bible_content_get_text(self->content, self->text_page);
+        bible_content_set_current_chapter_text(self->content, self->text_page);
         bible_content_get_title(self->content, self->text_page);
         // scroll_button_set_label(self->window->translation_button, translation);
 }
@@ -305,7 +309,7 @@ _on_notify_book_changed(BibleContent *content,
         guint book = g_value_get_uint(&value);
         g_settings_set_uint(self->settings, "current-book", book);
         g_value_unset(&value);
-        bible_content_get_text(self->content, self->text_page);
+        bible_content_set_current_chapter_text(self->content, self->text_page);
         bible_content_get_title(self->content, self->text_page);
 }
 
@@ -349,16 +353,6 @@ static void _on_notify_font_changed(BibleTextPage *page,
         bible_preferences_window_update_font(self);
 }
 
-static void _on_notify_highlights_changed(BibleTextPage *page,
-                                          GParamSpec *param,
-                                          BiblePreferencesWindow *self)
-{
-        GValue value = G_VALUE_INIT;
-        g_object_get_property(G_OBJECT(page), param->name, &value);
-        g_settings_set_string(self->settings, param->name, g_strdup(g_value_get_string(&value)));
-        g_value_unset(&value);
-}
-
 GtkWidget *setup_selection_item(GtkStringObject *item,
                                 const gchar **action_name)
 {
@@ -371,6 +365,59 @@ GtkWidget *setup_selection_item(GtkStringObject *item,
         adw_preferences_row_set_title(ADW_PREFERENCES_ROW(row), value);
 
         return row;
+}
+
+void bible_preferences_window_add_highlights(BiblePreferencesWindow *self, const gchar *highlights_json)
+{
+        gchar *action_name = "set";
+
+        gtk_list_box_bind_model(self->highlights_selection, NULL, NULL, NULL, NULL);
+
+        self->highlights_list = gtk_string_list_new(NULL);
+
+        json_object *export_json = json_tokener_parse(highlights_json);
+        json_object *highlight_object;
+        json_object *book_object;
+        json_object *chapter_object;
+        json_object *verse_object;
+
+        const gchar book_key[] = "book";
+        const gchar chapter_key[] = "chapter";
+        const gchar verse_key[] = "verse";
+
+        size_t n_highlights = json_object_array_length(export_json);
+
+        for (size_t i = 0; i < n_highlights; i++)
+        {
+                highlight_object = json_object_array_get_idx(export_json, i);
+                json_object_object_get_ex(highlight_object, book_key, &book_object);
+                json_object_object_get_ex(highlight_object, chapter_key, &chapter_object);
+                json_object_object_get_ex(highlight_object, verse_key, &verse_object);
+
+                gtk_string_list_append(self->highlights_list,
+                                       g_strdup_printf("Book: %i\tChapter: %i\tVerse: %i",
+                                                       json_object_get_int(book_object),
+                                                       json_object_get_int(chapter_object),
+                                                       json_object_get_int(verse_object)));
+        }
+
+        gtk_list_box_bind_model(self->highlights_selection,
+                                G_LIST_MODEL(self->highlights_list),
+                                (GtkListBoxCreateWidgetFunc)setup_selection_item,
+                                &action_name, NULL);
+}
+
+static void _on_notify_highlights_changed(BibleTextPage *page,
+                                          GParamSpec *param,
+                                          BiblePreferencesWindow *self)
+{
+        GValue value = G_VALUE_INIT;
+        g_object_get_property(G_OBJECT(page), param->name, &value);
+        gchar *hightlights = g_strdup(g_value_get_string(&value));
+        g_settings_set_string(self->settings, param->name, hightlights);
+        bible_preferences_window_add_highlights(self, hightlights);
+        // g_strfreev(&hightlights);
+        g_value_unset(&value);
 }
 
 GtkWidget *setup_chapter_selection_item(GtkStringObject *item,
@@ -583,6 +630,10 @@ void action_open_settings(GtkWidget *widget,
         else if (g_strcmp0(page, "data") == 0)
         {
                 adw_leaflet_reorder_child_after(self->leaflet, GTK_WIDGET(self->data_page), GTK_WIDGET(self->overview_page));
+        }
+        else if (g_strcmp0(page, "highlights") == 0)
+        {
+                adw_leaflet_reorder_child_after(self->leaflet, GTK_WIDGET(self->highlights_page), GTK_WIDGET(self->overview_page));
         }
         adw_leaflet_navigate(self->leaflet, ADW_NAVIGATION_DIRECTION_FORWARD);
 }
@@ -828,14 +879,18 @@ bible_preferences_window_class_init(BiblePreferencesWindowClass *klass)
         gtk_widget_class_bind_template_child(widget_class, BiblePreferencesWindow, font_bigger_button);
         gtk_widget_class_bind_template_child(widget_class, BiblePreferencesWindow, add_translation_button);
         gtk_widget_class_bind_template_child(widget_class, BiblePreferencesWindow, example_text_view);
+
         gtk_widget_class_bind_template_child(widget_class, BiblePreferencesWindow, style_page);
         gtk_widget_class_bind_template_child(widget_class, BiblePreferencesWindow, passage_page);
         gtk_widget_class_bind_template_child(widget_class, BiblePreferencesWindow, data_page);
+        gtk_widget_class_bind_template_child(widget_class, BiblePreferencesWindow, highlights_page);
+
         gtk_widget_class_bind_template_child(widget_class, BiblePreferencesWindow, font_selection);
         gtk_widget_class_bind_template_child(widget_class, BiblePreferencesWindow, language_selection);
         gtk_widget_class_bind_template_child(widget_class, BiblePreferencesWindow, translation_selection);
         gtk_widget_class_bind_template_child(widget_class, BiblePreferencesWindow, book_selection);
         gtk_widget_class_bind_template_child(widget_class, BiblePreferencesWindow, chapter_selection);
+        gtk_widget_class_bind_template_child(widget_class, BiblePreferencesWindow, highlights_selection);
 
         gtk_widget_class_bind_template_child(widget_class, BiblePreferencesWindow, leaflet);
         gtk_widget_class_bind_template_child(widget_class, BiblePreferencesWindow, overview_page);
