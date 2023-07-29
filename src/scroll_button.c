@@ -173,7 +173,7 @@ scroll_button_init(ScrollButton *self)
                                                                        self,
                                                                        NULL);
 
-        self->scroll_animation = adw_timed_animation_new(GTK_WIDGET(self), 0, 1, 7000, g_object_ref(target));
+        self->scroll_animation = adw_timed_animation_new(GTK_WIDGET(self), 0, 1, 10000, g_object_ref(target));
         adw_timed_animation_set_alternate(ADW_TIMED_ANIMATION(self->scroll_animation), true);
         adw_timed_animation_set_repeat_count(ADW_TIMED_ANIMATION(self->scroll_animation), 0);
         adw_timed_animation_set_easing(ADW_TIMED_ANIMATION(self->scroll_animation), ADW_EASE_IN_OUT_CUBIC);

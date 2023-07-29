@@ -741,7 +741,7 @@ void bible_content_get_translations(BibleContent *self, const gchar *language)
         {
                 translation_object = json_object_array_get_idx(translations_language_array, i);
                 json_object_object_get_ex(translation_object, "short_name", &short_name_object);
-                gtk_string_list_append(self->translation_list, json_object_get_string(short_name_object));
+                gtk_string_list_append(self->translation_list, json_object_to_json_string(translation_object));
         }
 
         bible_preferences_window_add_translations(self->preferences_window, self->translation_list);

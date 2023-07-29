@@ -4,6 +4,7 @@
 #include <glib/gi18n.h>
 #include <window.h>
 #include <bible_content.h>
+#include <json-c/json.h>
 
 struct _BiblePreferencesWindow
 {
@@ -391,6 +392,25 @@ GtkWidget *setup_chapter_selection_item(GtkStringObject *item,
         return button;
 }
 
+GtkWidget *setup_translation_selection_item(GtkStringObject *item,
+                                            const gchar **action_name)
+{
+        const gchar *value = gtk_string_object_get_string(item);
+        json_object *j = json_tokener_parse(value);
+        json_object *short_name = json_object_object_get(j, "short_name");
+        json_object *full_name = json_object_object_get(j, "full_name");
+
+        GtkWidget *row = adw_action_row_new();
+        GVariant *var = g_variant_new_string(json_object_get_string(short_name));
+        gtk_actionable_set_action_name(GTK_ACTIONABLE(row), *action_name);
+        gtk_actionable_set_action_target_value(GTK_ACTIONABLE(row), var);
+        gtk_list_box_row_set_activatable(GTK_LIST_BOX_ROW(row), true);
+        adw_preferences_row_set_title(ADW_PREFERENCES_ROW(row), json_object_get_string(short_name));
+        adw_action_row_set_subtitle(ADW_ACTION_ROW(row), json_object_get_string(full_name));
+
+        return row;
+}
+
 void bible_preferences_window_add_languages(BiblePreferencesWindow *self, GtkStringList *list)
 {
         gchar *action_name = "language-set";
@@ -414,7 +434,7 @@ void bible_preferences_window_add_translations(BiblePreferencesWindow *self, Gtk
 
         gtk_list_box_bind_model(self->translation_selection,
                                 G_LIST_MODEL(list),
-                                (GtkListBoxCreateWidgetFunc)setup_selection_item,
+                                (GtkListBoxCreateWidgetFunc)setup_translation_selection_item,
                                 &action_name, NULL);
 }
 
