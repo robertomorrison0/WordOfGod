@@ -54,6 +54,7 @@
     
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
+            <property name="propagate-natural-height">True</property>
             <style>
               <class name="undershoot-start"/>
               <class name="undershoot-end"/>
@@ -64,7 +65,7 @@
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <child>
-                  <object class="GtkLabel" id="title">
+                  <object class="GtkLabel" id="text_title">
                     <style>
                       <class name="chapter-title"/>
                     </style>
@@ -107,7 +108,7 @@
                     <property name="wrap-mode">GTK_WRAP_WORD_CHAR</property>
                     <property name="buffer">
     
-                      <object class="GtkTextBuffer">
+                      <object class="GtkTextBuffer" id="text_buffer">
                         <property name="text">
                         </property>
                       </object>

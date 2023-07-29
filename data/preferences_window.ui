@@ -51,18 +51,38 @@
                                 </child>
                                 <child>
                                     <object class="AdwActionRow">
-                                        <property name="title">Data</property>
-                                        <property name="action-name">settings-open</property>
-                                        <property name="action-target">'data'</property>
+                                        <property name="title">Other Translations</property>
+                                        <!-- <property name="action-name">settings-open</property>
+                                        <property name="action-target">'data'</property> -->
                                         <property name="activatable">True</property>
+                                        <property name="sensitive">False</property>
                                     </object>
                                 </child>
                                 <child>
                                     <object class="AdwActionRow">
                                         <property name="title">Highlights</property>
-                                        <property name="action-name">settings-open</property>
-                                        <property name="action-target">'highlights'</property>
+                                        <!-- <property name="action-name">settings-open</property>
+                                        <property name="action-target">'highlights'</property> -->
                                         <property name="activatable">True</property>
+                                        <property name="sensitive">False</property>
+                                    </object>
+                                </child>
+                                <child>
+                                    <object class="AdwActionRow">
+                                        <property name="title">Verse of the day</property>
+                                        <!-- <property name="action-name">settings-open</property> -->
+                                        <!-- <property name="action-target">'highlights'</property> -->
+                                        <property name="activatable">True</property>
+                                        <property name="sensitive">False</property>
+                                    </object>
+                                </child>
+                                <child>
+                                    <object class="AdwActionRow">
+                                        <property name="title">About</property>
+                                        <!-- <property name="action-name">settings-open</property> -->
+                                        <!-- <property name="action-target">'highlights'</property> -->
+                                        <property name="activatable">True</property>
+                                        <property name="sensitive">False</property>
                                     </object>
                                 </child>
                             </object>

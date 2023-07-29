@@ -21,8 +21,10 @@ struct _BibleTextPage
 {
         GtkBox parent;
 
-        GtkLabel *title;
+        GtkLabel *text_title;
         GtkTextView *text_view;
+        GtkTextBuffer *text_buffer;
+
         gchar *line_distance;
         guint font_size;
         gchar *font;
@@ -54,8 +56,6 @@ struct _BibleTextPage
         GtkBox *navigation_box_hidden;
 
         double last_scroll_value;
-
-        ScrollButton *test;
 };
 
 G_DEFINE_TYPE(BibleTextPage, bible_text_page, GTK_TYPE_BOX)
@@ -72,9 +72,44 @@ enum
 
 static GParamSpec *properties[LAST_PROP];
 
+GtkTextBuffer *bible_text_page_get_buffer(BibleTextPage *self)
+{
+        if (GTK_IS_TEXT_BUFFER(self->text_buffer))
+                return self->text_buffer;
+
+        self->text_buffer = gtk_text_buffer_new(NULL);
+        gtk_text_view_set_buffer(self->text_view, self->text_buffer);
+        return self->text_buffer;
+}
+
+GtkLabel *bible_text_page_get_title_label(BibleTextPage *self)
+{
+        if (GTK_IS_TEXT_BUFFER(self->text_buffer))
+                return self->text_title;
+
+        self->text_title = (GtkLabel *)gtk_label_new("");
+        return self->text_title;
+}
+
+ScrollButton *bible_text_page_get_book_button(BibleTextPage *self)
+{
+        if (SCROLL_IS_BUTTON(self->translation_button))
+                return self->translation_button;
+
+        return NULL;
+}
+
+ScrollButton *bible_text_page_get_translation_button(BibleTextPage *self)
+{
+        if (SCROLL_IS_BUTTON(self->book_button))
+                return self->book_button;
+
+        return NULL;
+}
+
 void bible_text_page_set_title(BibleTextPage *self, const gchar *title)
 {
-        gtk_label_set_markup(self->title, title);
+        gtk_label_set_markup(self->text_title, title);
         // gtk_label_set_use_markup(GTK_LABEL(gtk_button_get_child(self->book)), true);
         // gtk_button_set_label(self->book_button, title);
         scroll_button_set_label(self->book_button, title);
@@ -97,7 +132,8 @@ get_pango_context(BibleTextPage *self)
 void _on_previous_chapter_button_clicked(BibleTextPage *self)
 {
         // gtk_progress_bar_pulse(self->progressbar);
-        bible_content_set_current_chapter_previous(self->bible_content);
+        // bible_content_set_current_chapter_previous(self->bible_content);
+        bible_content_set_current_chapter_previous(self->bible_content); //, self->text_buffer);
 }
 
 void _on_next_chapter_button_clicked(BibleTextPage *self)
@@ -169,52 +205,11 @@ highlight_in_page(BibleTextPage *self)
         }
 }
 
-void bible_text_page_set_text(BibleTextPage *self, GtkTextBuffer *buffer)
+void _on_text_changed(GtkTextBuffer *buffer, BibleTextPage *self)
 {
 
-        // gtk_text_view_set_buffer(self->text_view, NULL);
-
-        // GtkTextTagTable *table = gtk_text_buffer_get_tag_table(buffer);
-        // if (!GTK_IS_TEXT_TAG(gtk_text_tag_table_lookup(table, "highlighted")))
-        gtk_text_buffer_create_tag(
-            buffer, "highlighted",
-            "underline", PANGO_UNDERLINE_ERROR_LINE
-            //     ,
-            //     "background", "#05F230"
-            //     ,
-            //     "underline-rgba-set", TRUE,
-            //     "underline-rgba", color
-        );
-
-        // if (!GTK_IS_TEXT_TAG(gtk_text_tag_table_lookup(table, "green")))
-        gtk_text_buffer_create_tag(
-            buffer, "green",
-            "background", "#31793e");
-
-        // if (!GTK_IS_TEXT_TAG(gtk_text_tag_table_lookup(table, "red")))
-        gtk_text_buffer_create_tag(
-            buffer, "red",
-            "background", "#FF4608");
-
-        // if (!GTK_IS_TEXT_TAG(gtk_text_tag_table_lookup(table, "blue")))
-        gtk_text_buffer_create_tag(
-            buffer, "blue",
-            "background", "#0767DB");
-
-        // if (!GTK_IS_TEXT_TAG(gtk_text_tag_table_lookup(table, "yellow")))
-        gtk_text_buffer_create_tag(
-            buffer, "yellow",
-            "background", "#DBBC07");
-
-        // if (!GTK_IS_TEXT_TAG(gtk_text_tag_table_lookup(table, "pink")))
-        gtk_text_buffer_create_tag(
-            buffer, "pink",
-            "background", "#DB00FA");
-        gtk_text_view_set_buffer(self->text_view, buffer);
         GtkAdjustment *vadjustment = gtk_scrolled_window_get_vadjustment(self->scrolled);
-
         gtk_adjustment_set_value(vadjustment, 0.0);
-
         gtk_scrolled_window_set_vadjustment(self->scrolled, vadjustment);
         highlight_in_page(self);
 }
@@ -428,7 +423,7 @@ _on_text_long_pressed(GtkGestureLongPress *self,
 
         gtk_text_buffer_get_start_iter(buffer, &page->hightlight_start_iter);
         gtk_text_buffer_get_end_iter(buffer, &page->hightlight_end_iter);
-        GtkTextTagTable *table = gtk_text_buffer_get_tag_table(buffer);
+        // GtkTextTagTable *table = gtk_text_buffer_get_tag_table(buffer);
 
         // gtk_text_tag_table_lookup()
 
@@ -692,12 +687,9 @@ void bible_text_page_set_window(BibleTextPage *self, gpointer window)
 
         // self->bible_content = content;
 }
-gboolean
-hide_navigation_box_timeout(GtkWidget *nav)
+void hide_navigation_box_timeout(GtkWidget *nav)
 {
         gtk_widget_set_visible(nav, false);
-
-        return G_SOURCE_REMOVE;
 }
 
 void _on_text_scrolled(GtkAdjustment *adjustment,
@@ -715,7 +707,7 @@ void _on_text_scrolled(GtkAdjustment *adjustment,
                 return;
         }
         gtk_widget_remove_css_class(GTK_WIDGET(self->navigation_box), "visible");
-        g_timeout_add(400, (GSourceFunc)hide_navigation_box_timeout, self->navigation_box);
+        g_timeout_add_once(400, (GSourceOnceFunc)hide_navigation_box_timeout, self->navigation_box);
         self->last_scroll_value = value;
 }
 
@@ -791,6 +783,48 @@ bible_text_page_init(BibleTextPage *self)
         g_object_set_property(G_OBJECT(self->book_button), "width-request", &value);
 
         gtk_overlay_add_overlay(self->overlay_box, GTK_WIDGET(self->navigation_box));
+
+        // gtk_text_view_set_buffer(self->text_view, NULL);
+
+        // GtkTextTagTable *table = gtk_text_buffer_get_tag_table(buffer);
+        // if (!GTK_IS_TEXT_TAG(gtk_text_tag_table_lookup(table, "highlighted")))
+        gtk_text_buffer_create_tag(
+            self->text_buffer, "highlighted",
+            "underline", PANGO_UNDERLINE_ERROR_LINE
+            //     ,
+            //     "background", "#05F230"
+            //     ,
+            //     "underline-rgba-set", TRUE,
+            //     "underline-rgba", color
+        );
+
+        // if (!GTK_IS_TEXT_TAG(gtk_text_tag_table_lookup(table, "green")))
+        gtk_text_buffer_create_tag(
+            self->text_buffer, "green",
+            "background", "#31793e");
+
+        // if (!GTK_IS_TEXT_TAG(gtk_text_tag_table_lookup(table, "red")))
+        gtk_text_buffer_create_tag(
+            self->text_buffer, "red",
+            "background", "#FF4608");
+
+        // if (!GTK_IS_TEXT_TAG(gtk_text_tag_table_lookup(table, "blue")))
+        gtk_text_buffer_create_tag(
+            self->text_buffer, "blue",
+            "background", "#0767DB");
+
+        // if (!GTK_IS_TEXT_TAG(gtk_text_tag_table_lookup(table, "yellow")))
+        gtk_text_buffer_create_tag(
+            self->text_buffer, "yellow",
+            "background", "#DBBC07");
+
+        // if (!GTK_IS_TEXT_TAG(gtk_text_tag_table_lookup(table, "pink")))
+        gtk_text_buffer_create_tag(
+            self->text_buffer, "pink",
+            "background", "#DB00FA");
+        // gtk_text_view_set_buffer(self->text_view, buffer);
+
+        g_signal_connect(self->text_buffer, "changed", G_CALLBACK(_on_text_changed), self);
 }
 
 static void
@@ -831,7 +865,8 @@ bible_text_page_class_init(BibleTextPageClass *klass)
         gtk_widget_class_set_template_from_resource(widget_class, "/org/robertomorrison/gtkbible/text_page.ui");
 
         gtk_widget_class_bind_template_child(widget_class, BibleTextPage, text_view);
-        gtk_widget_class_bind_template_child(widget_class, BibleTextPage, title);
+        gtk_widget_class_bind_template_child(widget_class, BibleTextPage, text_buffer);
+        gtk_widget_class_bind_template_child(widget_class, BibleTextPage, text_title);
         gtk_widget_class_bind_template_child(widget_class, BibleTextPage, scrolled);
         gtk_widget_class_bind_template_child(widget_class, BibleTextPage, overlay_box);
 

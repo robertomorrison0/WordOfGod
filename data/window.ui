@@ -5,7 +5,7 @@
     <property name="default-height">600</property>
     <!-- <property name="modal">True</property> -->
     <style>
-      <!-- <class name="devel"/> -->
+      <class name="devel"/>
     </style>
 
     <property name="content">
@@ -19,7 +19,7 @@
             <style>
               <class name="flat"/>
             </style>
-            <property name="centering-policy">strict</property>
+            <!-- <property name="centering-policy">loose</property> -->
             <property name="title-widget">
               <object class="AdwViewSwitcherTitle" id="title">
                 <property name="stack">stack</property>
@@ -30,9 +30,6 @@
                 <property name="orientation">horizontal</property>
                 <child>
                   <object class="GtkButton" id="back_button">
-                    <style>
-                      <class name="font"/>
-                    </style>
                     <property name="icon-name">go-previous-symbolic</property>
                     <property name="visible">false</property>
                   </object>
@@ -98,7 +95,7 @@
           </object>
         </child>
         <child>
-          <object class="AdwViewSwitcherBar">
+          <object class="AdwViewSwitcherBar" >
             <property name="stack">stack</property>
             <binding name="reveal">
               <lookup name="title-visible">title</lookup>

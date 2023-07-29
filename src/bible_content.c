@@ -1,5 +1,6 @@
 #include <bible_content.h>
 #include <json-c/json.h>
+#include <window.h>
 
 struct _BibleContent
 {
@@ -43,7 +44,7 @@ enum
 
 enum
 {
-        SIG_TRANLATION_LOADED,
+        SIG_TRANSLATION_LOADED,
         SIG_LAST
 };
 
@@ -67,6 +68,10 @@ typedef struct
 {
         gint chapter, book;
         GtkTextBuffer *buffer;
+        GtkLabel *title_label;
+        ScrollButton *book_button;
+        ScrollButton *tranlation_button;
+
 } GetChapterData;
 
 // #define BIBLE_MINIMUM_FONT_SIZE 8
@@ -166,9 +171,9 @@ void curl_get_async(BibleContent *self,
 }
 
 static void
-open_file_complete(GObject *source_object,
-                   GAsyncResult *result,
-                   BibleContent *self)
+open_translation_file_complete(GObject *source_object,
+                               GAsyncResult *result,
+                               BibleContent *self)
 {
         GFile *file = G_FILE(source_object);
 
@@ -192,23 +197,23 @@ open_file_complete(GObject *source_object,
 
         self->current_translation_content_json = g_strdup(contents);
 
-        g_signal_emit(self, signals[SIG_TRANLATION_LOADED], 0);
+        g_signal_emit(self, signals[SIG_TRANSLATION_LOADED], 0);
 }
 
 static void
-open_file(BibleContent *self, GFile *file)
+open_translation_file(BibleContent *self, GFile *file)
 {
         // Start the asynchronous operation to save the data into the file
         g_file_load_contents_async(file,
                                    NULL,
-                                   (GAsyncReadyCallback)open_file_complete,
+                                   (GAsyncReadyCallback)open_translation_file_complete,
                                    self);
 }
 
 static void
-save_file_complete(GObject *source_object,
-                   GAsyncResult *result,
-                   BibleContent *self)
+save_translation_file_complete(GObject *source_object,
+                               GAsyncResult *result,
+                               BibleContent *self)
 {
         GFile *file = G_FILE(source_object);
 
@@ -240,11 +245,15 @@ save_file_complete(GObject *source_object,
                            error->message);
         }
 
-        open_file(self, file);
+        // gchar *file_path = g_strdup_printf("%s%s.json", self->config_folder, self->current_translation);
+        // file = g_file_new_for_path(file_path);
+
+        g_print("open file: %s\n", g_file_info_get_display_name(info));
+        open_translation_file(self, file);
 }
 
 static void
-save_file(BibleContent *self, GFile *file, gchar *content)
+save_translation_file(BibleContent *self, GFile *file, gchar *content)
 {
         if (content == NULL)
                 return;
@@ -258,7 +267,7 @@ save_file(BibleContent *self, GFile *file, gchar *content)
                                             FALSE,
                                             G_FILE_CREATE_NONE,
                                             NULL,
-                                            (GAsyncReadyCallback)save_file_complete,
+                                            (GAsyncReadyCallback)save_translation_file_complete,
                                             self);
 }
 
@@ -345,6 +354,7 @@ void bible_content_parse_translation(BibleContent *self)
 
         gchar *file_path = g_strdup_printf("%s%s.json", self->config_folder, self->current_translation);
 
+        g_print("save path: %s\n", file_path);
         GFile *file = g_file_new_for_path(file_path);
         GError *error = NULL;
 
@@ -360,7 +370,7 @@ void bible_content_parse_translation(BibleContent *self)
 
         if (!g_file_test(file_path, G_FILE_TEST_EXISTS))
         {
-                save_file(self, file, g_strdup(json_object_to_json_string(export_json)));
+                save_translation_file(self, file, g_strdup(json_object_to_json_string(export_json)));
         }
         else
         {
@@ -431,24 +441,25 @@ void get_translation(BibleContent *self)
 {
         if (self->current_translation_content_json && g_strcmp0(self->current_translation_content_json, "") > 0)
         {
-                g_signal_emit(self, signals[SIG_TRANLATION_LOADED], 0);
+                g_signal_emit(self, signals[SIG_TRANSLATION_LOADED], 0);
                 return;
         }
 
         gchar *file_path = g_strdup_printf("%s%s.json", self->config_folder, self->current_translation);
-        g_print("file %s\n", g_file_test(file_path, G_FILE_TEST_EXISTS) ? "exists" : "doese not exist");
 
         if (!g_file_test(file_path, G_FILE_TEST_EXISTS))
         {
                 gchar *url = g_strdup_printf("https://bolls.life/static/translations/%s.json", self->current_translation);
-                g_print("download and creating file: %s.json\n", self->current_translation);
+                g_print("downloading (from: \"%s\") and creating file: %s.json\n",
+                        url,
+                        self->current_translation);
                 curl_get_async(self, curl_get_translation_verses_finished_cb, NULL, url);
         }
         else
         {
                 gchar *file_path = g_strdup_printf("%s%s.json", self->config_folder, self->current_translation);
                 GFile *file = g_file_new_for_path(file_path);
-                open_file(self, file);
+                open_translation_file(self, file);
         }
 }
 
@@ -497,9 +508,15 @@ get_chapter_from_translation(BibleContent *self, GetChapterData *data)
                         if (!json_object_object_get_ex(book_object, g_strdup_printf("%i", data->chapter), &chapter_object))
                                 break;
 
-                        size_t chapter_length = json_object_array_length(chapter_object);
-                        g_print("chapter: %i/ %i\n", data->chapter, chapter_length);
+                        gtk_label_set_label(data->title_label,
+                                            g_strdup_printf("%s %i",
+                                                            json_object_iter_peek_name(&it_export),
+                                                            self->current_chapter));
 
+                        // scroll_button_set_label(data->book_button, json_object_iter_peek_name(&it_export));
+                        // scroll_button_set_label(data->tranlation_button, self->current_translation);
+
+                        size_t chapter_length = json_object_array_length(chapter_object);
                         for (size_t i = 1; i < chapter_length; i++)
                         {
                                 verse_containter_object = json_object_array_get_idx(chapter_object, i - 1);
@@ -521,22 +538,43 @@ get_chapter_from_translation(BibleContent *self, GetChapterData *data)
         free(data);
 }
 
-void bible_content_get_chapter(BibleContent *self, GtkTextBuffer *buffer, guint book, guint chapter)
+void bible_content_get_chapter(BibleContent *self,
+                               GtkTextBuffer *buffer,
+                               GtkLabel *title,
+                               ScrollButton *book_button,
+                               ScrollButton *translation_button)
 {
-        GetChapterData *data;
-        data = (GetChapterData *)malloc(sizeof(guint) * 2);
 
-        data->book = book;
-        data->chapter = chapter;
+        // if (!SCROLL_IS_BUTTON(book_button) || !SCROLL_IS_BUTTON(translation_button))
+        //         return;
+
+        GetChapterData *data;
+        data = (GetChapterData *)malloc(sizeof(guint) * 2); //+ sizeof(book_button) + sizeof(translation_button));
+
+        data->book = self->current_book;
+        data->chapter = self->current_chapter;
+
+        g_assert(GTK_IS_TEXT_BUFFER(buffer));
+        g_assert(GTK_IS_LABEL(title));
+        // g_assert(SCROLL_IS_BUTTON(book_button));
+        // g_assert(SCROLL_IS_BUTTON(translation_button));
+
+        data->title_label = title;
         data->buffer = buffer;
+        // data->book_button = book_button;
+        // data->tranlation_button = translation_button;
 
         g_signal_connect(self, "translation-loaded", G_CALLBACK(get_chapter_from_translation), data);
         get_translation(self);
 }
 
-void bible_content_set_current_chapter_text(BibleContent *self, GtkTextBuffer *buffer)
+void bible_content_set_current_chapter_text(BibleContent *self,
+                                            GtkTextBuffer *buffer,
+                                            GtkLabel *title,
+                                            ScrollButton *book_button,
+                                            ScrollButton *translation_button)
 {
-        bible_content_get_chapter(self, buffer, self->current_book, self->current_chapter);
+        bible_content_get_chapter(self, buffer, title, book_button, translation_button);
 }
 
 void bible_content_set_current_chapter_next(BibleContent *self)
@@ -614,7 +652,10 @@ bible_content_set_current_translation(BibleContent *self, const gchar *translati
         if (g_strcmp0(translation, self->current_translation) != 0)
         {
                 g_free(self->current_translation);
+                // self->current_translation = g_strdup("CJB");
                 self->current_translation = g_strdup(translation);
+
+                // g_print("translation: %s\n", translation);
                 g_object_notify_by_pspec(G_OBJECT(self), properties[PROP_CURRENT_TRANSLATION]);
         }
 }
@@ -666,6 +707,7 @@ void bible_content_get_property(GObject *object,
         case PROP_CURRENT_LANGUAGE:
                 g_value_set_string(value, bible_content_get_current_translation(self));
                 break;
+                break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
         }
@@ -698,6 +740,13 @@ void bible_content_set_property(GObject *object,
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
         }
+}
+
+static void
+bible_content_init(BibleContent *self)
+{
+        // translation_parse_async(self, NULL, NULL);
+        self->config_folder = g_strdup_printf("%s/gtkbible/", g_get_user_config_dir());
 }
 
 static void
@@ -749,7 +798,7 @@ bible_content_class_init(BibleContentClass *klass)
             (GParamFlags)(G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_STATIC_STRINGS));
         g_object_class_install_properties(object_class, LAST_PROP, properties);
 
-        signals[SIG_TRANLATION_LOADED] = g_signal_new(
+        signals[SIG_TRANSLATION_LOADED] = g_signal_new(
             "translation-loaded",
             G_TYPE_FROM_CLASS(klass),
             G_SIGNAL_RUN_FIRST,
@@ -757,8 +806,9 @@ bible_content_class_init(BibleContentClass *klass)
             G_TYPE_NONE, 0);
 }
 
-BibleContent *bible_content_new(void)
+BibleContent *bible_content_new()
 {
 
+        // return (BibleContent *)g_object_new(BIBLE_TYPE_CONTENT, "window", window);
         return (BibleContent *)g_object_new(BIBLE_TYPE_CONTENT, NULL);
 }

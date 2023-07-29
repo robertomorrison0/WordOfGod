@@ -19,12 +19,13 @@ bible_app_window_init(BibleAppWindow *self)
         g_type_ensure(SCROLL_TYPE_BUTTON);
         g_type_ensure(BIBLE_TEXT_PAGE_TYPE);
         g_type_ensure(BIBLE_PREFERENCES_WINDOW_TYPE);
+        g_type_ensure(BIBLE_TYPE_CONTENT);
 
         gtk_widget_init_template(GTK_WIDGET(self));
+        self->bible_content = bible_content_new();
 
         // self->settings = g_settings_new("org.robertomorrison.gtkbible");
         // self->preferences_window = bible_preferences_window_new();
-        self->bible_content = bible_content_new();
         bible_preferences_window_set_window(self->preferences_window, self);
         bible_text_page_set_window(self->text_page, self);
 
@@ -39,17 +40,17 @@ bible_app_window_init(BibleAppWindow *self)
         // gtk_window_set_resizable(GTK_WINDOW(self), true);
 }
 
-void bible_app_window_set_text(BibleAppWindow *self, GtkTextBuffer *buffer)
-{
-        bible_text_page_set_text(self->text_page, buffer);
-        gtk_widget_set_visible(GTK_WIDGET(self->progressbar), false);
-}
+// void bible_app_window_set_text(BibleAppWindow *self, GtkTextBuffer *buffer)
+// {
+//         bible_text_page_set_text(self->text_page, buffer);
+//         gtk_widget_set_visible(GTK_WIDGET(self->progressbar), false);
+// }
 
-void bible_app_window_set_title(BibleAppWindow *self, const gchar *title)
-{
-        bible_text_page_set_title(self->text_page, title);
-        gtk_widget_set_visible(GTK_WIDGET(self->progressbar), false);
-}
+// void bible_app_window_set_title(BibleAppWindow *self, const gchar *title)
+// {
+//         bible_text_page_set_title(self->text_page, title);
+//         gtk_widget_set_visible(GTK_WIDGET(self->progressbar), false);
+// }
 
 static void
 bible_app_window_dispose(GObject *object)

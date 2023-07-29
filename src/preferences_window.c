@@ -293,9 +293,15 @@ _on_notify_translation_changed(BibleContent *content,
         g_object_get_property(G_OBJECT(content), param->name, &value);
         const gchar *translation = g_value_get_string(&value);
         g_settings_set_string(self->settings, "current-translation", "ELB");
+        
         g_value_unset(&value);
-        bible_content_set_current_chapter_text(self->content, self->text_page);
-        bible_content_get_title(self->content, self->text_page);
+        bible_content_set_current_chapter_text(self->content,
+                                               bible_text_page_get_buffer(self->text_page),
+                                               bible_text_page_get_title_label(self->text_page),
+                                               bible_text_page_get_book_button(self->text_page),
+                                               bible_text_page_get_translation_button(self->text_page));
+        // bible_content_set_current_chapter_text(self->content, bible_text_page_get_buffer(self->text_page));
+        // bible_content_get_title(self->content, self->text_page);
         // scroll_button_set_label(self->window->translation_button, translation);
 }
 
@@ -309,8 +315,13 @@ _on_notify_book_changed(BibleContent *content,
         guint book = g_value_get_uint(&value);
         g_settings_set_uint(self->settings, "current-book", book);
         g_value_unset(&value);
-        bible_content_set_current_chapter_text(self->content, self->text_page);
-        bible_content_get_title(self->content, self->text_page);
+        bible_content_set_current_chapter_text(self->content,
+                                               bible_text_page_get_buffer(self->text_page),
+                                               bible_text_page_get_title_label(self->text_page),
+                                               bible_text_page_get_book_button(self->text_page),
+                                               bible_text_page_get_translation_button(self->text_page));
+        // bible_content_set_current_chapter_text(self->content, bible_text_page_get_buffer(self->text_page));
+        // bible_content_get_title(self->content, self->text_page);
 }
 
 static void
@@ -323,8 +334,12 @@ _on_notify_chapter_changed(BibleContent *content,
         guint chapter = g_value_get_uint(&value);
         g_settings_set_uint(self->settings, "current-chapter", chapter);
         g_value_unset(&value);
-        bible_content_get_text(self->content, self->text_page);
-        bible_content_get_title(self->content, self->text_page);
+        bible_content_set_current_chapter_text(self->content,
+                                               bible_text_page_get_buffer(self->text_page),
+                                               bible_text_page_get_title_label(self->text_page),
+                                               bible_text_page_get_book_button(self->text_page),
+                                               bible_text_page_get_translation_button(self->text_page));
+        // bible_content_get_title(self->content, self->text_page);
 }
 
 static void _on_notify_font_size_changed(BibleTextPage *page,
@@ -534,7 +549,7 @@ void action_set_language(GtkWidget *widget,
         BiblePreferencesWindow *self = BIBLE_PREFERENCES_WINDOW(widget);
         g_assert(BIBLE_IS_CONTENT(self->content));
         const gchar *language = g_variant_get_string(parameter, NULL);
-        bible_content_get_translations(self->content, language);
+        // bible_content_get_translations(self->content, language);
         bible_preferences_window_navigate_passage_name(self, "translation");
 
         GValue value = G_VALUE_INIT;
@@ -552,7 +567,7 @@ void action_set_translation(GtkWidget *widget,
         g_assert(BIBLE_IS_CONTENT(self->content));
         const gchar *translation = g_variant_get_string(parameter, NULL);
 
-        bible_content_get_books(self->content, self, translation);
+        // bible_content_get_books(self->content, self, translation);
         bible_preferences_window_navigate_passage_name(self, "book");
 
         GValue value = G_VALUE_INIT;
@@ -570,7 +585,7 @@ void action_set_book(GtkWidget *widget,
         g_assert(BIBLE_IS_CONTENT(self->content));
         uint32_t book = g_variant_get_uint32(parameter);
 
-        bible_content_get_chapters(self->content, self, book);
+        // bible_content_get_chapters(self->content, self, book);
         bible_preferences_window_navigate_passage_name(self, "chapter");
 
         GValue value = G_VALUE_INIT;
@@ -731,9 +746,9 @@ void bible_preferences_window_set_window(BiblePreferencesWindow *self, gpointer 
         g_signal_connect(self->content, "notify::chapter", G_CALLBACK(_on_notify_chapter_changed), self);
         g_signal_connect(self->passage_carousel, "page-changed", G_CALLBACK(_on_passage_page_changed), self);
 
-        bible_content_get_languages(self->content, self);
+        // bible_content_get_languages(self->content, self);
 
-        bible_content_set_page(self->content, self->text_page);
+        // bible_content_set_page(self->content, self->text_page);
 
         g_signal_connect(self->add_translation_button, "clicked", G_CALLBACK(_on_add_translation_button_clicked), self);
         g_signal_connect(win->back_button, "clicked", G_CALLBACK(_on_back_button_clicked), self);
