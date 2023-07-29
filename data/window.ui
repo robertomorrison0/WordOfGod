@@ -48,7 +48,7 @@
                 </style>
                 <child>
                   <object class="ScrollButton" id="book_button">
-                    <property name="max-width">100</property>
+                    <property name="max-width">60</property>
                   </object>
                 </child>
                 <child>
