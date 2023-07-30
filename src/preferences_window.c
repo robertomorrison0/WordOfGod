@@ -6,6 +6,10 @@
 #include <bible_content.h>
 #include <json-c/json.h>
 
+#define _(x) gettext(x)
+#define N_(x) x
+#define C_(ctx, x) pgettext(ctx, x)
+
 struct _BiblePreferencesWindow
 {
         AdwBin parent;
@@ -810,7 +814,7 @@ bible_preferences_window_init(BiblePreferencesWindow *self)
 
         GtkTextBuffer *example_text_buffer = gtk_text_view_get_buffer(self->example_text_view);
         GtkTextIter start;
-        const gchar example_text[] = "So He humbled you, allowed you to hunger, and fed you with manna which you did not know nor did your fathers know, that He might make you know that man shall not live by bread alone; but man lives by every <i>word</i> that proceeds from the mouth of the LORD.";
+        const gchar *example_text = _("So He humbled you, allowed you to hunger, and fed you with manna which you did not know nor did your fathers know, that He might make you know that man shall not live by bread alone; but man lives by every <i>word</i> that proceeds from the mouth of the LORD.");
         gtk_text_buffer_get_start_iter(example_text_buffer, &start);
         gtk_text_buffer_insert_markup(example_text_buffer, &start, example_text, -1);
 

@@ -24,8 +24,8 @@
                                 <property name="margin-bottom">12</property>
                                 <property name="margin-start">12</property>
                                 <property name="margin-end">12</property>
-                                <property name="title">Settings</property>
-                                <!-- <property name="description">Choose a Book</property> -->
+                                <property name="title" translatable="yes">Settings</property>
+                                <!-- <property name="description" translatable="yes">Choose a Book</property> -->
                                 <property name="hexpand">True</property>
                                 <property name="vexpand">True</property>
                                 <style>
@@ -35,7 +35,7 @@
 
                                 <child>
                                     <object class="AdwActionRow">
-                                        <property name="title">Style</property>
+                                        <property name="title" translatable="yes">Style</property>
                                         <property name="action-name">settings-open</property>
                                         <property name="action-target">'style'</property>
                                         <property name="activatable">True</property>
@@ -43,7 +43,7 @@
                                 </child>
                                 <child>
                                     <object class="AdwActionRow">
-                                        <property name="title">Passage</property>
+                                        <property name="title" translatable="yes">Passage</property>
                                         <property name="action-name">settings-open</property>
                                         <property name="action-target">'passage'</property>
                                         <property name="activatable">True</property>
@@ -51,7 +51,7 @@
                                 </child>
                                 <child>
                                     <object class="AdwActionRow">
-                                        <property name="title">Data</property>
+                                        <property name="title" translatable="yes">Data</property>
                                         <property name="action-name">settings-open</property>
                                         <property name="action-target">'data'</property>
                                         <property name="activatable">True</property>
@@ -88,7 +88,7 @@
                             <object class="AdwClamp">
                                 <child>
                                     <object class="AdwPreferencesGroup">
-                                        <property name="title">Theme</property>
+                                        <property name="title" translatable="yes">Theme</property>
                                         <child>
                                             <object class="ThemeSelector" id="theme_selector">
                                             </object>
@@ -101,7 +101,7 @@
                             <object class="AdwClamp">
                                 <child>
                                     <object class="AdwPreferencesGroup">
-                                        <!-- <property name="description">Font Preview</property> -->
+                                        <!-- <property name="description" translatable="yes">Font Preview</property> -->
                                         <child>
                                             <object class="GtkBox">
                                                 <property name="orientation">vertical</property>
@@ -159,7 +159,7 @@
                             <object class="AdwClamp">
                                 <child>
                                     <object class="AdwPreferencesGroup">
-                                        <property name="title">Font Settings</property>
+                                        <property name="title" translatable="yes">Font Settings</property>
 
                                         <child>
                                             <object class="GtkBox">
@@ -217,8 +217,8 @@
 
                                 <child>
                                     <object class="AdwPreferencesGroup">
-                                        <property name="title">Font</property>
-                                        <property name="description">Choose a Font</property>
+                                        <property name="title" translatable="yes">Font</property>
+                                        <property name="description" translatable="yes">Choose a Font</property>
                                         <property name="hexpand">True</property>
                                         <property name="vexpand">True</property>
                                         <child>
@@ -246,7 +246,7 @@
                                                             <class name="card"/>
                                                             <!-- <child>
                                                         <object class="AdwActionRow">
-                                                            <property name="title">Mose 2</property>
+                                                            <property name="title" translatable="yes">Mose 2</property>
                                                         </object>
                                                     </child> -->
                                                         </style>
@@ -295,8 +295,8 @@
                                             <object class="AdwClamp" id="language_choose_container">
                                                 <child>
                                                     <object class="AdwPreferencesGroup" id="language_choose">
-                                                        <property name="title">Language</property>
-                                                        <property name="description">Choose a Language</property>
+                                                        <property name="title" translatable="yes">Language</property>
+                                                        <property name="description" translatable="yes">Choose a Language</property>
                                                         <property name="hexpand">True</property>
                                                         <!-- <property name="vexpand">True</property> -->
                                                         <child>
@@ -315,7 +315,7 @@
                                                                             <class name="frame"/>
                                                                             <!-- <child>
                                                                         <object class="AdwActionRow">
-                                                                            <property name="title">Mose 2</property>
+                                                                            <property name="title" translatable="yes">Mose 2</property>
                                                                         </object>
                                                                     </child> -->
                                                                         </style>
@@ -334,8 +334,8 @@
                                             <object class="AdwClamp" id="translation_choose_container">
                                                 <child>
                                                     <object class="AdwPreferencesGroup" id="translation_choose">
-                                                        <property name="title">Translation</property>
-                                                        <property name="description">Choose a Translation</property>
+                                                        <property name="title" translatable="yes">Translation</property>
+                                                        <property name="description" translatable="yes">Choose a Translation</property>
                                                         <property name="hexpand">True</property>
                                                         <!-- <property name="vexpand">True</property> -->
                                                         <child>
@@ -353,7 +353,7 @@
                                                                             <!-- <class name="card"/> -->
                                                                             <!-- <child>
                                                                         <object class="AdwActionRow">
-                                                                            <property name="title">Mose 2</property>
+                                                                            <property name="title" translatable="yes">Mose 2</property>
                                                                         </object>
                                                                     </child> -->
                                                                         </style>
@@ -374,8 +374,8 @@
 
                                                 <child>
                                                     <object class="AdwPreferencesGroup" id="book_choose">
-                                                        <property name="title">Book</property>
-                                                        <property name="description">Choose a Book</property>
+                                                        <property name="title" translatable="yes">Book</property>
+                                                        <property name="description" translatable="yes">Choose a Book</property>
                                                         <property name="hexpand">True</property>
                                                         <!-- <property name="vexpand">True</property> -->
                                                         <child>
@@ -405,8 +405,8 @@
                                             <object class="AdwClamp" id="chapter_choose_container">
                                                 <child>
                                                     <object class="AdwPreferencesGroup" id="chapter_choose">
-                                                        <property name="title">Chapter</property>
-                                                        <property name="description">Choose a Chapter</property>
+                                                        <property name="title" translatable="yes">Chapter</property>
+                                                        <property name="description" translatable="yes">Choose a Chapter</property>
                                                         <property name="hexpand">True</property>
                                                         <property name="vexpand">True</property>
                                                         <child>
@@ -455,8 +455,8 @@
                                 <property name="orientation">vertical</property>
                                 <child>
                                     <object class="AdwPreferencesGroup">
-                                        <property name="title">Custom Translation</property>
-                                        <property name="description">Custom Translation</property>
+                                        <property name="title" translatable="yes">Custom Translation</property>
+                                        <property name="description" translatable="yes">Custom Translation</property>
                                         <property name="hexpand">True</property>
                                         <property name="vexpand">True</property>
                                         <property name="header-suffix">

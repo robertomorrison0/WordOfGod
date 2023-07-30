@@ -1,6 +1,13 @@
 #include <gtk/gtk.h>
 
+#include <glib/gi18n.h>
+#include <config.h>
+
 #include <app.h>
+
+#define _(x) gettext(x)
+#define N_(x) x
+#define C_(ctx, x) pgettext(ctx, x)
 
 int main(int argc, gchar *argv[])
 {
@@ -9,7 +16,12 @@ int main(int argc, gchar *argv[])
          * is *not* necessary in properly installed
          * application.
          */
-        g_setenv("GSETTINGS_SCHEMA_DIR", "./data", FALSE);
+        g_setenv("GSETTINGS_SCHEMA_DIR", DATA_DIR, FALSE);
+
+        bindtextdomain(GETTEXT_PACKAGE, LOCALE_DIR);
+        bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
+        textdomain(GETTEXT_PACKAGE);
+
         BibleApp *app;
         gint status;
 

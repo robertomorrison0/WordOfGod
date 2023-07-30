@@ -1,0 +1,84 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.3.1\n"
+
+# German translation for gnome-text-editor.
+# Copyright (C) 2021 gnome-text-editor's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gnome-text-editor package.
+#
+#
+# Philipp Kiemle <philipp.kiemle@gmail.com>, 2021-2022.
+# Christian Kirbach <christian.kirbach@gmail.com>, 2021, 2022.
+# Tim Sabsch <tim@sabsch.com>, 2022.
+# Jürgen Benvenuti <gastornis@posteo.org>, 2022, 2023.
+#
+#: data/window.ui
+msgid "Overview"
+msgstr "Übersicht"
+
+msgid "Read"
+msgstr "Lesen"
+
+#: data/preferences_window.ui
+msgid "Settings"
+msgstr "Einstellungen"
+
+msgid "Style"
+msgstr "Stil"
+
+msgid "Passage"
+msgstr "Passage"
+
+msgid "Data"
+msgstr "Daten"
+
+msgid "Theme"
+msgstr "Theme"
+
+msgid "Font Settings"
+msgstr "Schrift-Einstellungen"
+
+msgid "Font"
+msgstr "Schriftart"
+
+msgid "Choose a Font"
+msgstr "Wähle eine Schriftart"
+
+msgid "Language"
+msgstr "Sprache"
+
+msgid "Choose a Language"
+msgstr "Wähle eine Sprache"
+
+msgid "Translation"
+msgstr "Übersetzung"
+
+msgid "Choose a Translation"
+msgstr "Wähle eine Übersetzung"
+
+msgid "Book"
+msgstr "Buch"
+
+msgid "Choose a Book"
+msgstr "Wähle ein Buch"
+
+msgid "Chapter"
+msgstr "Kapitel"
+
+msgid "Choose a Chapter"
+msgstr "Wähle ein Kapitel"
+
+msgid "Custom Translation"
+msgstr "Eigene Übersetzung"
+
+msgid "So He humbled you, allowed you to hunger, and fed you with manna which you did not know nor did your fathers know, that He might make you know that man shall not live by bread alone; but man lives by every <i>word</i> that proceeds from the mouth of the LORD."
+msgstr "Und er demütigte dich und ließ dich hungern; und er speiste dich mit dem Man, das du nicht kanntest und das deine Väter nicht kannten, um dir kundzutun, daß der Mensch nicht von Brot allein lebt, sondern daß der Mensch von allem lebt, was aus dem Munde Jehovas hervorgeht."

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="org/robertomorrison/gtkbible/">
-    <file alias="builder.ui" preprocess="xml-stripblanks" compressed="true">builder.ui</file>
     <file alias="window.ui" preprocess="xml-stripblanks" compressed="true">window.ui</file>
     <file alias="preferences_window.ui" preprocess="xml-stripblanks" compressed="true">preferences_window.ui</file>
     <file alias="text_page.ui" preprocess="xml-stripblanks" compressed="true">text_page.ui</file>

@@ -78,7 +78,7 @@
             <child>
               <object class="AdwViewStackPage">
                 <property name="name">read</property>
-                <property name="title">Read</property>
+                <property name="title" translatable="yes">Read</property>
                 <property name="icon-name">reading-overview-symbolic</property>
                 <property name="child">
                   <object class="BibleTextPage" id="text_page"/>
@@ -88,7 +88,7 @@
             <child>
               <object class="AdwViewStackPage">
                 <property name="name">overview</property>
-                <property name="title">Overview</property>
+                <property name="title" translatable="yes">Overview</property>
                 <property name="icon-name">org.gnome.Settings-symbolic</property>
                 <property name="child">
                   <object class="BiblePreferencesWindow" id="preferences_window" />
