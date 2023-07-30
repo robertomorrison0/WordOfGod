@@ -1,5 +1,14 @@
 {
     "version": "2.0.0",
+    "inputs": [{
+        "id": "locale",
+        "description": "What locale do you want to use?",
+        "type": "pickString",
+        "options": [
+            "de_DE.utf8", 
+            "en_US.utf8"
+        ]
+    }],
     "tasks": [
         {
             "label": "build & run (valgrind)",
@@ -16,6 +25,16 @@
             "dependsOn": [
                 "build",
                 "launch"
+            ],
+            "dependsOrder": "sequence",
+            "group": "build",
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build & run (locale)",
+            "dependsOn": [
+                "build",
+                "launch (locale)"
             ],
             "dependsOrder": "sequence",
             "group": "build",
@@ -51,6 +70,19 @@
             "group": "build",
             "args": [
                 "",
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "launch (locale)",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            },
+            "command": "LC_MESSAGES=${input:locale}",
+            "group": "build",
+            "args": [
+                "./app",
             ],
             "problemMatcher": "$msCompile"
         },
