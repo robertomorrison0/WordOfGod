@@ -11,16 +11,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.3.1\n"
 
-# German translation for gnome-text-editor.
-# Copyright (C) 2021 gnome-text-editor's COPYRIGHT HOLDER
-# This file is distributed under the same license as the gnome-text-editor package.
-#
-#
-# Philipp Kiemle <philipp.kiemle@gmail.com>, 2021-2022.
-# Christian Kirbach <christian.kirbach@gmail.com>, 2021, 2022.
-# Tim Sabsch <tim@sabsch.com>, 2022.
-# Jürgen Benvenuti <gastornis@posteo.org>, 2022, 2023.
-#
 #: data/window.ui
 msgid "Overview"
 msgstr "Übersicht"
@@ -51,31 +41,31 @@ msgid "Font"
 msgstr "Schriftart"
 
 msgid "Choose a Font"
-msgstr "Wähle eine Schriftart"
+msgstr "Wählen Sie eine Schriftart"
 
 msgid "Language"
 msgstr "Sprache"
 
 msgid "Choose a Language"
-msgstr "Wähle eine Sprache"
+msgstr "Wählen Sie eine Sprache"
 
 msgid "Translation"
 msgstr "Übersetzung"
 
 msgid "Choose a Translation"
-msgstr "Wähle eine Übersetzung"
+msgstr "Wählen Sie eine Übersetzung"
 
 msgid "Book"
 msgstr "Buch"
 
 msgid "Choose a Book"
-msgstr "Wähle ein Buch"
+msgstr "Wählen Sie ein Buch"
 
 msgid "Chapter"
 msgstr "Kapitel"
 
 msgid "Choose a Chapter"
-msgstr "Wähle ein Kapitel"
+msgstr "Wählen Sie ein Kapitel"
 
 msgid "Custom Translation"
 msgstr "Eigene Übersetzung"
