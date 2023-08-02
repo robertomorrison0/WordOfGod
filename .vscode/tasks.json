@@ -55,7 +55,7 @@
                 "--show-leak-kinds=definite",
                 "--suppressions=/usr/share/glib-2.0/valgrind/glib.supp",
                 "--suppressions=/usr/share/gtk-4.0/valgrind/gtk.supp",
-                "./src/bible",
+                "./src/wordofgod",
             ],
             "problemMatcher": "$msCompile"
 
@@ -66,7 +66,7 @@
             "options": {
                 "cwd": "${workspaceFolder}/build"
             },
-            "command": "./src/bible",
+            "command": "./src/wordofgod",
             "group": "build",
             "args": [
                 "",
@@ -82,7 +82,7 @@
             "command": "LC_MESSAGES=${input:locale}",
             "group": "build",
             "args": [
-                "./src/bible",
+                "./src/wordofgod",
             ],
             "problemMatcher": "$msCompile"
         },

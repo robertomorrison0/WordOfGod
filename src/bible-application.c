@@ -83,7 +83,7 @@ bible_application_about_action (GSimpleAction *action,
                                 GVariant      *parameter,
                                 gpointer       user_data)
 {
-	static const char *developers[] = {"Unknown", NULL};
+	static const char *developers[] = {DEVELOPERS, NULL};
 	BibleApplication *self = user_data;
 	GtkWindow *window = NULL;
 
@@ -92,8 +92,8 @@ bible_application_about_action (GSimpleAction *action,
 	window = gtk_application_get_active_window (GTK_APPLICATION (self));
 
 	adw_show_about_window (window,
-	                       "application-name", "bible",
-	                       "application-icon", "org.robertomorrison.bible",
+	                       "application-name", APP_ID,
+	                       "application-icon", "org.robertomorrison.wordofgod",
 	                       "developer-name", "Unknown",
 	                       "version", "0.1.0",
 	                       "developers", developers,

@@ -2,7 +2,7 @@
 desktop_file_in_config = configuration_data()
 desktop_file_in_config.set('icon', app_id)
 desktop_file_in = configure_file(
-          input: 'org.robertomorrison.bible.desktop.in',
+          input: 'org.robertomorrison.wordofgod.desktop.in',
          output: '@0@.desktop.in'.format(app_id),
   configuration: desktop_file_in_config,
 )
@@ -24,8 +24,8 @@ if desktop_utils.found()
 endif
 
 appstream_file = i18n.merge_file(
-        input: 'org.robertomorrison.bible.appdata.xml.in',
-       output: 'org.robertomorrison.bible.appdata.xml',
+        input: 'org.robertomorrison.wordofgod.appdata.xml.in',
+       output: 'org.robertomorrison.wordofgod.appdata.xml',
        po_dir: '../po',
       install: true,
   install_dir: join_paths(get_option('datadir'), 'appdata')
@@ -36,7 +36,7 @@ if appstream_util.found()
   test('Validate appstream file', appstream_util, args: ['validate', appstream_file])
 endif
 
-install_data('org.robertomorrison.bible.gschema.xml',
+install_data('org.robertomorrison.wordofgod.gschema.xml',
   install_dir: join_paths(get_option('datadir'), 'glib-2.0/schemas')
 )
 

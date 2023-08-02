@@ -1,6 +1,6 @@
-data/org.robertomorrison.bible.desktop.in
-data/org.robertomorrison.bible.appdata.xml.in
-data/org.robertomorrison.bible.gschema.xml
+data/org.robertomorrison.wordofgod.desktop.in
+data/org.robertomorrison.wordofgod.appdata.xml.in
+data/org.robertomorrison.wordofgod.gschema.xml
 src/main.c
 src/bible-window.c
 src/bible-window.ui

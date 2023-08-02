@@ -1,1 +1,1 @@
-i18n.gettext('bible', preset: 'glib')
+i18n.gettext('wordofgod', preset: 'glib')

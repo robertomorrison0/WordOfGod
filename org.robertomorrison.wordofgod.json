@@ -1,9 +1,9 @@
 {
-    "app-id" : "org.robertomorrison.bible",
+    "app-id" : "org.robertomorrison.wordofgod",
     "runtime" : "org.gnome.Platform",
     "runtime-version" : "44",
     "sdk" : "org.gnome.Sdk",
-    "command" : "bible",
+    "command" : "wordofgod",
     "finish-args" : [
         "--share=network",
         "--share=ipc",
@@ -24,7 +24,7 @@
     ],
     "modules" : [
         {
-            "name" : "bible",
+            "name" : "wordofgod",
             "buildsystem" : "meson",
             "sources" : [
                 {

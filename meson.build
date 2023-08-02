@@ -1,4 +1,4 @@
-project('bible', 'c',
+project('wordofgod', 'c',
           version: '0.1.0',
     meson_version: '>= 0.62.0',
   default_options: [ 'warning_level=2', 'werror=false', 'c_std=gnu11', ],
@@ -8,18 +8,23 @@ i18n = import('i18n')
 gnome = import('gnome')
 cc = meson.get_compiler('c')
 
-app_id = 'org.robertomorrison.bible'
+app_id = 'org.robertomorrison.wordofgod'
+developers = 'robertomorrison'
+
 
 prefix = get_option('prefix')
 datadir = prefix / get_option('datadir')
 iconsdir = datadir / 'icons'
 
 
+
 config_h = configuration_data()
 config_h.set_quoted('PACKAGE_VERSION', meson.project_version())
-config_h.set_quoted('GETTEXT_PACKAGE', 'bible')
+config_h.set_quoted('GETTEXT_PACKAGE', 'wordofgod')
 config_h.set_quoted('LOCALEDIR', join_paths(get_option('prefix'), get_option('localedir')))
 config_h.set_quoted('PACKAGE_ICON_NAME', app_id)
+config_h.set_quoted('APP_ID', app_id)
+config_h.set_quoted('DEVELOPERS', developers)
 configure_file(output: 'config.h', configuration: config_h)
 add_project_arguments(['-I' + meson.project_build_root()], language: 'c')
 

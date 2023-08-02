@@ -1,6 +1,6 @@
 [Desktop Entry]
-Name=bible
-Exec=bible
+Name=Word of God
+Exec=wordofgod
 Icon=@icon@
 Terminal=false
 Type=Application

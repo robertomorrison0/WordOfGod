@@ -38,7 +38,7 @@ bible_window_class_init (BibleWindowClass *klass)
 {
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-	gtk_widget_class_set_template_from_resource (widget_class, "/bible/robertomorrison/org/bible-window.ui");
+	gtk_widget_class_set_template_from_resource (widget_class, "/org/robertomorrison/wordofgod/bible-window.ui");
 	gtk_widget_class_bind_template_child (widget_class, BibleWindow, header_bar);
 	gtk_widget_class_bind_template_child (widget_class, BibleWindow, label);
 }
