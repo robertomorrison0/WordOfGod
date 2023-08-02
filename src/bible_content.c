@@ -411,8 +411,7 @@ void bible_content_parse_translation(BibleContent *self)
 
                 for (size_t k = 0; k < n_chapters; k++)
                 {
-                        gchar chapter_string[4];
-                        sprintf(chapter_string, "%lu", k + 1);
+                        gchar *chapter_string = g_strdup_printf("%lu", k + 1);
                         json_object *chapter_array = json_object_new_array();
 
                         if (json_object_object_add(book_object, chapter_string, json_object_get(chapter_array)))
@@ -505,7 +504,6 @@ void bible_content_get_current_text(BibleContent *self)
         gtk_text_buffer_get_end_iter(self->buffer, &end);
         gchar chapter[1000];
 
-        gchar index_str[16];
         gint mark_offsets[n_verses + 1];
 
         mark_offsets[0] = 0;
@@ -526,7 +524,7 @@ void bible_content_get_current_text(BibleContent *self)
 
         for (size_t i = 0; i < n_verses; i++)
         {
-                sprintf(index_str, "Verse%i", i);
+                gchar *index_str = g_strdup_printf("Verse%lu", i);
 
                 GtkTextIter iter;
                 gtk_text_buffer_get_iter_at_offset(self->buffer, &iter, mark_offsets[i]);

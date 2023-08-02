@@ -39,7 +39,7 @@ bible_app_activate(GApplication *app)
 void bible_app_startup(GApplication *app)
 {
         //         // g_application_set_application_id(G_APPLICATION(self), APP_ID);
-        g_application_set_resource_base_path(app, "/org/robertomorrison/gtkbible/");
+        g_application_set_resource_base_path(app, "/org/robertomorrison/wordofgod/");
         G_APPLICATION_CLASS(bible_app_parent_class)->startup(app);
 }
 
@@ -61,7 +61,7 @@ BibleApp *
 bible_app_new(void)
 {
         return (BibleApp *)g_object_new(BIBLE_APP_TYPE,
-                                        "application-id", "org.robertomorrison.gtkbible",
+                                        "application-id", "org.robertomorrison.wordofgod",
                                         "flags", G_APPLICATION_HANDLES_OPEN,
                                         NULL);
 }

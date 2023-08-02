@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="org/robertomorrison/gtkbible/">
+  <gresource prefix="/org/robertomorrison/wordofgod/">
     <file alias="window.ui" preprocess="xml-stripblanks" compressed="true">window.ui</file>
     <file alias="preferences_window.ui" preprocess="xml-stripblanks" compressed="true">preferences_window.ui</file>
     <file alias="text_page.ui" preprocess="xml-stripblanks" compressed="true">text_page.ui</file>
@@ -16,23 +16,19 @@
     <file alias="style.css">../data/styles/style.css</file>
     <file alias="style-dark.css">../data/styles/style-dark.css</file>
     <file alias="window.css">../data/styles/window.css</file>
-    
+
   </gresource>
 
-<gresource prefix="/org/robertomorrison/gtkbible/icons/scalable/actions">
+<gresource prefix="/org/robertomorrison/wordofgod/icons/scalable/actions">
     <file preprocess="xml-stripblanks" alias="text-distance-normal-symbolic.svg">../data/icons/scalable/actions/text-distance-normal-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="text-distance-close-symbolic.svg">../data/icons/scalable/actions/text-distance-close-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="text-distance-far-symbolic.svg">../data/icons/scalable/actions/text-distance-far-symbolic.svg</file>
 
     <file preprocess="xml-stripblanks" alias="text-size-bigger-symbolic.svg">../data/icons/scalable/actions/text-size-bigger-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="text-size-smaller-symbolic.svg">../data/icons/scalable/actions/text-size-smaller-symbolic.svg</file>
-    
+
     <file preprocess="xml-stripblanks" alias="text-styles-symbolic.svg">../data/icons/scalable/actions/text-styles-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="reading-overview-symbolic.svg">../data/icons/scalable/actions/reading-overview-symbolic.svg</file>
   </gresource>
-  <!-- <gresource prefix="/org/robertomorrison/gtkbible//icons/16x16/actions">
-    <file>icon1.png</file>
-    <file>icon2.png</file>
-    ...
-  </gresource> -->
 </gresources>
+

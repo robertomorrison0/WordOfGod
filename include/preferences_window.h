@@ -10,7 +10,7 @@
 #define BIBLE_PREFERENCES_WINDOW_TYPE (bible_preferences_window_get_type())
 G_DECLARE_FINAL_TYPE(BiblePreferencesWindow, bible_preferences_window, BIBLE, PREFERENCES_WINDOW, AdwBin)
 
-BiblePreferencesWindow *bible_preferences_window_new(void);
+BiblePreferencesWindow *bible_preferences_window_new();
 
 // void bible_preferences_window_set_content(BiblePreferencesWindow *self, BibleContent *content);
 

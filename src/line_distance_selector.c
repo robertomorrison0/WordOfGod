@@ -92,7 +92,7 @@ line_distance_selector_init(LineDistanceSelector *selector)
         if (!selector->provider)
         {
                 selector->provider = gtk_css_provider_new();
-                gtk_css_provider_load_from_resource(selector->provider, "/org/robertomorrison/gtkbible/line_distance_selector.css");
+                gtk_css_provider_load_from_resource(selector->provider, "/org/robertomorrison/wordofgod/line_distance_selector.css");
                 gtk_style_context_add_provider_for_display(
                     gdk_display_get_default(),
                     GTK_STYLE_PROVIDER(selector->provider),
@@ -105,10 +105,10 @@ line_distance_selector_dispose(GObject *object)
 {
         LineDistanceSelector *self = (LineDistanceSelector *)object;
 
-        g_object_unref(self->box);
-        g_object_unref(self->line_distance_button);
-        g_strfreev(&self->line_distance);
-        g_clear_object(&self->provider);
+        g_clear_pointer (&self->box, gtk_widget_unparent);
+        g_clear_pointer (&self->line_distance_button, gtk_widget_unparent);
+        g_clear_pointer (&self->line_distance, g_free);
+        g_clear_pointer(&self->provider, g_free);
 
         G_OBJECT_CLASS(line_distance_selector_parent_class)->dispose(object);
 }
@@ -169,7 +169,7 @@ line_distance_selector_class_init(LineDistanceSelectorClass *klass)
         // gtk_widget_class_install_action(widget_class, "style-variant", "s", style_variant_to_color_scheme);
         // gtk_widget_class_install_property_action(widget_class, "line-distance", "line-distance");
         gtk_widget_class_install_action(widget_class, "line-distance", NULL, (GtkWidgetActionActivateFunc)line_distance_action);
-        gtk_widget_class_set_template_from_resource(widget_class, "/org/robertomorrison/gtkbible/line_distance_selector.ui");
+        gtk_widget_class_set_template_from_resource(widget_class, "/org/robertomorrison/wordofgod/line_distance_selector.ui");
         gtk_widget_class_bind_template_child(widget_class, LineDistanceSelector, line_distance_button);
         gtk_widget_class_bind_template_child(widget_class, LineDistanceSelector, box);
 

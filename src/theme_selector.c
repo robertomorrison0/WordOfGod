@@ -100,7 +100,7 @@ theme_selector_init(ThemeSelector *selector)
         if (!selector->provider)
         {
                 selector->provider = gtk_css_provider_new();
-                gtk_css_provider_load_from_resource(selector->provider, "/org/robertomorrison/gtkbible/theme_selector.css");
+                gtk_css_provider_load_from_resource(selector->provider, "/org/robertomorrison/wordofgod/theme_selector.css");
                 gtk_style_context_add_provider_for_display(
                     gdk_display_get_default(),
                     GTK_STYLE_PROVIDER(selector->provider),
@@ -117,8 +117,9 @@ theme_selector_dispose(GObject *object)
 
         selector = (ThemeSelector *)object;
 
-        g_clear_pointer(&selector->box, g_free);
+        g_clear_pointer (&selector->box, gtk_widget_unparent);
         g_clear_pointer(&selector->theme, g_free);
+        g_clear_pointer(&selector->provider, g_free);
         // g_clear_object(G_OBJECT(selector->style_manager));
         G_OBJECT_CLASS(theme_selector_parent_class)->dispose(object);
 }
@@ -143,7 +144,7 @@ theme_selector_class_init(ThemeSelectorClass *klass)
         g_object_class_install_properties(object_class, LAST_PROP, properties);
         gtk_widget_class_set_css_name(widget_class, "themeselector");
         gtk_widget_class_install_property_action(widget_class, "style-variant", "theme");
-        gtk_widget_class_set_template_from_resource(widget_class, "/org/robertomorrison/gtkbible/theme_selector.ui");
+        gtk_widget_class_set_template_from_resource(widget_class, "/org/robertomorrison/wordofgod/theme_selector.ui");
         gtk_widget_class_bind_template_child(widget_class, ThemeSelector, box);
 
         gtk_widget_class_set_layout_manager_type(widget_class, GTK_TYPE_BIN_LAYOUT);

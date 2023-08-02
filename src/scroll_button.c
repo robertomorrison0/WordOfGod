@@ -198,8 +198,10 @@ scroll_button_dispose(GObject *object)
 {
         ScrollButton *self = (ScrollButton *)object;
 
-        g_free(self->label);
         g_clear_pointer(&self->child, gtk_widget_unparent);
+        g_clear_pointer(&self->label, g_free);
+        g_clear_pointer(&self->gesture, g_free);
+        g_clear_pointer(&self->scroll_animation, g_free);
 
         G_OBJECT_CLASS(scroll_button_parent_class)->dispose(object);
 }
@@ -284,7 +286,7 @@ scroll_button_class_init(ScrollButtonClass *klass)
         GObjectClass *object_class = G_OBJECT_CLASS(klass);
         GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
 
-        gtk_widget_class_set_template_from_resource(widget_class, "/org/robertomorrison/gtkbible/scroll_button.ui");
+        gtk_widget_class_set_template_from_resource(widget_class, "/org/robertomorrison/wordofgod/scroll_button.ui");
         gtk_widget_class_set_css_name(widget_class, "button");
         widget_class->size_allocate = scroll_button_allocate;
         widget_class->measure = scroll_button_measure;

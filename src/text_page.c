@@ -828,7 +828,7 @@ bible_text_page_class_init(BibleTextPageClass *klass)
         object_class->get_property = bible_text_page_get_property;
         object_class->set_property = bible_text_page_set_property;
 
-        gtk_widget_class_set_template_from_resource(widget_class, "/org/robertomorrison/gtkbible/text_page.ui");
+        gtk_widget_class_set_template_from_resource(widget_class, "/org/robertomorrison/wordofgod/text_page.ui");
 
         gtk_widget_class_bind_template_child(widget_class, BibleTextPage, text_view);
         gtk_widget_class_bind_template_child(widget_class, BibleTextPage, title);

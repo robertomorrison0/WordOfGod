@@ -247,12 +247,12 @@ static void _on_notify_theme_changed(ThemeSelector *theme_selector,
         }
         else if (g_strcmp0(theme, "black") == 0)
         {
-                gtk_css_provider_load_from_resource(self->provider, "/org/robertomorrison/gtkbible/black.css");
+                gtk_css_provider_load_from_resource(self->provider, "/org/robertomorrison/wordofgod/black.css");
                 gtk_style_context_add_provider_for_display(self->display, GTK_STYLE_PROVIDER(self->provider), GTK_STYLE_PROVIDER_PRIORITY_USER);
         }
         else
         {
-                gtk_css_provider_load_from_resource(self->provider, "/org/robertomorrison/gtkbible/yellow.css");
+                gtk_css_provider_load_from_resource(self->provider, "/org/robertomorrison/wordofgod/yellow.css");
                 gtk_style_context_add_provider_for_display(self->display, GTK_STYLE_PROVIDER(self->provider), GTK_STYLE_PROVIDER_PRIORITY_USER);
         }
         g_value_unset(&value);
@@ -797,7 +797,7 @@ bible_preferences_window_init(BiblePreferencesWindow *self)
         gtk_file_dialog_set_filters(self->dialog, G_LIST_MODEL(self->filter_store));
         gtk_file_dialog_set_default_filter(self->dialog, self->filter);
 
-        self->settings = g_settings_new("org.robertomorrison.gtkbible");
+        self->settings = g_settings_new("org.robertomorrison.wordofgod");
 
         g_signal_connect(self->theme_selector, "notify::theme", G_CALLBACK(_on_notify_theme_changed), self);
         g_signal_connect(self->line_distance_selector, "notify::line-distance", G_CALLBACK(_on_notify_line_distance_changed), self);
@@ -837,14 +837,13 @@ bible_preferences_window_dispose(GObject *object)
 static void
 bible_preferences_window_class_init(BiblePreferencesWindowClass *klass)
 {
-        GObjectClass *window_class = G_OBJECT_CLASS(klass);
         GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
 
         G_OBJECT_CLASS(klass)->dispose = bible_preferences_window_dispose;
 
         gtk_widget_class_set_layout_manager_type(widget_class, GTK_TYPE_BOX_LAYOUT);
 
-        gtk_widget_class_set_template_from_resource(widget_class, "/org/robertomorrison/gtkbible/preferences_window.ui");
+        gtk_widget_class_set_template_from_resource(widget_class, "/org/robertomorrison/wordofgod/preferences_window.ui");
 
         gtk_widget_class_bind_template_child(widget_class, BiblePreferencesWindow, theme_selector);
         gtk_widget_class_bind_template_child(widget_class, BiblePreferencesWindow, line_distance_selector);
@@ -883,7 +882,7 @@ bible_preferences_window_class_init(BiblePreferencesWindowClass *klass)
 }
 
 BiblePreferencesWindow *
-bible_preferences_window_new(void)
+bible_preferences_window_new()
 {
         return (BiblePreferencesWindow *)g_object_new(BIBLE_PREFERENCES_WINDOW_TYPE, NULL);
 }

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Word of God
+Exec=wordofgod
+Icon=wordofgod.robertomorrison.org
+Terminal=false
+Type=Application
+Categories=GTK;
+StartupNotify=true

@@ -100,7 +100,7 @@ color_selector_init(ColorSelector *self)
         g_signal_connect(self, "notify::color", G_CALLBACK(color_selector_color_selected), NULL);
 
         self->provider = gtk_css_provider_new();
-        gtk_css_provider_load_from_resource(self->provider, "/org/robertomorrison/gtkbible/color_selector.css");
+        gtk_css_provider_load_from_resource(self->provider, "/org/robertomorrison/wordofgod/color_selector.css");
         gtk_style_context_add_provider_for_display(
             gdk_display_get_default(),
             GTK_STYLE_PROVIDER(self->provider),
@@ -112,9 +112,10 @@ color_selector_dispose(GObject *object)
 {
         ColorSelector *self = (ColorSelector *)object;
 
-        g_clear_pointer(&self->box, g_free);
-        g_strfreev(&self->color);
-        g_clear_object(&self->provider);
+        g_clear_pointer (&self->box, gtk_widget_unparent);
+        g_clear_pointer (&self->color, g_free);
+        g_clear_pointer(&self->provider, g_free);
+
         G_OBJECT_CLASS(color_selector_parent_class)->dispose(object);
 }
 
@@ -145,7 +146,7 @@ color_selector_class_init(ColorSelectorClass *klass)
         g_object_class_install_properties(object_class, LAST_PROP, properties);
         gtk_widget_class_set_css_name(widget_class, "colorselector");
         gtk_widget_class_install_property_action(widget_class, "color-variant", "color");
-        gtk_widget_class_set_template_from_resource(widget_class, "/org/robertomorrison/gtkbible/color_selector.ui");
+        gtk_widget_class_set_template_from_resource(widget_class, "/org/robertomorrison/wordofgod/color_selector.ui");
         gtk_widget_class_bind_template_child(widget_class, ColorSelector, box);
 
         gtk_widget_class_set_layout_manager_type(widget_class, GTK_TYPE_BIN_LAYOUT);

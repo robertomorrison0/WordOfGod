@@ -1,4 +1,5 @@
 sources += files([
+  'main.c',
   'app.c',
   'window.c',
   'preferences_window.c',
@@ -9,3 +10,7 @@ sources += files([
   'bible_content.c',
   'scroll_button.c',
 ])
+
+
+
+
