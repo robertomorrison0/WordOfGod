@@ -92,12 +92,12 @@ bible_application_about_action (GSimpleAction *action,
 	window = gtk_application_get_active_window (GTK_APPLICATION (self));
 
 	adw_show_about_window (window,
-	                       "application-name", APP_ID,
+	                       "application-name", APP_NAME,
 	                       "application-icon", "org.robertomorrison.wordofgod",
-	                       "developer-name", "Unknown",
+	                       "developer-name", DEVELOPER_NAME,
 	                       "version", "0.1.0",
 	                       "developers", developers,
-	                       "copyright", "© 2023 Unknown",
+	                       "copyright",  g_strdup_printf("© 2023 %s", DEVELOPER_NAME),
 	                       NULL);
 }
 

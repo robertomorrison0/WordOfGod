@@ -10,6 +10,7 @@ cc = meson.get_compiler('c')
 
 app_id = 'org.robertomorrison.wordofgod'
 developers = 'robertomorrison'
+developer_name = 'Roberto Morrison'
 
 
 prefix = get_option('prefix')
@@ -25,6 +26,8 @@ config_h.set_quoted('LOCALEDIR', join_paths(get_option('prefix'), get_option('lo
 config_h.set_quoted('PACKAGE_ICON_NAME', app_id)
 config_h.set_quoted('APP_ID', app_id)
 config_h.set_quoted('DEVELOPERS', developers)
+config_h.set_quoted('DEVELOPER_NAME', developer_name)
+config_h.set_quoted('APP_NAME', 'Word of God')
 configure_file(output: 'config.h', configuration: config_h)
 add_project_arguments(['-I' + meson.project_build_root()], language: 'c')
 
