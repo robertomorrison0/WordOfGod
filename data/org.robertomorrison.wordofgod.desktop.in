@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Word of God
 Exec=wordofgod
-Icon=wordofgod.robertomorrison.org
+Icon=@icon@
 Terminal=false
 Type=Application
 Categories=GTK;Office;
