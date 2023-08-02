@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="wordofgod">
-	<schema id="org.robertomorrison.wordofgod" path="prg/robertomorrison/wordofgod">
+	<schema id="org.robertomorrison.wordofgod" path="/org/robertomorrison/wordofgod/">
 	</schema>
 </schemalist>
