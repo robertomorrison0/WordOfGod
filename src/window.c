@@ -24,13 +24,13 @@ bible_app_window_init(BibleAppWindow *self)
         gtk_widget_init_template(GTK_WIDGET(self));
         self->bible_content = bible_content_new();
 
-        // self->settings = g_settings_new("org.robertomorrison.gtkbible");
+        // self->settings = g_settings_new("org.robertomorrison.wordofgod");
         // self->preferences_window = bible_preferences_window_new();
         bible_preferences_window_set_window(self->preferences_window, self);
         bible_text_page_set_window(self->text_page, self);
 
         self->provider = gtk_css_provider_new();
-        gtk_css_provider_load_from_resource(self->provider, "/org/robertomorrison/gtkbible/window.css");
+        gtk_css_provider_load_from_resource(self->provider, "/org/robertomorrison/wordofgod/window.css");
         gtk_style_context_add_provider_for_display(
             gdk_display_get_default(),
             GTK_STYLE_PROVIDER(self->provider),
@@ -68,7 +68,7 @@ bible_app_window_class_init(BibleAppWindowClass *klass)
         GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
         G_OBJECT_CLASS(klass)->dispose = bible_app_window_dispose;
 
-        gtk_widget_class_set_template_from_resource(widget_class, "/org/robertomorrison/gtkbible/window.ui");
+        gtk_widget_class_set_template_from_resource(widget_class, "/org/robertomorrison/wordofgod/window.ui");
 
         gtk_widget_class_bind_template_child(widget_class, BibleAppWindow, text_page);
         gtk_widget_class_bind_template_child(widget_class, BibleAppWindow, progressbar);
@@ -81,7 +81,7 @@ bible_app_window_class_init(BibleAppWindowClass *klass)
         gtk_widget_class_bind_template_child(widget_class, BibleAppWindow, translation_button);
 
         GtkIconTheme *theme = gtk_icon_theme_get_for_display(gdk_display_get_default());
-        gtk_icon_theme_add_resource_path(theme, "/org/robertomorrison/gtkbible/icons");
+        gtk_icon_theme_add_resource_path(theme, "/org/robertomorrison/wordofgod/icons");
 }
 
 BibleAppWindow *

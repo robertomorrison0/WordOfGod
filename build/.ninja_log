@@ -1,0 +1,17 @@
+# ninja log v5
+1	26	1690997382369950376	src/wordofgod-resources.h	7acd8cd5639aabaa
+0	28	1690997382373283709	src/wordofgod-resources.c	3208f1092e3892bd
+0	35	1690997382373283709	data/org.robertomorrison.wordofgod.desktop	fdc84b0ded5679e
+0	39	1690997382376617042	data/org.robertomorrison.wordofgod.appdata.xml	2c34568aee393b0d
+29	140	1690997382483283707	src/wordofgod.p/meson-generated_.._wordofgod-resources.c.o	5b0d7ada9e88475d
+27	294	1690997382636617040	src/wordofgod.p/line_distance_selector.c.o	8d49c5914fd48d31
+27	303	1690997382646617038	src/wordofgod.p/window.c.o	4c12f07992d0e95a
+27	309	1690997382653283706	src/wordofgod.p/theme_selector.c.o	63f3d66d11d694f
+27	314	1690997382656617039	src/wordofgod.p/main.c.o	5f4a73f71cc18cd3
+27	315	1690997382659950372	src/wordofgod.p/color_selector.c.o	2d87cf448304d5b1
+27	329	1690997382673283705	src/wordofgod.p/app.c.o	23ee3aec14ade15b
+27	346	1690997382689950371	src/wordofgod.p/bible_content.c.o	b0269dc09a6f6bbc
+27	353	1690997382696617039	src/wordofgod.p/preferences_window.c.o	7bb57b59100e1a6d
+28	363	1690997382706617038	src/wordofgod.p/scroll_button.c.o	c82225c126eefe44
+27	374	1690997382716617038	src/wordofgod.p/text_page.c.o	9350b0f564e4436a
+374	447	1690997382789950371	src/wordofgod	5def99ade30cfd5d

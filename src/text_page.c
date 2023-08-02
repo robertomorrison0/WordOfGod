@@ -287,8 +287,7 @@ bible_text_page_activate_font(BibleTextPage *self, const gchar *font_name, guint
         {
                 self->provider = gtk_css_provider_new();
         }
-        gchar font[200];
-        g_snprintf(font, sizeof(font), "textview.chapter-content{\nfont:\t%ipx \"%s\";}\n label.chapter-title{\nfont:\t%ipx \"%s\";\n}", font_size, font_name, font_size + 3, font_name);
+        gchar *font = g_strdup_printf("textview.chapter-content{\nfont:\t%ipx \"%s\";}\n label.chapter-title{\nfont:\t%ipx \"%s\";\n}", font_size, font_name, font_size + 3, font_name);
 
         gtk_css_provider_load_from_data(self->provider, font, -1);
         gtk_style_context_add_provider_for_display(
@@ -862,7 +861,7 @@ bible_text_page_class_init(BibleTextPageClass *klass)
         object_class->get_property = bible_text_page_get_property;
         object_class->set_property = bible_text_page_set_property;
 
-        gtk_widget_class_set_template_from_resource(widget_class, "/org/robertomorrison/gtkbible/text_page.ui");
+        gtk_widget_class_set_template_from_resource(widget_class, "/org/robertomorrison/wordofgod/text_page.ui");
 
         gtk_widget_class_bind_template_child(widget_class, BibleTextPage, text_view);
         gtk_widget_class_bind_template_child(widget_class, BibleTextPage, text_buffer);

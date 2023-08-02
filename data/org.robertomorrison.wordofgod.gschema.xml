@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schemalist gettext-domain="gtkbible">
-  <schema id="org.robertomorrison.gtkbible" path="/org/robertomorrison/gtkbible/">
+<schemalist gettext-domain="wordofgod">
+  <schema id="org.robertomorrison.wordofgod" path="/org/robertomorrison/wordofgod/">
     <key name="style-variant" type="s">
       <choices>
         <choice value="follow"/>

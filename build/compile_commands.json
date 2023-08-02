@@ -1,0 +1,68 @@
+[
+  {
+    "directory": "/home/simon/Downloads/wordofgod-dev/build",
+    "command": "cc -Isrc/wordofgod.p -Isrc -I../src -I../include -I. -I.. -I/usr/include/gtk-4.0 -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/sysprof-4 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/fribidi -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/graphene-1.0 -I/usr/lib/graphene-1.0/include -I/usr/include/json-c -I/usr/include/libadwaita-1 -I/home/simon/Downloads/wordofgod-dev/build -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=gnu11 -O0 -g -mfpmath=sse -msse -msse2 -pthread -mfpmath=sse -msse -msse2 -MD -MQ src/wordofgod.p/meson-generated_.._wordofgod-resources.c.o -MF src/wordofgod.p/meson-generated_.._wordofgod-resources.c.o.d -o src/wordofgod.p/meson-generated_.._wordofgod-resources.c.o -c src/wordofgod-resources.c",
+    "file": "src/wordofgod-resources.c",
+    "output": "src/wordofgod.p/meson-generated_.._wordofgod-resources.c.o"
+  },
+  {
+    "directory": "/home/simon/Downloads/wordofgod-dev/build",
+    "command": "cc -Isrc/wordofgod.p -Isrc -I../src -I../include -I. -I.. -I/usr/include/gtk-4.0 -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/sysprof-4 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/fribidi -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/graphene-1.0 -I/usr/lib/graphene-1.0/include -I/usr/include/json-c -I/usr/include/libadwaita-1 -I/home/simon/Downloads/wordofgod-dev/build -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=gnu11 -O0 -g -mfpmath=sse -msse -msse2 -pthread -mfpmath=sse -msse -msse2 -MD -MQ src/wordofgod.p/main.c.o -MF src/wordofgod.p/main.c.o.d -o src/wordofgod.p/main.c.o -c ../src/main.c",
+    "file": "../src/main.c",
+    "output": "src/wordofgod.p/main.c.o"
+  },
+  {
+    "directory": "/home/simon/Downloads/wordofgod-dev/build",
+    "command": "cc -Isrc/wordofgod.p -Isrc -I../src -I../include -I. -I.. -I/usr/include/gtk-4.0 -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/sysprof-4 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/fribidi -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/graphene-1.0 -I/usr/lib/graphene-1.0/include -I/usr/include/json-c -I/usr/include/libadwaita-1 -I/home/simon/Downloads/wordofgod-dev/build -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=gnu11 -O0 -g -mfpmath=sse -msse -msse2 -pthread -mfpmath=sse -msse -msse2 -MD -MQ src/wordofgod.p/app.c.o -MF src/wordofgod.p/app.c.o.d -o src/wordofgod.p/app.c.o -c ../src/app.c",
+    "file": "../src/app.c",
+    "output": "src/wordofgod.p/app.c.o"
+  },
+  {
+    "directory": "/home/simon/Downloads/wordofgod-dev/build",
+    "command": "cc -Isrc/wordofgod.p -Isrc -I../src -I../include -I. -I.. -I/usr/include/gtk-4.0 -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/sysprof-4 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/fribidi -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/graphene-1.0 -I/usr/lib/graphene-1.0/include -I/usr/include/json-c -I/usr/include/libadwaita-1 -I/home/simon/Downloads/wordofgod-dev/build -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=gnu11 -O0 -g -mfpmath=sse -msse -msse2 -pthread -mfpmath=sse -msse -msse2 -MD -MQ src/wordofgod.p/window.c.o -MF src/wordofgod.p/window.c.o.d -o src/wordofgod.p/window.c.o -c ../src/window.c",
+    "file": "../src/window.c",
+    "output": "src/wordofgod.p/window.c.o"
+  },
+  {
+    "directory": "/home/simon/Downloads/wordofgod-dev/build",
+    "command": "cc -Isrc/wordofgod.p -Isrc -I../src -I../include -I. -I.. -I/usr/include/gtk-4.0 -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/sysprof-4 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/fribidi -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/graphene-1.0 -I/usr/lib/graphene-1.0/include -I/usr/include/json-c -I/usr/include/libadwaita-1 -I/home/simon/Downloads/wordofgod-dev/build -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=gnu11 -O0 -g -mfpmath=sse -msse -msse2 -pthread -mfpmath=sse -msse -msse2 -MD -MQ src/wordofgod.p/preferences_window.c.o -MF src/wordofgod.p/preferences_window.c.o.d -o src/wordofgod.p/preferences_window.c.o -c ../src/preferences_window.c",
+    "file": "../src/preferences_window.c",
+    "output": "src/wordofgod.p/preferences_window.c.o"
+  },
+  {
+    "directory": "/home/simon/Downloads/wordofgod-dev/build",
+    "command": "cc -Isrc/wordofgod.p -Isrc -I../src -I../include -I. -I.. -I/usr/include/gtk-4.0 -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/sysprof-4 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/fribidi -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/graphene-1.0 -I/usr/lib/graphene-1.0/include -I/usr/include/json-c -I/usr/include/libadwaita-1 -I/home/simon/Downloads/wordofgod-dev/build -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=gnu11 -O0 -g -mfpmath=sse -msse -msse2 -pthread -mfpmath=sse -msse -msse2 -MD -MQ src/wordofgod.p/text_page.c.o -MF src/wordofgod.p/text_page.c.o.d -o src/wordofgod.p/text_page.c.o -c ../src/text_page.c",
+    "file": "../src/text_page.c",
+    "output": "src/wordofgod.p/text_page.c.o"
+  },
+  {
+    "directory": "/home/simon/Downloads/wordofgod-dev/build",
+    "command": "cc -Isrc/wordofgod.p -Isrc -I../src -I../include -I. -I.. -I/usr/include/gtk-4.0 -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/sysprof-4 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/fribidi -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/graphene-1.0 -I/usr/lib/graphene-1.0/include -I/usr/include/json-c -I/usr/include/libadwaita-1 -I/home/simon/Downloads/wordofgod-dev/build -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=gnu11 -O0 -g -mfpmath=sse -msse -msse2 -pthread -mfpmath=sse -msse -msse2 -MD -MQ src/wordofgod.p/color_selector.c.o -MF src/wordofgod.p/color_selector.c.o.d -o src/wordofgod.p/color_selector.c.o -c ../src/color_selector.c",
+    "file": "../src/color_selector.c",
+    "output": "src/wordofgod.p/color_selector.c.o"
+  },
+  {
+    "directory": "/home/simon/Downloads/wordofgod-dev/build",
+    "command": "cc -Isrc/wordofgod.p -Isrc -I../src -I../include -I. -I.. -I/usr/include/gtk-4.0 -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/sysprof-4 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/fribidi -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/graphene-1.0 -I/usr/lib/graphene-1.0/include -I/usr/include/json-c -I/usr/include/libadwaita-1 -I/home/simon/Downloads/wordofgod-dev/build -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=gnu11 -O0 -g -mfpmath=sse -msse -msse2 -pthread -mfpmath=sse -msse -msse2 -MD -MQ src/wordofgod.p/theme_selector.c.o -MF src/wordofgod.p/theme_selector.c.o.d -o src/wordofgod.p/theme_selector.c.o -c ../src/theme_selector.c",
+    "file": "../src/theme_selector.c",
+    "output": "src/wordofgod.p/theme_selector.c.o"
+  },
+  {
+    "directory": "/home/simon/Downloads/wordofgod-dev/build",
+    "command": "cc -Isrc/wordofgod.p -Isrc -I../src -I../include -I. -I.. -I/usr/include/gtk-4.0 -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/sysprof-4 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/fribidi -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/graphene-1.0 -I/usr/lib/graphene-1.0/include -I/usr/include/json-c -I/usr/include/libadwaita-1 -I/home/simon/Downloads/wordofgod-dev/build -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=gnu11 -O0 -g -mfpmath=sse -msse -msse2 -pthread -mfpmath=sse -msse -msse2 -MD -MQ src/wordofgod.p/line_distance_selector.c.o -MF src/wordofgod.p/line_distance_selector.c.o.d -o src/wordofgod.p/line_distance_selector.c.o -c ../src/line_distance_selector.c",
+    "file": "../src/line_distance_selector.c",
+    "output": "src/wordofgod.p/line_distance_selector.c.o"
+  },
+  {
+    "directory": "/home/simon/Downloads/wordofgod-dev/build",
+    "command": "cc -Isrc/wordofgod.p -Isrc -I../src -I../include -I. -I.. -I/usr/include/gtk-4.0 -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/sysprof-4 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/fribidi -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/graphene-1.0 -I/usr/lib/graphene-1.0/include -I/usr/include/json-c -I/usr/include/libadwaita-1 -I/home/simon/Downloads/wordofgod-dev/build -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=gnu11 -O0 -g -mfpmath=sse -msse -msse2 -pthread -mfpmath=sse -msse -msse2 -MD -MQ src/wordofgod.p/bible_content.c.o -MF src/wordofgod.p/bible_content.c.o.d -o src/wordofgod.p/bible_content.c.o -c ../src/bible_content.c",
+    "file": "../src/bible_content.c",
+    "output": "src/wordofgod.p/bible_content.c.o"
+  },
+  {
+    "directory": "/home/simon/Downloads/wordofgod-dev/build",
+    "command": "cc -Isrc/wordofgod.p -Isrc -I../src -I../include -I. -I.. -I/usr/include/gtk-4.0 -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/sysprof-4 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/fribidi -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/graphene-1.0 -I/usr/lib/graphene-1.0/include -I/usr/include/json-c -I/usr/include/libadwaita-1 -I/home/simon/Downloads/wordofgod-dev/build -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=gnu11 -O0 -g -mfpmath=sse -msse -msse2 -pthread -mfpmath=sse -msse -msse2 -MD -MQ src/wordofgod.p/scroll_button.c.o -MF src/wordofgod.p/scroll_button.c.o.d -o src/wordofgod.p/scroll_button.c.o -c ../src/scroll_button.c",
+    "file": "../src/scroll_button.c",
+    "output": "src/wordofgod.p/scroll_button.c.o"
+  }
+]

@@ -746,7 +746,7 @@ static void
 bible_content_init(BibleContent *self)
 {
         // translation_parse_async(self, NULL, NULL);
-        self->config_folder = g_strdup_printf("%s/gtkbible/", g_get_user_config_dir());
+        self->config_folder = g_strdup_printf("%s/wordofgod/", g_get_user_config_dir());
 }
 
 static void

@@ -214,6 +214,7 @@ void _on_font_bigger_button_clicked(GtkButton *button,
 
         self->font_size += 1;
 
+
         GValue font_size_value = G_VALUE_INIT;
         g_value_init(&font_size_value, G_TYPE_UINT);
         g_value_set_uint(&font_size_value, self->font_size);
@@ -246,12 +247,12 @@ static void _on_notify_theme_changed(ThemeSelector *theme_selector,
         }
         else if (g_strcmp0(theme, "black") == 0)
         {
-                gtk_css_provider_load_from_resource(self->provider, "/org/robertomorrison/gtkbible/black.css");
+                gtk_css_provider_load_from_resource(self->provider, "/org/robertomorrison/wordofgod/black.css");
                 gtk_style_context_add_provider_for_display(self->display, GTK_STYLE_PROVIDER(self->provider), GTK_STYLE_PROVIDER_PRIORITY_USER);
         }
         else
         {
-                gtk_css_provider_load_from_resource(self->provider, "/org/robertomorrison/gtkbible/yellow.css");
+                gtk_css_provider_load_from_resource(self->provider, "/org/robertomorrison/wordofgod/yellow.css");
                 gtk_style_context_add_provider_for_display(self->display, GTK_STYLE_PROVIDER(self->provider), GTK_STYLE_PROVIDER_PRIORITY_USER);
         }
         g_value_unset(&value);
@@ -342,31 +343,7 @@ _on_notify_chapter_changed(BibleContent *content,
         // bible_content_get_title(self->content, self->text_page);
 }
 
-static void _on_notify_font_size_changed(BibleTextPage *page,
-                                         GParamSpec *param,
-                                         BiblePreferencesWindow *self)
-{
-        GValue value = G_VALUE_INIT;
-        g_object_get_property(G_OBJECT(page), param->name, &value);
-        self->font_size = g_value_get_uint(&value);
-        g_settings_set_uint(self->settings, param->name, self->font_size);
-        g_value_unset(&value);
 
-        bible_preferences_window_update_font(self);
-}
-
-static void _on_notify_font_changed(BibleTextPage *page,
-                                    GParamSpec *param,
-                                    BiblePreferencesWindow *self)
-{
-        GValue value = G_VALUE_INIT;
-        g_object_get_property(G_OBJECT(page), param->name, &value);
-        self->font = g_strdup(g_value_get_string(&value));
-        g_settings_set_string(self->settings, param->name, self->font);
-        g_value_unset(&value);
-
-        bible_preferences_window_update_font(self);
-}
 
 GtkWidget *setup_selection_item(GtkStringObject *item,
                                 const gchar **action_name)
@@ -735,10 +712,6 @@ void bible_preferences_window_set_window(BiblePreferencesWindow *self, gpointer 
         g_assert(BIBLE_IS_CONTENT(self->content));
         g_assert(ADW_IS_VIEW_STACK(self->stack));
 
-        // PangoContext *pango_context = get_pango_context(text_page);
-
-        g_signal_connect(self->text_page, "notify::font-size", G_CALLBACK(_on_notify_font_size_changed), self);
-        g_signal_connect(self->text_page, "notify::font", G_CALLBACK(_on_notify_font_changed), self);
         g_signal_connect(self->text_page, "notify::highlights", G_CALLBACK(_on_notify_highlights_changed), self);
         g_signal_connect(self->content, "notify::language", G_CALLBACK(_on_notify_language_changed), self);
         g_signal_connect(self->content, "notify::translation", G_CALLBACK(_on_notify_translation_changed), self);
@@ -839,7 +812,7 @@ bible_preferences_window_init(BiblePreferencesWindow *self)
         gtk_file_dialog_set_filters(self->dialog, G_LIST_MODEL(self->filter_store));
         gtk_file_dialog_set_default_filter(self->dialog, self->filter);
 
-        self->settings = g_settings_new("org.robertomorrison.gtkbible");
+        self->settings = g_settings_new("org.robertomorrison.wordofgod");
 
         g_signal_connect(self->theme_selector, "notify::theme", G_CALLBACK(_on_notify_theme_changed), self);
         g_signal_connect(self->line_distance_selector, "notify::line-distance", G_CALLBACK(_on_notify_line_distance_changed), self);
@@ -886,7 +859,7 @@ bible_preferences_window_class_init(BiblePreferencesWindowClass *klass)
 
         gtk_widget_class_set_layout_manager_type(widget_class, GTK_TYPE_BOX_LAYOUT);
 
-        gtk_widget_class_set_template_from_resource(widget_class, "/org/robertomorrison/gtkbible/preferences_window.ui");
+        gtk_widget_class_set_template_from_resource(widget_class, "/org/robertomorrison/wordofgod/preferences_window.ui");
 
         gtk_widget_class_bind_template_child(widget_class, BiblePreferencesWindow, theme_selector);
         gtk_widget_class_bind_template_child(widget_class, BiblePreferencesWindow, line_distance_selector);
