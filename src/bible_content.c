@@ -74,6 +74,14 @@ typedef struct
 
 } GetChapterData;
 
+typedef struct
+{
+        gpointer       userdata;
+        gchar*          content;
+        void (*callback)(gpointer, gchar*);
+} ContentCallback;
+
+
 // #define BIBLE_MINIMUM_FONT_SIZE 8
 // #define BIBLE_MAXIMUM_FONT_SIZE 40
 
@@ -170,10 +178,17 @@ void curl_get_async(BibleContent *self,
         g_object_unref(task);
 }
 
+void 
+emit_translation_loaded(BibleContent*       self,        gchar*          content)
+{
+        self->current_translation_content_json = g_strdup(content);
+        g_signal_emit(self, signals[SIG_TRANSLATION_LOADED], 0);
+}
+
 static void
 open_translation_file_complete(GObject *source_object,
                                GAsyncResult *result,
-                               BibleContent *self)
+                               ContentCallback* obj_call)
 {
         GFile *file = G_FILE(source_object);
 
@@ -195,19 +210,28 @@ open_translation_file_complete(GObject *source_object,
                            error->message);
         }
 
-        self->current_translation_content_json = g_strdup(contents);
 
-        g_signal_emit(self, signals[SIG_TRANSLATION_LOADED], 0);
+        // g_print(BIBLE_CONTENT(obj_call.userdata)->current_translation_content_json);
+
+        realloc(obj_call, sizeof(obj_call) + sizeof(contents));
+
+        (*obj_call->callback)(obj_call->userdata, contents);
+        g_free(obj_call);
+        // obj_call.callback(obj_call.object);
 }
 
 static void
 open_translation_file(BibleContent *self, GFile *file)
 {
+        ContentCallback *call = malloc(sizeof(self)+sizeof(emit_translation_loaded));
+        call->userdata=self, 
+        call->callback=emit_translation_loaded;
+
         // Start the asynchronous operation to save the data into the file
         g_file_load_contents_async(file,
                                    NULL,
                                    (GAsyncReadyCallback)open_translation_file_complete,
-                                   self);
+                                   call);
 }
 
 static void
@@ -216,6 +240,7 @@ save_translation_file_complete(GObject *source_object,
                                BibleContent *self)
 {
         GFile *file = G_FILE(source_object);
+
 
         GError *error = NULL;
         g_file_replace_contents_finish(file, result, NULL, &error);
