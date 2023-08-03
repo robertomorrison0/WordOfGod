@@ -36,7 +36,7 @@
                 "--show-leak-kinds=definite",
                 "--suppressions=/usr/share/glib-2.0/valgrind/glib.supp",
                 "--suppressions=/usr/share/gtk-4.0/valgrind/gtk.supp",
-                "./app",
+                "./src/wordofgod",
             ],
             "problemMatcher": "$msCompile"
 
@@ -47,7 +47,7 @@
             "options": {
                 "cwd": "${workspaceFolder}/build"
             },
-            "command": "./app",
+            "command": "./src/wordofgod",
             "group": "build",
             "args": [
                 "",
